@@ -1,1 +1,7 @@
 .divio
+db.sqlite3
+*.json
+import_content/
+staticfiles/
+data/
+.env-local
