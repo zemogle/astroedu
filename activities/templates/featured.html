@@ -1,0 +1,11 @@
+{% load i18n static %}
+  <div class="layout_featured">
+  <div class="container">
+			<h2>{% trans "Featured Activities" %}</h2>
+			<div class="columns">
+				{% for object in featured %}
+					{% include 'featured_item.html' %}
+				{% endfor %}
+			</div>
+    </div>
+    </div>

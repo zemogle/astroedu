@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import sys
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -52,6 +53,7 @@ class Command(BaseCommand):
         activity, trans, oldmeta = join_activites(oldpages)
         for id, meta in oldmeta.items():
             cat = Category(group=meta['group'], title=meta['title'], code=meta['code'])
+            sys.stderr.write(f"{meta['code']} {len(meta['code'])}\n")
             cat.save()
             meta['newid'] = cat.id
         return oldmeta
@@ -168,7 +170,7 @@ def image_replace(value):
     return value
 
 def replace_images_with_embeds(content):
-    soup = BeautifulSoup(content, 'lxml')
+    soup = BeautifulSoup(content, 'html.parser')
     for img in soup.find_all("img"):
         if img['src'].startswith('https://astroedu-'):
             path = urlparse(img['src']).path
@@ -181,9 +183,12 @@ def replace_images_with_embeds(content):
             embed['id'] = imgid
             embed['embedtype'] = 'image'
             embed['alt'] = path
-            img.parent.insert_after(embed)
-            img.decompose() # remove the unused img
-            print(f'Replaced img with {imgid}')
+            try:
+                img.parent.insert_after(embed)
+                img.decompose() # remove the unused img
+                print(f'Replaced img with {imgid}')
+            except Exception as e:
+                sys.stderr.write(str(e))
     return soup.prettify()
 
 def import_image(filename):

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block site_title %}{% trans "Activity Collections" %} | astroEDU {% endblock %}
+
+{% block content %}
+
+			<h2 class="featured">{% trans "Activity Collections" %}</h2>
+
+			{% if object_list %}
+      <div class="columns is-multiline">
+			    {% for object in object_list %}
+            <div class="column is-one-third">
+			    	{% include 'activities/collection_list_item.html' %}
+            </div>
+			    {% endfor %}
+      </div>
+			{% else %}
+			    <p>{% trans "No collections are available." %}</p>
+			{% endif %}
+
+
+
+
+{% endblock %}

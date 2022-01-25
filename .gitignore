@@ -1,4 +1,16 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+*.pyc
+*.pyo
+
 .divio
+/data.tar.gz
 db.sqlite3
 *.json
 import_content/

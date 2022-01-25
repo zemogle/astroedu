@@ -1,0 +1,17 @@
+{% load static %}
+{% load i18n %}
+
+	{% if content %}
+	<div class="section {{code}}">
+		<div class="title">
+      <div class="icon-text">
+        <span class="icon is-large">
+          <img src="{% static 'designimages/sections-orange/'|add:code|add:'.svg' %}" alt="" />
+        </span>
+        <span class="title_text">{{text}}</span>
+      </div>
+      <div class="text">{{ content }}</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	{% endif %}

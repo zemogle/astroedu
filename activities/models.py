@@ -55,7 +55,7 @@ class Person(models.Model):
 class Category(TranslatableMixin, models.Model):
     title = models.CharField(max_length=255)
     group = models.CharField(max_length=100)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=50)
 
     panels = [
         FieldPanel('title'),
