@@ -42,7 +42,7 @@ class Command(BaseCommand):
         # parser.add_argument("-f", "--full", dest='full', action='store_true', help="full website")
 
     def handle(self, *args, **options):
-        codes = [lang for lang in settings.LANGUAGES[0]]
+        codes = [lang[0] for lang in settings.LANGUAGES]
         for code in codes:
             l, c = Locale.objects.get_or_create(language_code=code)
             self.metainfo = self.process_meta()

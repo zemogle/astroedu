@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import dj_database_url
 
+DEBUG = os.environ.get('DEBUG',False)
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -67,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 

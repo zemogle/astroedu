@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags i18n static getattribute %}
+
+{% block site_title %}{{ page.title }} | astroEDU {% endblock %}
+
+{% block extra_head %}
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:description" content="{{ page.teaser }}" />
+{% image page.main_visual fill-200x500 as im %}
+<meta property="og:image" content="{{ SITE_URL }}{{ im }}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="columns">
+
+	<div class="column is-two-thirds">
+
+	<h1 class="detail">{{ page.title }}</h1>
+
+	<div class="summary">{{ page.teaser }}</div>
+	<div class="authors">{{ object.author_list }}</div>
+
+    {% if page.main_video_link %}
+	<div class="section video">
+		<div class="title">
+			<div class="icon is-large"><img src="{% static 'designimages/sections-orange/video.svg' %}" alt="" /></div>
+			<div class="title_text">Video</div>
+			<div style="clear: both"></div>
+		</div>
+		<div class="text">
+            <div class="video_wrapper">
+                <iframe src="{{  page.main_video_link.youtube_embed_url }}" frameborder="1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <p class="video_info">
+            <strong>{{  page.main_video_link.title | upper}}</strong><br/>
+            <div>{{  page.main_video_link.description }}</div>
+            <hr>
+            <a href="{{ page.main_video_link.url }}">{{ page.main_video_link.url }}</a>
+            </p>
+        </div>
+	</div>
+	{% endif %}
+
+
+    {% if page.code == '1302' %} <!-- Scientix Award --> <div><a href="https://medium.com/@iauastroedu/iau-astroedu-honoured-with-science-education-award-95437e356d50" class="award_badge" target="_blank"><img src="{% static 'designimages/award_badge.png' %}" alt="Scientix Award" /></a></div>{% endif %}
+
+    {% for section in sections %}
+    {% include 'activities/activity_detail_section.html' with code=section.code text=section.text content=section.content stream=section.stream %}
+    {% endfor %}
+
+
+</div>
+<div class="column">
+
+	<div class="meta">
+    <div class="section_meta">
+      <div class="section_meta_inner">
+  			<div class="icon is-large"><img src="{% static 'designimages/sections-grey/keywords.svg' %}" alt="" /></div>
+  			<div class="text">
+  				<div class="title_text">{% trans 'Keywords' %}</div>
+  				<div class="content">
+            <div class="tags">
+            {% for tag in page.keywords.all %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+            </div>
+          </div>
+  			</div>
+  		</div>
+    </div>
+
+		{% for section in page.metadata %}
+			{% include 'activities/activity_detail_section_meta.html' with code=section.0 text=section.1 content=section.2 %}
+		{% endfor %}
+
+		<div style="margin-top: 20px;"></div>
+		{% if page.attachment_list or page.languageattachment_list %}
+		<div class="section_meta_2 grey">
+			<div class="title_text">{% trans "Attachments" %}</div>
+            {% if page.attachment_list %}
+                {% for attachment in page.attachment_list %}
+                    <div class="content"><img src="{% static 'designimages/attachment_icon.png' %}" alt="" /><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></div>
+                {% endfor %}
+            {% endif %}
+            {% if page.languageattachment_list %}
+                {% for attachment in page.languageattachment_list %}
+                    <div class="content"><img src="{% static 'designimages/attachment_icon.png' %}" alt="" /><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></div>
+                {% endfor %}
+            {% endif %}
+
+            {% if page.attachment_list|length > 1 or page.languageattachment_list|length > 1 %}
+                <div class="title_text">{% trans "All Attachments" %}</div>
+                <div class="content"><img src="{% static 'designimages/attachment_all_icon.png' %}" alt="" /><a href="format=zip">All attachments</a></div>
+            {% endif %}
+
+		</div>
+		{% endif %}
+		<div class="section_meta_2 orange">
+			<div class="title_text">{% trans "Downloads" %}</div>
+			<div class="icon is-large">
+        {% if page.pdf %}
+				<a href="{{ page.pdf.url }}" target="download"><img title="PDF" src="{% static 'designimages/sections-orange/file_pdf.svg' %}" alt="" /></a>
+        {% endif %}
+			</div>
+		</div>
+		<div class="section_meta_2 grey">
+			<div class="title_text">{% trans "Share" %}</div>
+			<div class="icon is-large">
+        <a class="addthis_button_facebook" title="Share on Facebook" style="opacity:1;"><img src="{% static 'designimages/sections-grey/share_facebook.svg' %}" alt="" /></a>
+      </div>
+      <div class="icon is-large">
+        <a class="addthis_button_twitter" title="Share on Twitter" style="opacity:1;"><img src="{% static 'designimages/sections-grey/share_twitter.svg' %}" alt="" /></a>
+      </div>
+<script type="text/javascript">
+var addthis_config = { "theme": "light"}
+var addthis_share = {
+	"description": "{{page.teaser}}",
+	"templates": {
+		"twitter": "{{page.title}} | @iauastroEDU {{'{{'}}url}}",
+	}
+}
+</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5049c4220f20f27d">
+</script>
+<!-- AddThis Button END -->
+			</div>
+		</div>
+
+		{% if page.repositoryentry_set.all %}
+		<div class="section_meta_2 orange">
+			<div class="title_text">{% trans "Repositories" %}</div>
+			{% for repositoryentry in page.repositoryentry_set.all %}
+      <div class="icon is-large">
+				<a href="{{repositoryentry.url}}" target="_blank" title="{{repositoryentry.repo.name}}"><img src="{% static 'designimages/repositories/'|add:repositoryentry.repo.name|add:'.png' %}" alt="{{repositoryentry.repo.name}}" /></a>
+      </div>
+			{% endfor %}
+		</div>
+		{% endif %}
+
+		<div class="section_meta_2 grey">
+			<div class="title_text">{% trans "Citation" %}</div>
+				{{page.citable_author_list}}, {{page.release_date|date:"Y"}}, <i>{{page.title}}</i>, <a href="{{page.get_absolute_url}}">astroEDU, {{page.code}}</a>{% if page.doi %}, <a href="http://dx.doi.org/{{page.doi}}"> doi:{{page.doi}}</a>{% endif %}
+		</div>
+
+		{% if page.acknowledgement %}
+		<div class="section_meta_2 orange">
+			<div class="title_text">{% trans "Acknowledgement" %}</div>
+				{{page.acknowledgement}}
+		</div>
+		{% endif %}
+
+	</div>
+
+</div>
+
+
+
+<div style="clear: both;"></div>
+
+</div>
+
+
+</div>
+
+
+{% endblock content %}

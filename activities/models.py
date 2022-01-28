@@ -12,6 +12,12 @@ from wagtail.snippets.models import register_snippet
 from wagtail.contrib.table_block.blocks import TableBlock
 from taggit.models import TaggedItemBase
 
+from activities import utils
+
+class BodyBlock(blocks.StreamBlock):
+    richtext = blocks.RichTextBlock()
+    htmltext = blocks.RawHTMLBlock()
+    table =  TableBlock(template="home/partials/table_template.html")
 
 class ActivityHome(Page):
     pass
@@ -79,36 +85,12 @@ class Activity(Page):
 
     goals = RichTextField()
     objectives = RichTextField(verbose_name='Learning Objectives', )
-    evaluation = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?')
-    materials = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], blank=True, verbose_name='List of material', help_text='Please indicate costs and/or suppliers if possible')
-    background = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], verbose_name='Background Information', )
-    fulldesc = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], verbose_name='Full description of the activity')
-    curriculum = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], blank=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
-    additional_information = StreamField([
-        ('richtext', blocks.RichTextBlock()),
-        ('htmltext', blocks.RawHTMLBlock()),
-        ('table', TableBlock(template="home/partials/table_template.html")),
-    ], blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
+    evaluation = StreamField(BodyBlock, help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?')
+    materials = StreamField(BodyBlock, blank=True, verbose_name='List of material', help_text='Please indicate costs and/or suppliers if possible')
+    background = StreamField(BodyBlock, verbose_name='Background Information', )
+    fulldesc = StreamField(BodyBlock, verbose_name='Full description of the activity')
+    curriculum = StreamField(BodyBlock, blank=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
+    additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
     conclusion = RichTextField()
 
     # version 9
@@ -178,6 +160,59 @@ class Activity(Page):
         ], heading="Meta data")
     ]
 
+    @property
+    def sections(self):
+        sections  = [
+            {'code':'goals', 'text':'Goals', 'content':self.goals,'stream':False},
+            {'code':'objectives','text':'Learning Objectives','content': self.objectives, 'stream':False},
+            {'code':'background', 'text':'Background', 'content':self.background,'stream':True},
+            {'code':'fulldesc', 'text':'Full Description', 'content':self.fulldesc,'stream':True},
+            {'code':'evaluation', 'text':'Evaluation', 'content':self.evaluation,'stream':True},
+            {'code':'curriculum', 'text':'Curriculum', 'content':self.curriculum,'stream':True},
+            {'code':'additional_information', 'text':'Additional Information', 'content':self.additional_information,'stream':True},
+            {'code':'conclusion', 'text':'Conclusion', 'content':self.conclusion,'stream':False},
+                ]
+        return
+
+    def age_range(self):
+        age_ranges = [obj.title for obj in self.age.all()]
+        return utils.beautify_age_range(age_ranges)
+
+    def levels_joined(self):
+        levels = [obj.title for obj in self.level.all()]
+        return ', '.join(levels)
+
+    def skills_joined(self):
+        skills = [obj.title for obj in self.skills.all()]
+        return ', '.join(skills)
+
+    @property
+    def author_list(self):
+        print("************")
+        result = []
+        for item in self.authors.all():
+            result.append(item.display_name())
+        return '; '.join(result)
+
+    def citable_author_list(self):
+        result = []
+        for item in self.authors.all():
+            result.append(item.author.citable_name)
+        return '; '.join(result)
+
+    @property
+    def metadata(self):
+        return [('astronomical_scientific_category','Scientific Category',self.astronomical_scientific_category.all()),
+            ('age','Age',self.age_range()),
+            'level',
+            'time',
+            'group',
+            'supervised',
+            'cost',
+            'location',
+            'skills',
+            'learning']
+
 class AuthorInstitution(models.Model):
     activity = models.ForeignKey(Activity, related_name='authors', on_delete=models.SET_NULL, null=True)
     author = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
@@ -198,3 +233,32 @@ class AuthorInstitution(models.Model):
 
     def __str__(self):
         return self.display_name()
+
+class Collection(Page):
+    description = models.TextField(blank=True, verbose_name='brief description', )
+    activities = models.ManyToManyField(Activity, related_name='collections', blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    @property
+    def code(self):
+        return self.slug
+
+    @property
+    def main_visual(self):
+        return self.image.file if self.image else None
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+#        tasks.make_thumbnail.delay(self)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('collections:detail', args=[self.slug])

@@ -1,5 +1,5 @@
 {% load static %}
-{% load i18n %}
+{% load i18n  wagtailcore_tags%}
 
 	{% if content %}
 	<div class="section {{code}}">
@@ -10,7 +10,21 @@
         </span>
         <span class="title_text">{{text}}</span>
       </div>
-      <div class="text">{{ content }}</div>
+      <div class="text">
+      {% if stream %}
+        {% for block in content %}
+          {% if block.block_type == 'richtext' %}
+            {{ block.value|richtext }}
+          {% elif block.block_type == 'htmltext'%}
+            {{ block.value}}
+          {% else %}
+              {{ block.value }}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {{content|richtext}}
+      {% endif %}
+      </div>
 		</div>
 	</div>
 	<div class="clear"></div>

@@ -9,13 +9,14 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from activities.views import ActivityDetailView, CollectionDetailView, CollectionListView, \
+        ActivityListView
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
 
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-
 ]
 
 if settings.DEBUG:
@@ -28,5 +29,9 @@ if settings.DEBUG:
 
 urlpatterns += i18n_patterns(
     path('search/', search_views.search, name='search'),
+    path('activity/',ActivityListView.as_view(), name='activitylist'),
+    path('activity/<slug:code>/', ActivityDetailView.as_view()),
+    path('collections/', CollectionListView.as_view(), name='collectionslist'),
+    path('collection/<slug:code>/', CollectionDetailView.as_view(), name='collectiondetail'),
     path("", include(wagtail_urls)),
 )
