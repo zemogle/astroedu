@@ -9,8 +9,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
-from activities.views import ActivityDetailView, CollectionDetailView, CollectionListView, \
-        ActivityListView
+from activities.views import CollectionListView, ActivityListView
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -27,11 +26,11 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += i18n_patterns(
+urlpatterns = urlpatterns + i18n_patterns(
     path('search/', search_views.search, name='search'),
-    path('activity/',ActivityListView.as_view(), name='activitylist'),
-    path('activity/<slug:code>/', ActivityDetailView.as_view()),
+    path('activities/',ActivityListView.as_view(), name='activitylist'),
+    # path('activities/<slug:code>/', ActivityDetailView.as_view(), name="activitydetail"),
     path('collections/', CollectionListView.as_view(), name='collectionslist'),
-    path('collection/<slug:code>/', CollectionDetailView.as_view(), name='collectiondetail'),
+    # path('collection/<slug:code>/', CollectionDetailView.as_view(), name='collectiondetail'),
     path("", include(wagtail_urls)),
 )

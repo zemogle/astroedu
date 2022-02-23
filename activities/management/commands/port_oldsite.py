@@ -21,7 +21,7 @@ from wagtail.users.models import UserProfile
 import markdown
 from bs4 import BeautifulSoup
 
-from activities.models import Activity, Institution, Category, ActivityHome
+from activities.models import *
 from home.models import *
 
 import logging
@@ -38,113 +38,203 @@ class Command(BaseCommand):
 
     help = 'Add all activities and other content into wagtail'
 
-    # def add_arguments(self, parser):
-        # parser.add_argument("-f", "--full", dest='full', action='store_true', help="full website")
+    def add_arguments(self, parser):
+        parser.add_argument("-l", "--lang", dest='lang', type=str, help="Import language version")
+        parser.add_argument("-p", "--people", dest='people', action='store_true', help="Import just people")
 
     def handle(self, *args, **options):
         codes = [lang[0] for lang in settings.LANGUAGES]
-        for code in codes:
-            l, c = Locale.objects.get_or_create(language_code=code)
-            self.metainfo = self.process_meta()
-            self.process_activity(lang=code)
-
-    def process_meta(self):
-        oldpages = parse_fixture(filename='import_content/activities.json')
-        activity, trans, oldmeta = join_activites(oldpages)
-        for id, meta in oldmeta.items():
-            cat = Category(group=meta['group'], title=meta['title'], code=meta['code'])
-            sys.stderr.write(f"{meta['code']} {len(meta['code'])}\n")
-            cat.save()
-            meta['newid'] = cat.id
-        return oldmeta
-
-    def get_categories(self, categories):
-        cids = [self.metainfo.get(c)['newid'] for c in categories if self.metainfo.get(c, None)]
-        return Category.objects.filter(id__in=cids)
-
-    def process_activity(self, lang):
+        if options['lang'] and options['lang'] in codes:
+            code = options['lang']
+        else:
+            code = 'en'
         old_pages = parse_fixture(filename='import_content/activities.json')
-        activitypages, trans, meta = join_activites(old_pages)
-        self.stderr.write("Processing Activities - {} in {}".format(len(activitypages), lang))
-        activityhome = ActivityHome(title="Activities")
-        homepage = HomePage.objects.get(locale__language_code=lang)
-        homepage.add_child(instance=activityhome)
-        homepage.save()
-        for key, fi in activitypages.items():
-            if fi['language_code'] != lang or fi['code'] == '0000':
-                continue
-            newactivity  = Activity(
-                title = fi['title'],
-                abstract = RichText(markdown.markdown(fi['abstract'])),
-                fulldesc = html_or_rich(fi['fulldesc']),
-                goals = RichText(markdown.markdown(fi['goals'])),
-                objectives = RichText(markdown.markdown(fi['objectives'])),
-                teaser = fi['teaser'],
-                acknowledgement = fi['acknowledgement'],
-                evaluation = html_or_rich(fi['evaluation']),
-                materials = html_or_rich(fi['materials']),
-                background = html_or_rich(fi['background']),
-                curriculum = html_or_rich(fi['curriculum']),
-                additional_information = html_or_rich(fi['additional_information']),
-                conclusion = RichText(markdown.markdown(fi['conclusion'])),
-                short_desc_material = RichText(markdown.markdown(fi['short_desc_material'])),
-                further_reading = RichText(markdown.markdown(fi['further_reading'])),
-                reference = RichText(markdown.markdown(fi['reference'])),
-                code = fi['code'],
-                doi = fi['doi'],
-                first_published_at = fi['creation_date'],
-                live = fi['published'],
-                latest_revision_created_at = fi['modification_date'],
-                go_live_at = fi["release_date"],
-                slug = fi['slug']
-            )
-            # newactivity.save()
-            # try:
-            activityhome.add_child(instance=newactivity)
-            activityhome.save()
-            self.stdout.write(f"Saved {newactivity.title}")
-            newactivity.astronomical_scientific_category.add(*list(self.get_categories(fi['astronomical_scientific_category'])))
-            newactivity.age.add(*list(self.get_categories(fi['age'])))
-            newactivity.level.add(*list(self.get_categories(fi['level'])))
-            newactivity.skills.add(*list(self.get_categories(fi['skills'])))
-            newactivity.learning.add(*list(self.get_categories(fi['learning'])))
-            newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
-            newactivity.time = Category.objects.get(id=list(self.get_categories([fi['time']]))[0].id)
-            newactivity.group = Category.objects.get(id=list(self.get_categories([fi['group']]))[0].id)
-            newactivity.supervised = Category.objects.get(id=list(self.get_categories([fi['supervised']]))[0].id)
-            newactivity.cost = Category.objects.get(id=list(self.get_categories([fi['cost']]))[0].id)
-            newactivity.location = Category.objects.get(id=list(self.get_categories([fi['location']]))[0].id)
-            newactivity.save()
+        activitypages, trans, meta, authors, institutes = join_activites(old_pages, lang=code)
+        self.upload_people(institutes)
+        sys.exit()
+        if options['people']:
+            sys.exit()
+        l, c = Locale.objects.get_or_create(language_code=code)
+        self.metainfo = self.process_meta(lang=code, metainfo=meta)
+        self.process_activity(lang=code, authors=authors)
 
+    def process_meta(self, lang, metainfo):
+        group = {'time':Time,
+                'supervised':Supervised,
+                'skills':Skills,
+                'location':Location,
+                'level':Level,
+                'learning':Learning,
+                'group':Group,
+                'cost':Cost,
+                'categories':Category,
+                'age':Age}
+        # Translate old category IDs in new category iDs
+        for id, meta in metainfo.items():
+            try:
+                obj, c = group[meta['group']].objects.get_or_create(name=meta['title'])
+            except KeyError as e:
+                print(f"{e}")
+                continue
+            meta['newid'] = obj.id
+        return metainfo
+
+    def get_categories(self, categories, obj):
+        cids = []
+        for c in categories:
+            if self.metainfo.get(c, None):
+                try:
+                    cid = self.metainfo.get(c)['newid']
+                except:
+                    continue
+                cids.append(cid)
+        return obj.objects.filter(id__in=cids)
+
+    def process_activity(self, lang, authors):
+        passed = []
+        self.stdout.write("Processing Activities - {} in {}".format(len(activitypages), lang))
+        try:
+            activityhome = ActivityHome.objects.get(title="Activities", locale__language_code=lang)
+        except ActivityHome.DoesNotExist:
+            activityhome = ActivityHome(title="Activities")
+            homepage = HomePage.objects.get(locale__language_code=lang)
+            homepage.add_child(instance=activityhome)
+            homepage.save()
+        for count,(key, fi) in enumerate(activitypages.items()):
+            print(f"Ingesting {count}")
+            if fi['code'] == '1754' or fi['code'] == '0000':
+                continue
+            if not fi.get('language_code', None) or fi['language_code'] != lang or fi['code'] == '0000':
+                passed.append(fi['code'])
+                continue
+            try:
+                newactivity  = Activity.objects.get(code = fi['code'], locale__language_code=lang)
+                new = False
+                self.stdout.write(f"Updating {fi['code']}")
+            except Activity.DoesNotExist:
+                newactivity  = Activity(code = fi['code'])
+                self.stdout.write(f"Creating {fi['code']}")
+                new = True
+            print(f"{fi['title']}")
+            newactivity.title = fi['title']
+            newactivity.abstract = RichText(markdown.markdown(fi['abstract']))
+            newactivity.fulldesc = html_or_rich(fi['fulldesc'], 'fulldesc')
+            newactivity.goals = RichText(markdown.markdown(fi['goals']))
+            newactivity.objectives = RichText(markdown.markdown(fi['objectives']))
+            newactivity.teaser = fi['teaser']
+            newactivity.acknowledgement = fi['acknowledgement']
+            newactivity.evaluation = html_or_rich(fi['evaluation'], 'eval')
+            newactivity.materials = html_or_rich(fi['materials'], 'material')
+            newactivity.background = html_or_rich(fi['background'], 'bg')
+            newactivity.curriculum = html_or_rich(fi['curriculum'], 'curric')
+            newactivity.additional_information = html_or_rich(fi['additional_information'])
+            newactivity.conclusion = RichText(markdown.markdown(fi['conclusion']))
+            newactivity.short_desc_material = RichText(markdown.markdown(fi['short_desc_material']))
+            newactivity.further_reading = RichText(markdown.markdown(fi['further_reading']))
+            newactivity.reference = RichText(markdown.markdown(fi['reference']))
+            newactivity.doi = fi['doi']
+            newactivity.first_published_at = fi['creation_date']
+            newactivity.live = fi['published']
+            newactivity.latest_revision_created_at = fi['modification_date']
+            newactivity.go_live_at = fi["release_date"]
+            newactivity.slug = fi['code']
+            newactivity.time = self.get_categories([fi['time']], Time)[0]
+            newactivity.group = self.get_categories([fi['group']], Group)[0]
+            newactivity.supervised = self.get_categories([fi['supervised']], Supervised)[0]
+            newactivity.cost = self.get_categories([fi['cost']], Cost)[0]
+            newactivity.location = self.get_categories([fi['location']], Location)[0]
+
+            if new:
+                activityhome.add_child(instance=newactivity)
+                activityhome.save()
+                self.stdout.write(f"Saved {newactivity.title}")
+
+            newactivity.astro_category.add(*list(self.get_categories(fi['astronomical_scientific_category'], Category)))
+            newactivity.age.add(*list(self.get_categories(fi['age'], Age)))
+            newactivity.level.add(*list(self.get_categories(fi['level'], Level)))
+            newactivity.skills.add(*list(self.get_categories(fi['skills'], Skills)))
+            newactivity.learning.add(*list(self.get_categories(fi['learning'], Learning)))
+
+            newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
+
+            newactivity.save()
             self.stdout.write(f"Saved Categories for {newactivity.title}")
-            # except Exception as e:
-            # self.stderr.write("Failed because {}".format(e))
+
+            self.add_authors(key, newactivity, authors)
+            self.stdout.write(f"Saved Author for {newactivity.title}")
+        print(f"Passed on {passed}")
+
+    def add_authors(self, oldid, activity, authors):
+        for author in authors[oldid]:
+            auth, c = AuthorInstitute.objects.get_or_create(activity=activity,author=self.persons[author])
+        return
+
+    def upload_people(self, institutes):
+        inst = {}
+        persons = {}
+        people = parse_fixture(filename='import_content/institutions.json')
+        for p in people:
+            if p['model'] == "institutions.institution":
+                i, c = Institute.objects.get_or_create(
+                    name = p['fields']['name'],
+                    fullname = p['fields']['fullname'],
+                    url = p['fields']['url']
+                )
+                inst[p['pk']] = i
+                self.stdout.write(f"Added {i.name}")
+        self.institutes = inst
+        for p in people:
+            if p['model'] == "institutions.person":
+                person, c = Person.objects.get_or_create(
+                    name = p['fields']['name'],
+                    citable_name = p['fields']['citable_name'],
+                    email = p['fields']['email'],
+                    )
+                try:
+                    person.institution = inst[institutes[p['pk']]]
+                    person.save()
+                except Exception as e:
+                    print(f"Institution ID {e} not found")
+                self.stdout.write(f"Added {person.name} at {person.institution}")
+                persons[p['pk']] = person
+        self.persons = persons
+        return
 
 def parse_fixture(filename):
     with open(filename,'r') as f:
-        old_pages = json.load(f)
+        content = json.load(f)
 
-    return old_pages
+    return content
 
-def join_activites(old_pages):
+def join_activites(old_pages, lang):
     activities = {}
     trans = {}
     metadata = {}
+    authors = {}
+    institutes = {}
     for p in old_pages:
         if p['model'] == "activities.activity":
             activities[p['pk']] = p['fields']
         elif p['model'] == "activities.activitytranslation":
-            trans[p['fields']['master']] = p['fields']
+            if p['fields']["language_code"] == lang:
+                trans[p['fields']['master']] = p['fields']
         elif p['model'] == "activities.metadataoption":
             metadata[p['pk']] = p['fields']
+        elif p['model'] == "activities.authorinstitution":
+            if authors.get(p['fields']['activity'], None):
+                authors[p['fields']['activity']].append(p['fields']['author'])
+            else:
+                authors[p['fields']['activity']] = [p['fields']['author']]
+            # Institute ID by author ID
+            institutes[p['fields']['author']] = p['fields']['institution']
     for k,v in activities.items():
         if trans.get(k):
             activities[k] = {**activities[k], **trans[k]}
-    return activities, trans, metadata
+    return activities, trans, metadata, authors, institutes
 
 
-def html_or_rich(mdcontent):
-    content = replace_images_with_embeds(markdown.markdown(mdcontent, extensions=['tables']))
+def html_or_rich(mdcontent, code=None):
+    content = replace_images_with_embeds(markdown.markdown(mdcontent, extensions=['tables']), code)
     if not content:
         return [('htmltext', '')]
     elif content.find("<table") != -1 :
@@ -169,29 +259,46 @@ def image_replace(value):
     result += value[new_start:]
     return value
 
-def replace_images_with_embeds(content):
+def replace_images_with_embeds(content, code=None):
     soup = BeautifulSoup(content, 'html.parser')
     for img in soup.find_all("img"):
         if img['src'].startswith('https://astroedu-'):
             path = urlparse(img['src']).path
         else:
             path = img['src'].replace("http://astroedu.iau.org/",'').replace('media/','')
-        imgid = import_image(path)
+        imgid = '1' #import_image(path)
         if imgid:
             embed = soup.new_tag('embed')
             embed['format'] = 'fullwidth'
             embed['id'] = imgid
             embed['embedtype'] = 'image'
             embed['alt'] = path
-            try:
-                img.parent.insert_after(embed)
-                img.decompose() # remove the unused img
-                print(f'Replaced img with {imgid}')
-            except Exception as e:
-                sys.stderr.write(str(e))
+            if img.parent == soup:
+                soup.insert(0,embed)
+                img.decompose()
+            else:
+                try:
+                    img.parent.insert_after(embed)
+                    img.decompose() # remove the unused img
+                    print(f'Replaced img with {imgid}')
+                except Exception as e:
+                    sys.stderr.write(str(e))
+                    sys.stderr.write(str(embed)+"\n")
+                    sys.stderr.write(str(code)+"\n")
+                    raise
     return soup.prettify()
 
 def import_image(filename):
+    filename = filename.strip("/").replace('%20',' ')
+    name = filename.split('/')[-1]
+    if default_storage.exists(filename):
+        image = Image(file=ImageFile(file=default_storage.open(filename), name=name), title=name.rsplit('.',1)[0])
+        image.save()
+        return image.id
+    else:
+        return False
+
+def import_attachments(filename):
     filename = filename.strip("/").replace('%20',' ')
     name = filename.split('/')[-1]
     if default_storage.exists(filename):

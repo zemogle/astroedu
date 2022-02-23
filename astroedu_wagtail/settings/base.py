@@ -19,6 +19,7 @@ DEBUG = os.environ.get('DEBUG',False)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -100,7 +101,7 @@ WSGI_APPLICATION = 'astroedu_wagtail.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
-DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
+DATABASES = {'default': dj_database_url.config()}
 
 
 # Password validation

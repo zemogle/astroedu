@@ -1,14 +1,17 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.core import blocks
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, TranslatableMixin
+from wagtail.core.models import Page, TranslatableMixin,  Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from taggit.models import TaggedItemBase
 
@@ -25,55 +28,115 @@ class ActivityHome(Page):
 class Keyword(TaggedItemBase):
     content_object = ParentalKey('Activity', on_delete=models.CASCADE, related_name='keyword_items')
 
-class Institution(Page):
-    description = RichTextField(blank=True, null=True, help_text='Text to appear in Institution page')
+@register_snippet
+class Category(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Location(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Skills(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Level(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Learning(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Group(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Supervised(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Cost(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Age(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Time(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Institute(models.Model):
+    name = models.CharField(blank=False, max_length=255)
     fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
     country = models.CharField(max_length=255, blank=True, null=True)
-    url = models.URLField(blank=True, null=True, max_length=255, )
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    content_panels = Page.content_panels + [
-            ImageChooserPanel('logo'),
-            FieldPanel('description'),
-            FieldPanel('fullname'),
-            FieldPanel('url'),
-        ]
-
-class Person(models.Model):
-    name = models.CharField(blank=False, max_length=255)
-    citable_name = models.CharField(blank=True, max_length=255, help_text='Required for astroEDU activities')
-    email = models.EmailField(blank=False, max_length=255)
-    institution = models.ForeignKey(Institution, blank=True, null=True, on_delete=models.SET_NULL)
-
-    class Meta:
-        ordering = ['name']
+    url = models.URLField(blank=True, null=True, max_length=255 )
 
     def __str__(self):
         return self.name
 
 @register_snippet
-class Category(TranslatableMixin, models.Model):
-    title = models.CharField(max_length=255)
-    group = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
+class Person(models.Model):
+    name = models.CharField(blank=False, max_length=255)
+    citable_name = models.CharField(blank=True, max_length=255, help_text='Required for astroEDU activities')
+    email = models.EmailField(blank=False, max_length=255)
+    institution = models.ForeignKey(Institute, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name} at {self.institution}"
+
+class AuthorInstitute(Orderable, models.Model):
+    activity = ParentalKey('activities.Activity', related_name='author_institute', on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+    def display_name(self):
+        # there were errors with no existing relations. Now display only relevant data
+        display = []
+        try:
+            display.append(self.author.name)
+        except:
+            pass
+        try:
+            display.append(self.institution.name)
+        except:
+            pass
+        return ', '. join(display)
+
+    class Meta:
+        verbose_name = "author"
 
     panels = [
-        FieldPanel('title'),
-        FieldPanel('code'),
-        FieldPanel('group'),
+        SnippetChooserPanel('author'),
     ]
 
     def __str__(self):
-        return f"{self.title}"
-
-    class Meta:
-        unique_together = ('translation_key', 'locale')
+        return self.display_name()
 
 class Activity(Page):
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
@@ -93,7 +156,6 @@ class Activity(Page):
     additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
     conclusion = RichTextField()
 
-    # version 9
     short_desc_material = RichTextField(blank=True, verbose_name='Short description of Suplementary material')
     further_reading = RichTextField(blank=True, verbose_name='Further reading', default='')
     reference = RichTextField(blank=True, verbose_name='References')
@@ -104,22 +166,26 @@ class Activity(Page):
     doi = models.CharField(blank=True, max_length=50, verbose_name='DOI', help_text='Digital Object Identifier, in the format XXXX/YYYY. See http://www.doi.org/')
 
 # Meta data
-    astronomical_scientific_category = ParentalManyToManyField('activities.Category', related_name='+', limit_choices_to={'group': 'astronomical_categories'}, verbose_name='Astronomical Scientific Categories', blank=True, null=True)
+    astro_category = ParentalManyToManyField(Category, blank=True, verbose_name='Astronomical Scientific Categories')
 
-    age = ParentalManyToManyField('activities.Category',limit_choices_to={'group': 'age'}, related_name='age', blank=True, null=True)
-    level = ParentalManyToManyField('activities.Category',limit_choices_to={'group': 'level'}, related_name='level+', help_text='Specify at least one of "Age" and "Level". ', verbose_name='Education level', blank=True, null=True)
-    time = models.ForeignKey('activities.Category',limit_choices_to={'group': 'time'}, related_name='time+', on_delete=models.SET_NULL, null=True, blank=True)
-    group = models.ForeignKey(Category, limit_choices_to={'group': 'group'}, related_name='+', verbose_name='Group or individual activity', null=True, blank=True, on_delete=models.SET_NULL)
-    supervised = models.ForeignKey(Category, limit_choices_to={'group': 'supervised'}, related_name='+', verbose_name='Supervised for safety', on_delete=models.SET_NULL,null=True, blank=True)
-    cost = models.ForeignKey(Category, limit_choices_to={'group': 'cost'}, null=True, blank=True, verbose_name='Cost per student', on_delete=models.SET_NULL)
-    location = models.ForeignKey(Category, limit_choices_to={'group': 'location'}, related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
-    skills = ParentalManyToManyField('activities.Category', limit_choices_to={'group': 'skills'}, related_name='skills+', verbose_name='core skills', blank=True, null=True)
-    learning = ParentalManyToManyField('activities.Category', limit_choices_to={'group': 'learning'}, related_name='learning+', verbose_name='type of learning activity', help_text='Enquiry-based learning model', blank=True, null=True)
+    age = ParentalManyToManyField('activities.Age',blank=True)
+    level = ParentalManyToManyField(Level, help_text='Specify at least one of "Age" and "Level". ', verbose_name='Education level', blank=True)
+    time = models.ForeignKey(Time, on_delete=models.SET_NULL, null=True)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='Group or individual activity')
+    supervised = models.ForeignKey(Supervised, on_delete=models.SET_NULL, null=True, verbose_name='Supervised for safety')
+    cost = models.ForeignKey(Cost, on_delete=models.SET_NULL, null=True, verbose_name='Cost per student')
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+    skills = ParentalManyToManyField(Skills, blank=True, verbose_name='core skills')
+    learning = ParentalManyToManyField(Learning, blank=True, verbose_name='type of learning activity', help_text='Enquiry-based learning model')
+
+    attachments = StreamField([
+                    ('file', DocumentChooserBlock()),
+                    ], blank=True)
 
     original_author = models.CharField(max_length=255,
                     blank=True,
                     null=True,
-                    verbose_name='Original Author of the activity (if not the authors listed above')
+                    help_text='Original Author of the activity (if not the authors listed above')
 
 
     content_panels = Page.content_panels + [
@@ -139,100 +205,87 @@ class Activity(Page):
             StreamFieldPanel('background'),
             StreamFieldPanel('fulldesc'),
             StreamFieldPanel('curriculum'),
-            FieldPanel('additional_information'),
+            StreamFieldPanel('additional_information'),
             FieldPanel('conclusion'),
             FieldPanel('short_desc_material'),
             FieldPanel('further_reading'),
             FieldPanel('reference'),
+            StreamFieldPanel('attachments')
         ], heading="Activity Information"),
         MultiFieldPanel([
-            FieldPanel('astronomical_scientific_category'),
+            FieldPanel('astro_category', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('location', widget=forms.Select),
             FieldPanel('keywords'),
-            FieldPanel('age'),
-            FieldPanel('level'),
-            FieldPanel('time'),
-            FieldPanel('group'),
-            FieldPanel('supervised'),
-            FieldPanel('cost'),
-            FieldPanel('location'),
-            FieldPanel('skills'),
-            FieldPanel('learning'),
+            FieldPanel('age', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('level', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('time', widget=forms.Select),
+            FieldPanel('group', widget=forms.Select),
+            FieldPanel('supervised', widget=forms.Select),
+            FieldPanel('cost', widget=forms.Select),
+            FieldPanel('skills', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('learning', widget=forms.CheckboxSelectMultiple),
+            InlinePanel('author_institute', label="Author(s)"),
         ], heading="Meta data")
     ]
 
-    @property
-    def sections(self):
-        sections  = [
-            {'code':'goals', 'text':'Goals', 'content':self.goals,'stream':False},
-            {'code':'objectives','text':'Learning Objectives','content': self.objectives, 'stream':False},
-            {'code':'background', 'text':'Background', 'content':self.background,'stream':True},
-            {'code':'fulldesc', 'text':'Full Description', 'content':self.fulldesc,'stream':True},
-            {'code':'evaluation', 'text':'Evaluation', 'content':self.evaluation,'stream':True},
-            {'code':'curriculum', 'text':'Curriculum', 'content':self.curriculum,'stream':True},
-            {'code':'additional_information', 'text':'Additional Information', 'content':self.additional_information,'stream':True},
-            {'code':'conclusion', 'text':'Conclusion', 'content':self.conclusion,'stream':False},
-                ]
-        return
-
     def age_range(self):
-        age_ranges = [obj.title for obj in self.age.all()]
+        age_ranges = [obj.name for obj in self.age.all()]
         return utils.beautify_age_range(age_ranges)
 
     def levels_joined(self):
-        levels = [obj.title for obj in self.level.all()]
+        levels = [obj.name for obj in self.level.all()]
         return ', '.join(levels)
 
     def skills_joined(self):
-        skills = [obj.title for obj in self.skills.all()]
+        skills = [obj.name for obj in self.skills.all()]
         return ', '.join(skills)
+
+    def learning_joined(self):
+        learning = [obj.name for obj in self.learning.all()]
+        return ', '.join(learning)
+
+    def categories_joined(self):
+        astro_category = [obj.name for obj in self.astro_category.all()]
+        return ', '.join(astro_category)
 
     @property
     def author_list(self):
-        print("************")
         result = []
-        for item in self.authors.all():
+        for item in self.author_institute.all():
             result.append(item.display_name())
         return '; '.join(result)
 
     def citable_author_list(self):
         result = []
-        for item in self.authors.all():
+        for item in self.author_institute.all():
             result.append(item.author.citable_name)
         return '; '.join(result)
 
-    @property
-    def metadata(self):
-        return [('astronomical_scientific_category','Scientific Category',self.astronomical_scientific_category.all()),
-            ('age','Age',self.age_range()),
-            'level',
-            'time',
-            'group',
-            'supervised',
-            'cost',
-            'location',
-            'skills',
-            'learning']
-
-class AuthorInstitution(models.Model):
-    activity = models.ForeignKey(Activity, related_name='authors', on_delete=models.SET_NULL, null=True)
-    author = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
-    institution = models.ForeignKey(Institution, on_delete=models.SET_NULL, null=True)
-
-    def display_name(self):
-        # there were errors with no existing relations. Now display only relevant data
-        display = []
-        try:
-            display.append(self.author.name)
-        except:
-            pass
-        try:
-            display.append(self.institution.name)
-        except:
-            pass
-        return ', '. join(display)
-
-    def __str__(self):
-        return self.display_name()
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['sections']  = [
+                {'code':'goals', 'text':'Goals', 'content':self.goals,'stream':False},
+                {'code':'objectives','text':'Learning Objectives','content': self.objectives, 'stream':False},
+                {'code':'background', 'text':'Background', 'content':self.background,'stream':True},
+                {'code':'fulldesc', 'text':'Full Description', 'content':self.fulldesc,'stream':True},
+                {'code':'evaluation', 'text':'Evaluation', 'content':self.evaluation,'stream':True},
+                {'code':'curriculum', 'text':'Curriculum', 'content':self.curriculum,'stream':True},
+                {'code':'additional_information', 'text':'Additional Information', 'content':self.additional_information,'stream':True},
+                {'code':'conclusion', 'text':'Conclusion', 'content':self.conclusion,'stream':False},
+        ]
+        context['meta'] = [
+                {'code':'astro_category', 'text': 'Category', 'content':self.categories_joined()},
+                {'code':'location', 'text': 'Location', 'content':self.location},
+                {'code':'age', 'text': 'Age', 'content':self.age_range()},
+                {'code':'level', 'text': 'Level', 'content':self.levels_joined()},
+                {'code':'time', 'text': 'Time', 'content':self.time},
+                {'code':'group', 'text': 'Group', 'content':self.group},
+                {'code':'supervised', 'text': 'Supervised', 'content':self.supervised},
+                {'code':'cost', 'text': 'Cost', 'content':self.cost},
+                {'code':'skills', 'text': 'Skills', 'content':self.skills_joined()},
+                {'code':'learning', 'text': 'Learning', 'content':self.learning_joined()},
+        ]
+        return context
 
 class Collection(Page):
     description = models.TextField(blank=True, verbose_name='brief description', )
