@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, \
+    InlinePanel, PageChooserPanel
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
@@ -287,9 +288,16 @@ class Activity(Page):
         ]
         return context
 
+class CollectionIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro')
+    ]
+
 class Collection(Page):
-    description = models.TextField(blank=True, verbose_name='brief description', )
-    activities = models.ManyToManyField(Activity, related_name='collections', blank=True)
+    description = RichTextField(blank=True, verbose_name='brief description', )
+    activities = ParentalManyToManyField(Activity, related_name='collections', blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -297,6 +305,12 @@ class Collection(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('description'),
+        ImageChooserPanel('image'),
+        FieldPanel('activities')
+    ]
 
     @property
     def code(self):

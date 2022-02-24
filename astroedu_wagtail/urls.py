@@ -30,7 +30,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     path('search/', search_views.search, name='search'),
     path('activities/',ActivityListView.as_view(), name='activitylist'),
     # path('activities/<slug:code>/', ActivityDetailView.as_view(), name="activitydetail"),
-    path('collections/', CollectionListView.as_view(), name='collectionslist'),
+    # path('collections/', CollectionListView.as_view(), name='collectionslist'),
     # path('collection/<slug:code>/', CollectionDetailView.as_view(), name='collectiondetail'),
     path("", include(wagtail_urls)),
 )

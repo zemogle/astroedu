@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n wagtailcore_tags %}
+
+{% block site_title %}{% trans "Activity Collections" %} | astroEDU {% endblock %}
+
+{% block content %}
+
+			<h2 class="featured">{% trans "Activity Collections" %}</h2>
+
+      <div class="intro">{{ page.intro|richtext }}</div>
+
+      {% for post in page.get_children %}
+          <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+          {{ post.specific.intro }}
+          {{ post.specific.body|richtext }}
+      {% endfor %}
+
+{% endblock %}
