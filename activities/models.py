@@ -8,6 +8,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamField
     InlinePanel, PageChooserPanel
 from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page, TranslatableMixin,  Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -15,6 +16,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from taggit.models import TaggedItemBase
+from wagtail.documents.models import Document
 
 from activities import utils
 
@@ -139,6 +141,7 @@ class AuthorInstitute(Orderable, models.Model):
     def __str__(self):
         return self.display_name()
 
+
 class Activity(Page):
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
     # theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
@@ -179,18 +182,16 @@ class Activity(Page):
     skills = ParentalManyToManyField(Skills, blank=True, verbose_name='core skills')
     learning = ParentalManyToManyField(Learning, blank=True, verbose_name='type of learning activity', help_text='Enquiry-based learning model')
 
-    attachments = StreamField([
-                    ('file', DocumentChooserBlock()),
-                    ], blank=True)
+    featured = models.BooleanField(default=False, help_text="Feature on homepage")
 
     original_author = models.CharField(max_length=255,
                     blank=True,
                     null=True,
                     help_text='Original Author of the activity (if not the authors listed above')
 
-
     content_panels = Page.content_panels + [
         MultiFieldPanel([
+            FieldPanel('featured'),
             FieldPanel('code'),
             FieldPanel('doi'),
             FieldPanel('pdf'),
@@ -211,7 +212,7 @@ class Activity(Page):
             FieldPanel('short_desc_material'),
             FieldPanel('further_reading'),
             FieldPanel('reference'),
-            StreamFieldPanel('attachments')
+            InlinePanel('attachment_documents', label="Attachment(s)"),
         ], heading="Activity Information"),
         MultiFieldPanel([
             FieldPanel('astro_category', widget=forms.CheckboxSelectMultiple),
@@ -288,6 +289,20 @@ class Activity(Page):
         ]
         return context
 
+class Attachment(Orderable):
+    page = ParentalKey(Activity, on_delete=models.CASCADE, related_name='attachment_documents')
+    document =  models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='attachments'
+    )
+
+    panels = [
+        DocumentChooserPanel('document'),
+    ]
+
 class CollectionIndexPage(Page):
     intro = RichTextField(blank=True)
 
@@ -297,7 +312,6 @@ class CollectionIndexPage(Page):
 
 class Collection(Page):
     description = RichTextField(blank=True, verbose_name='brief description', )
-    activities = ParentalManyToManyField(Activity, related_name='collections', blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -309,7 +323,7 @@ class Collection(Page):
     content_panels = Page.content_panels + [
         FieldPanel('description'),
         ImageChooserPanel('image'),
-        FieldPanel('activities')
+        InlinePanel('activity_pages', label="Activity Pages")
     ]
 
     @property
@@ -329,3 +343,11 @@ class Collection(Page):
 
     def get_absolute_url(self):
         return reverse('collections:detail', args=[self.slug])
+
+class CollectionPage(Orderable):
+    page = ParentalKey(Collection, on_delete=models.CASCADE, related_name='activity_pages')
+    activity = models.ForeignKey(Activity, related_name='+', on_delete=models.SET_NULL, null=True)
+
+    panels = [
+        PageChooserPanel('activity'),
+    ]

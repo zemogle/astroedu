@@ -1,15 +1,15 @@
-{% load static easy_thumbnails_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
 	<div class="column featured_item">
 		<!-- <div class="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></div> -->
-		<div class="title"><a href="{% url 'activities:detail-code' code=object.code %}">{{ object.title }}</a></div>
+		<div class="title"><a href="{% pageurl object %}">{{ object.title }}</a></div>
 		<div class="metadata">
 			DATE: <b>{{ object.release_date|date:"Y-m-d" }}</b>
 			<!-- <img src="{% static 'designimages/metaseparator.png' %}"/></a> --><br/>
 			BY:  <b>{{ object.author_list }}</b>
 		</div>
-    {% thumbnail object.main_visual 'thumb' as im %}
+    {% image object.main_visual max-320x200 as im %}
 		<div class="picture">
-      <a href="{% url 'activities:detail-code' code=object.code %}">
+      <a href="{% pageurl object %}">
         <figure class="image">
           <img src="{{ im.url}}" alt="{{ object.title }} Activity" />
         </figure>
@@ -30,7 +30,7 @@
 			</div>
 
 			<div class="activity-link">
-				<a href="{% url 'activities:detail-code' code=object.code %}">
+				<a href="{% pageurl object %}">
 					<img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" />
 				</a>
 			</div>
