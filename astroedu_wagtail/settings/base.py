@@ -17,6 +17,23 @@ from django_storage_url import dsn_configured_storage_class
 
 DEBUG = os.environ.get('DJANGO_DEBUG') == "True"
 
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-d9(ozf+uf_@y1%zq6)op0o$-v3)-_#mua%@y*ac9&*i(@%u=)8')
+
+DIVIO_DOMAIN = os.environ.get('DOMAIN', '')
+
+DIVIO_DOMAIN_ALIASES = [
+    d.strip()
+    for d in os.environ.get('DOMAIN_ALIASES', '').split(',')
+    if d.strip()
+]
+DIVIO_DOMAIN_REDIRECTS = [
+    d.strip()
+    for d in os.environ.get('DOMAIN_REDIRECTS', '').split(',')
+    if d.strip()
+]
+
+ALLOWED_HOSTS = [DIVIO_DOMAIN] + DIVIO_DOMAIN_ALIASES + DIVIO_DOMAIN_REDIRECTS
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
