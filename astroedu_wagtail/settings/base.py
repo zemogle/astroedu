@@ -103,8 +103,15 @@ WSGI_APPLICATION = 'astroedu_wagtail.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
 
+DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
+
+# dsn_configured_storage_class() requires the name of the setting
+DefaultStorageClass = dsn_configured_storage_class('DEFAULT_STORAGE_DSN')
+
+# Django's DEFAULT_FILE_STORAGE requires the class name
+DEFAULT_FILE_STORAGE = 'astroedu_wagtail.settings.DefaultStorageClass'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
