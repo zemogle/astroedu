@@ -15,7 +15,7 @@ import os
 import dj_database_url
 from django_storage_url import dsn_configured_storage_class
 
-DEBUG = False #os.environ.get('DEBUG',False)
+DEBUG = os.environ.get('DJANGO_DEBUG') == "True"
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)

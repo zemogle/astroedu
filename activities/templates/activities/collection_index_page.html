@@ -5,14 +5,15 @@
 
 {% block content %}
 
-			<h2 class="featured">{% trans "Activity Collections" %}</h2>
+      <div class="container">
+          <h2>{% trans "Activity Collections" %}</h2>
+          <div class="intro">{{ page.intro|richtext }}</div>
+          <div class="columns is-multiline">
+            {% for object in page.get_children %}
+              {% include 'activities/collection_list_item.html' %}
+            {% endfor %}
 
-      <div class="intro">{{ page.intro|richtext }}</div>
-
-      {% for post in page.get_children %}
-          <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-          {{ post.specific.intro }}
-          {{ post.specific.body|richtext }}
-      {% endfor %}
+          </div>
+        </div>
 
 {% endblock %}

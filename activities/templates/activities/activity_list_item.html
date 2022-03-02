@@ -1,8 +1,8 @@
 {% load i18n static wagtailcore_tags%}
-{% if object.is_released or request.user.is_authenticated %}
+{% if object.live or request.user.is_authenticated %}
     <div class="list_item{% if not object.live %} unpublished{% endif %}">
 
-    	<div class="title"><a href="{% pageurl object %}">{{ object.title }}</a></div>
+    	<div class="title"><a href="{% pageurl object %}">{{ object.specific.title }}</a></div>
 
         <div class="metadata">
             DATE: <b style="bold">{{ object.first_published_at|date:"Y-m-d" }}</b>

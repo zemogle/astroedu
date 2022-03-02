@@ -2,19 +2,20 @@
 
 {% load i18n static %}
 
-{% block site_title %}{{ object.title }} | astroEDU {% endblock %}
+{% block site_title %}{{ page.title }} | astroEDU {% endblock %}
 
 {% block content %}
-
 <div class="layout_content">
 	<div class="layout_container collection_detail">
 
 		<div class="layout_leftcolumn">
-			<h1>{{ object.title }}</h1>
-			<div class="summary">{{ object.description }}</div>
+			<h1>{{ page.title }}</h1>
+			<div class="summary">{{ page.description }}</div>
+      {{page.activities.all}}
       <div class="columns is-multiline">
-			{% for object in object.activities.all %}
+			{% for object in page.get_children %}
         <div class="column is-half">
+          {{object.specific.title}}
 				{% include 'activities/activity_list_item.html' %}
         </div>
 			{% endfor %}
