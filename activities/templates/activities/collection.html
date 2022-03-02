@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+
+{% block site_title %}{{ object.title }} | astroEDU {% endblock %}
+
+{% block content %}
+
+<div class="layout_content">
+	<div class="layout_container collection_detail">
+
+		<div class="layout_leftcolumn">
+			<h1>{{ object.title }}</h1>
+			<div class="summary">{{ object.description }}</div>
+      <div class="columns is-multiline">
+			{% for object in object.activities.all %}
+        <div class="column is-half">
+				{% include 'activities/activity_list_item.html' %}
+        </div>
+			{% endfor %}
+      </div>
+
+	</div>
+
+
+	</div>
+</div>
+{% endblock content %}

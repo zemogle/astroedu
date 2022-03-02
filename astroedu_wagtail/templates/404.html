@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block body_class %}template-404{% endblock %}
+{% load static i18n %}
 
 {% block content %}
-    <h1>Page not found</h1>
-
-    <h2>Sorry, this page could not be found.</h2>
+<div class="layout_content"><div class="layout_container"><div class="layout_wide">
+    <p class="notfound"><img src="{% static 'designimages/search_notfound.svg' %}" /> {% trans "404, Page not found." %}</p>
+</div></div></div>
 {% endblock %}

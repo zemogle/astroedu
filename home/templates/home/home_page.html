@@ -34,10 +34,24 @@ HOME
   					{% elif LANGUAGE_CODE == 'it' %}
   						{% static 'designimages/unisciti_a_noi_volontari.png' %}
   					{% endif %}
-    					" alt="{% trans "apply as volunteer"%}" title="{% trans "Join us" %}: {% trans "Volunteer"%}!" />
+    					" alt="{% translate "apply as volunteer"%}" title="{% translate "Join us" %}: {% translate "Volunteer"%}!" />
   				</a>
         </div>
-      </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link is-arrowless">
+          <span class="icon is-large">
+            <i class="fa-solid fa-2x fa-language"></i>
+          </span>
+          </a>
+          <div class="navbar-dropdown">
+            {% get_available_languages as LANGUAGES %}
+            {% for lang in LANGUAGES %}
+                 <a class="navbar-item" href="/{{lang.0}}/">
+                   {{lang.1}}
+                 </a>
+            {% endfor %}
+          </div>
+        </div>
     </div>
   </nav>
 </div>
@@ -48,7 +62,7 @@ HOME
 
 <section class="hero medium">
   <div class="hero-body">
-    <div class="home_slogan"><strong>{% trans "Peer-reviewed" %}</strong> {% trans "astronomy education activities" %}</div>
+    <div class="home_slogan"><strong>{% translate "Peer-reviewed" %}</strong> {% translate "astronomy education activities" %}</div>
 
     <div class="home_search_box">{% include 'search_form.html' %}</div>
 

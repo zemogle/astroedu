@@ -8,7 +8,7 @@
         <span class="icon is-large">
           <img src="{% static 'designimages/sections-orange/'|add:code|add:'.svg' %}" alt="" />
         </span>
-        <span class="title_text">{{text}}</span>
+        <span class="title_text">{% translate text %}</span>
       </div>
       <div class="text">
       {% if stream %}

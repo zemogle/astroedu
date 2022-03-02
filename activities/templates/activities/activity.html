@@ -19,6 +19,8 @@
         <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
             {{ lang.name_local }}
         </a>
+    {% empty %}
+        {% trans "Currently there is no translation for this activity. Showing original version" %}
     {% endfor %}
 {% endif %}
 
@@ -56,7 +58,7 @@
     {% if page.code == '1302' %} <!-- Scientix Award --> <div><a href="https://medium.com/@iauastroedu/iau-astroedu-honoured-with-science-education-award-95437e356d50" class="award_badge" target="_blank"><img src="{% static 'designimages/award_badge.png' %}" alt="Scientix Award" /></a></div>{% endif %}
 
     {% for section in sections %}
-    {% include 'activities/activity_detail_section.html' with code=section.code text=section.text content=section.content stream=section.stream %}
+    {% include 'activities/partials/activity_detail_section.html' with code=section.code text=section.text content=section.content stream=section.stream %}
     {% endfor %}
 
 
@@ -81,7 +83,7 @@
     </div>
 
 		{% for section in meta %}
-			{% include 'activities/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content %}
+			{% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content %}
 		{% endfor %}
 
 		<div style="margin-top: 20px;"></div>

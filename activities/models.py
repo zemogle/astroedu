@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -10,13 +11,15 @@ from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, TranslatableMixin,  Orderable
+from wagtail.core.models import Page, TranslatableMixin,  Orderable, Locale
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from taggit.models import TaggedItemBase
 from wagtail.documents.models import Document
+from wagtail_localize.fields import SynchronizedField
+
 
 from activities import utils
 
@@ -143,6 +146,7 @@ class AuthorInstitute(Orderable, models.Model):
 
 
 class Activity(Page):
+    image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
     # theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
     keywords = ClusterTaggableManager(through=Keyword, blank=True)
@@ -198,6 +202,7 @@ class Activity(Page):
             FieldPanel('abstract'),
             FieldPanel('acknowledgement'),
             FieldPanel('teaser'),
+            ImageChooserPanel('image'),
         ], heading="Core Information"),
         MultiFieldPanel([
             FieldPanel('goals'),
@@ -228,6 +233,11 @@ class Activity(Page):
             FieldPanel('learning', widget=forms.CheckboxSelectMultiple),
             InlinePanel('author_institute', label="Author(s)"),
         ], heading="Meta data")
+    ]
+
+    override_translatable_fields = [
+        SynchronizedField("slug"),
+        SynchronizedField("code"),
     ]
 
     def age_range(self):
@@ -266,26 +276,26 @@ class Activity(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['sections']  = [
-                {'code':'goals', 'text':'Goals', 'content':self.goals,'stream':False},
-                {'code':'objectives','text':'Learning Objectives','content': self.objectives, 'stream':False},
-                {'code':'background', 'text':'Background', 'content':self.background,'stream':True},
-                {'code':'fulldesc', 'text':'Full Description', 'content':self.fulldesc,'stream':True},
-                {'code':'evaluation', 'text':'Evaluation', 'content':self.evaluation,'stream':True},
-                {'code':'curriculum', 'text':'Curriculum', 'content':self.curriculum,'stream':True},
-                {'code':'additional_information', 'text':'Additional Information', 'content':self.additional_information,'stream':True},
-                {'code':'conclusion', 'text':'Conclusion', 'content':self.conclusion,'stream':False},
+                {'code':'goals', 'text':_('Goals'),'content':self.goals,'stream':False},
+                {'code':'objectives','text':_('Learning Objectives'),'content': self.objectives, 'stream':False},
+                {'code':'background', 'text':_('Background'),'content':self.background,'stream':True},
+                {'code':'fulldesc', 'text':_('Full Description'), 'content':self.fulldesc,'stream':True},
+                {'code':'evaluation', 'text':_('Evaluation'), 'content':self.evaluation,'stream':True},
+                {'code':'curriculum', 'text':_('Curriculum'), 'content':self.curriculum,'stream':True},
+                {'code':'additional_information', 'text':_('Additional Information'), 'content':self.additional_information,'stream':True},
+                {'code':'conclusion', 'text':_('Conclusion'), 'content':self.conclusion,'stream':False},
         ]
         context['meta'] = [
-                {'code':'astro_category', 'text': 'Category', 'content':self.categories_joined()},
-                {'code':'location', 'text': 'Location', 'content':self.location},
-                {'code':'age', 'text': 'Age', 'content':self.age_range()},
-                {'code':'level', 'text': 'Level', 'content':self.levels_joined()},
-                {'code':'time', 'text': 'Time', 'content':self.time},
-                {'code':'group', 'text': 'Group', 'content':self.group},
-                {'code':'supervised', 'text': 'Supervised', 'content':self.supervised},
-                {'code':'cost', 'text': 'Cost', 'content':self.cost},
-                {'code':'skills', 'text': 'Skills', 'content':self.skills_joined()},
-                {'code':'learning', 'text': 'Learning', 'content':self.learning_joined()},
+                {'code':'astro_category', 'text': _('Category'), 'content':self.categories_joined()},
+                {'code':'location', 'text': _('Location'), 'content':self.location},
+                {'code':'age', 'text': _('Age'), 'content':self.age_range()},
+                {'code':'level', 'text': _('Level'), 'content':self.levels_joined()},
+                {'code':'time', 'text': _('Time'), 'content':self.time},
+                {'code':'group', 'text': _('Group'), 'content':self.group},
+                {'code':'supervised', 'text': _('Supervised'), 'content':self.supervised},
+                {'code':'cost', 'text': _('Cost'), 'content':self.cost},
+                {'code':'skills', 'text': _('Skills'), 'content':self.skills_joined()},
+                {'code':'learning', 'text': _('Learning'), 'content':self.learning_joined()},
         ]
         return context
 

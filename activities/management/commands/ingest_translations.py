@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.core.files.images import ImageFile
@@ -16,9 +17,13 @@ from io import BytesIO
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.core.models import Page, Site, Locale
 from wagtail.core.rich_text import RichText
-from wagtail.images.models import Image
 from wagtail.documents.models import Document
+from wagtail.images.models import Image
 from wagtail.users.models import UserProfile
+
+from wagtail_localize.views.submit_translations import TranslationCreator
+from wagtail_localize.models import Translation
+
 import markdown
 from bs4 import BeautifulSoup
 
@@ -43,27 +48,20 @@ class Command(BaseCommand):
         parser.add_argument("-l", "--lang", dest='lang', type=str, help="Import language version")
         parser.add_argument("-p", "--people", dest='people', action='store_true', help="Import just people")
         parser.add_argument("-c", "--collections", dest='collections', action='store_true', help="Import just collections")
-        parser.add_argument("-i", "--idcode", dest='code', type=str, help="Import specific activity by code and language version")
 
     def handle(self, *args, **options):
         codes = [lang[0] for lang in settings.LANGUAGES]
         if options['lang'] and options['lang'] in codes:
-            lang = options['lang']
+            code = options['lang']
         else:
-            lang = 'en'
-        if options['code']:
-            self.code = options['code']
+            code = 'en'
         old_pages = parse_fixture(filename='import_content/activities.json')
-        activitypages, trans, meta, authors, institutes, attach = join_activites(old_pages, lang=lang)
-        if options['collections']:
-            ingest_collections(old_pages, activitypages)
-            sys.exit()
-        self.upload_people(institutes)
-        if options['people']:
-            sys.exit()
-        l, c = Locale.objects.get_or_create(language_code=lang)
-        self.metainfo = self.process_meta(lang=lang, metainfo=meta)
-        self.process_activity(activitypages=activitypages, attach=attach, lang=lang, authors=authors)
+
+        activitypages, trans, meta, authors, institutes, attach = join_activites(old_pages, lang=code)
+
+        l, c = Locale.objects.get_or_create(language_code=code)
+        self.metainfo = self.process_meta(lang=code, metainfo=meta)
+        self.process_activity(activitypages=activitypages, attach=attach, lang=code, authors=authors)
 
     def process_meta(self, lang, metainfo):
         group = {'time':Time,
@@ -79,7 +77,7 @@ class Command(BaseCommand):
         # Translate old category IDs in new category iDs
         for id, meta in metainfo.items():
             try:
-                obj, c = group[meta['group']].objects.get_or_create(name=meta['title'], locale__language_code=lang)
+                obj, c = group[meta['group']].objects.get_or_create(name=meta['title'],locale__language_code='en')
             except KeyError as e:
                 print(f"{e}")
                 continue
@@ -100,35 +98,30 @@ class Command(BaseCommand):
     def process_activity(self, activitypages, attach, lang, authors):
         passed = []
         self.stdout.write("Processing Activities - {} in {}".format(len(activitypages), lang))
-        try:
-            activityhome = ActivityHome.objects.get(title="Activities", locale__language_code=lang)
-        except ActivityHome.DoesNotExist:
-            activityhome = ActivityHome(title="Activities")
-            homepage = HomePage.objects.get(locale__language_code=lang)
-            homepage.add_child(instance=activityhome)
-            homepage.save()
+        locales = Locale.objects.filter(language_code=lang)
+        user = User.objects.get(username='admin')
+        tc = TranslationCreator(user=user, target_locales=locales)
+
         for count,(key, fi) in enumerate(activitypages.items()):
-            if self.code:
-                if fi['code'] != self.code:
-                    continue
-                else:
-                    print(f"Ingesting {self.code} in {lang}")
-            else:
-                print(f"Ingesting {count}")
+            print(f"Ingesting {count}")
             if fi['code'] == '1754' or fi['code'] == '0000':
                 continue
             if not fi.get('language_code', None) or fi['language_code'] != lang or fi['code'] == '0000':
                 passed.append(fi['code'])
                 continue
-            try:
-                newactivity  = Activity.objects.get(code = fi['code'], locale__language_code=lang)
-                new = False
-                self.stdout.write(f"Updating {fi['code']}")
-            except Activity.DoesNotExist:
-                newactivity  = Activity(code = fi['code'])
-                self.stdout.write(f"Creating {fi['code']}")
-                new = True
-            print(f"{fi['title']}")
+
+            self.stdout.write(f"Updating {fi['code']} - {fi['title']}")
+            activity  = Activity.objects.get(code = fi['code'], locale__language_code='en')
+            tc.create_translations(instance=activity)
+            key = activity.translation_key
+            tr = Translation.objects.get(source__object_id=key)
+            
+            tr.enabled = False
+            tr.save()
+            print(f"Found and disabled translation")
+
+            newactivity = Activity.objects.get(code=fi['code'], locale__language_code=lang)
+
             newactivity.title = fi['title']
             newactivity.abstract = RichText(markdown.markdown(fi['abstract']))
             newactivity.fulldesc = html_or_rich(fi['fulldesc'], 'fulldesc')
@@ -145,76 +138,11 @@ class Command(BaseCommand):
             newactivity.short_desc_material = RichText(markdown.markdown(fi['short_desc_material']))
             newactivity.further_reading = RichText(markdown.markdown(fi['further_reading']))
             newactivity.reference = RichText(markdown.markdown(fi['reference']))
-            newactivity.doi = fi['doi']
-            newactivity.first_published_at = fi['creation_date']
-            newactivity.live = fi['published']
-            newactivity.latest_revision_created_at = fi['modification_date']
-            newactivity.go_live_at = fi["release_date"]
-            newactivity.slug = fi['code']
-            newactivity.time = self.get_categories([fi['time']], Time)[0]
-            newactivity.group = self.get_categories([fi['group']], Group)[0]
-            newactivity.supervised = self.get_categories([fi['supervised']], Supervised)[0]
-            newactivity.cost = self.get_categories([fi['cost']], Cost)[0]
-            newactivity.location = self.get_categories([fi['location']], Location)[0]
-
-            if new:
-                activityhome.add_child(instance=newactivity)
-                activityhome.save()
-                self.stdout.write(f"Saved {newactivity.title}")
-
-            newactivity.astro_category.add(*list(self.get_categories(fi['astronomical_scientific_category'], Category)))
-            newactivity.age.add(*list(self.get_categories(fi['age'], Age)))
-            newactivity.level.add(*list(self.get_categories(fi['level'], Level)))
-            newactivity.skills.add(*list(self.get_categories(fi['skills'], Skills)))
-            newactivity.learning.add(*list(self.get_categories(fi['learning'], Learning)))
-
-            newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
 
             newactivity.save()
-            self.stdout.write(f"Saved Categories for {newactivity.title}")
 
-            self.add_authors(key, newactivity, authors)
-            self.stdout.write(f"Saved Author for {newactivity.title}")
-            if attach.get(key, None):
-                for attachment in attach[key]:
-                    import_attachments(activity=newactivity, filename=attachment['file'])
         print(f"Passed on {passed}")
 
-    def add_authors(self, oldid, activity, authors):
-        for author in authors[oldid]:
-            auth, c = AuthorInstitute.objects.get_or_create(activity=activity,author=self.persons[author])
-        return
-
-    def upload_people(self, institutes):
-        inst = {}
-        persons = {}
-        people = parse_fixture(filename='import_content/institutions.json')
-        for p in people:
-            if p['model'] == "institutions.institution":
-                i, c = Institute.objects.get_or_create(
-                    name = p['fields']['name'],
-                    fullname = p['fields']['fullname'],
-                    url = p['fields']['url']
-                )
-                inst[p['pk']] = i
-                self.stdout.write(f"Added {i.name}")
-        self.institutes = inst
-        for p in people:
-            if p['model'] == "institutions.person":
-                person, c = Person.objects.get_or_create(
-                    name = p['fields']['name'],
-                    citable_name = p['fields']['citable_name'],
-                    email = p['fields']['email'],
-                    )
-                try:
-                    person.institution = inst[institutes[p['pk']]]
-                    person.save()
-                except Exception as e:
-                    print(f"Institution ID {e} not found")
-                self.stdout.write(f"Added {person.name} at {person.institution}")
-                persons[p['pk']] = person
-        self.persons = persons
-        return
 
 def parse_fixture(filename):
     with open(filename,'r') as f:
@@ -255,7 +183,7 @@ def join_activites(old_pages, lang):
     return activities, trans, metadata, authors, institutes, attach
 
 
-def ingest_collections(oldpages,activities):
+def ingest_collections(oldpages):
     collection = {}
     collectionindex = CollectionIndexPage.objects.get(locale__language_code='en')
     for p in oldpages:
@@ -270,7 +198,7 @@ def ingest_collections(oldpages,activities):
         except:
             created = True
             coll = Collection(title = c['trans']['title'])
-        r = False #ßimport_image(filename=c['fields']['image'])
+        r = import_image(filename=c['fields']['image'])
         coll.description = c['trans']['description']
         if r:
             coll.image = Image.objects.get(id=r)
@@ -280,13 +208,6 @@ def ingest_collections(oldpages,activities):
         else:
             coll.save()
         print(f"Saved collection {coll.title}")
-        for aid in c['fields']['activities']:
-            try:
-                ac = Activity.objects.get(code=activities[aid]['code'], locale__language_code='en')
-            except Activity.DoesNotExist:
-                print(f"Cannot find {activities[aid]['code']}")
-                continue
-            obj, created = CollectionPage.objects.get_or_create(page=coll, activity=ac)
     return
 
 def html_or_rich(mdcontent, code=None):

@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+{% extends 'base.html' %}
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-    </body>
-</html>
+{% load static i18n %}
+
+{% block content %}
+<div class="layout_content"><div class="layout_container"><div class="layout_wide">
+    <p class="notfound"><img src="{% static 'designimages/search_notfound.svg' %}" /><!-- 500 --> {% trans "Something went wrong." %}</p>
+</div></div></div>
+{% endblock %}

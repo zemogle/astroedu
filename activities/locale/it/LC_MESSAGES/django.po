@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-28 14:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: activities/models.py:271
+msgid "Goals"
+msgstr "Obiettivi"
+
+#: activities/models.py:272
+msgid "Learning Objectives"
+msgstr "Obiettivi di apprendimento"
+
+#: activities/models.py:273
+msgid "Background"
+msgstr ""
+
+#: activities/models.py:274
+msgid "Full Description"
+msgstr ""
+
+#: activities/models.py:275
+msgid "Evaluation"
+msgstr ""
+
+#: activities/models.py:276
+msgid "Curriculum"
+msgstr ""
+
+#: activities/models.py:277
+msgid "Additional Information"
+msgstr ""
+
+#: activities/models.py:278
+msgid "Conclusion"
+msgstr ""
+
+#: activities/models.py:281
+msgid "Category"
+msgstr ""
+
+#: activities/models.py:282
+msgid "Location"
+msgstr ""
+
+#: activities/models.py:283
+#: activities/templates/activities/activity_list_item.html:31
+#: activities/templates/featured_item.html:28
+msgid "Age"
+msgstr ""
+
+#: activities/models.py:284
+#: activities/templates/activities/activity_list.html:26
+msgid "Level"
+msgstr ""
+
+#: activities/models.py:285
+#: activities/templates/activities/activity_list_item.html:40
+msgid "Time"
+msgstr "Durata"
+
+#: activities/models.py:286
+msgid "Group"
+msgstr ""
+
+#: activities/models.py:287
+msgid "Supervised"
+msgstr ""
+
+#: activities/models.py:288
+msgid "Cost"
+msgstr ""
+
+#: activities/models.py:289
+msgid "Skills"
+msgstr ""
+
+#: activities/models.py:290
+msgid "Learning"
+msgstr ""
+
+#: activities/templates/404.html:7
+msgid "404, Page not found."
+msgstr ""
+
+#: activities/templates/500.html:7
+msgid "Something went wrong."
+msgstr ""
+
+#: activities/templates/activities/activity.html:23
+msgid ""
+"Currently there is no translation for this activity. Showing original version"
+msgstr ""
+
+#: activities/templates/activities/activity.html:73
+#: activities/templates/activities/activity_detail_print.html:68
+msgid "Keywords"
+msgstr ""
+
+#: activities/templates/activities/activity.html:92
+#: activities/templates/activities/activity_detail_print.html:93
+msgid "Attachments"
+msgstr "Allegati"
+
+#: activities/templates/activities/activity.html:105
+#: activities/templates/activities/activity_detail_print.html:110
+msgid "All Attachments"
+msgstr "Tutti gli allegati"
+
+#: activities/templates/activities/activity.html:112
+msgid "Downloads"
+msgstr "Downloads"
+
+#: activities/templates/activities/activity.html:120
+msgid "Share"
+msgstr "Condividi"
+
+#: activities/templates/activities/activity.html:144
+msgid "Repositories"
+msgstr "Archivi"
+
+#: activities/templates/activities/activity.html:154
+#: activities/templates/activities/activity_detail_print.html:120
+msgid "Citation"
+msgstr "Citazione"
+
+#: activities/templates/activities/activity.html:160
+#: activities/templates/activities/activity_detail_print.html:129
+msgid "Acknowledgement"
+msgstr "Ringraziamenti"
+
+#: activities/templates/activities/activity_list_item.html:22
+#: activities/templates/featured_item.html:23
+msgid "Theme"
+msgstr ""
+
+#: activities/templates/activities/collection_detail.html:13
+msgid "Edit"
+msgstr ""
+
+#: activities/templates/activities/collection_detail.html:14
+msgid "Delete"
+msgstr ""
+
+#: activities/templates/activities/collection_detail.html:15
+msgid "History"
+msgstr ""
+
+#: activities/templates/activities/collection_detail.html:16
+msgid "Add another"
+msgstr ""
+
+#: activities/templates/activities/collection_detail.html:17
+msgid "Manage"
+msgstr ""
+
+#: activities/templates/activities/collection_index_page.html:4
+#: activities/templates/activities/collection_index_page.html:8
+msgid "Activity Collections"
+msgstr ""
+
+#: activities/templates/featured.html:4
+msgid "Featured Activities"
+msgstr ""
+
+#: activities/templates/featured_item.html:6
+msgid "Date"
+msgstr ""
+
+#: activities/templates/featured_item.html:8
+msgid "By"
+msgstr ""
+
+#: activities/templates/search/search.html:14
+#: activities/templates/search/simplesearch.html:14
+msgid "Search results"
+msgstr ""
+
+#: activities/templates/search/search.html:29
+#: activities/templates/search/search.html:42
+#: activities/templates/search/simplesearch.html:29
+#: activities/templates/search/simplesearch.html:42
+msgid "No results found!"
+msgstr ""
+
+#: activities/templates/search/search.html:51
+#: activities/templates/search/simplesearch.html:53
+msgid "Filters"
+msgstr ""
+
+#: activities/templates/search_form.html:4
+msgid "Find Educational Activities"
+msgstr ""
+
+#: activities/templates/search_form.html:5
+msgid "Search"
+msgstr ""

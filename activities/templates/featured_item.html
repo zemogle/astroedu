@@ -3,15 +3,15 @@
 		<!-- <div class="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></div> -->
 		<div class="title"><a href="{% pageurl object %}">{{ object.title }}</a></div>
 		<div class="metadata">
-			DATE: <b>{{ object.release_date|date:"Y-m-d" }}</b>
+			{% translate "Date" %}: <b>{{ object.first_published_at|date:"Y-m-d" }}</b>
 			<!-- <img src="{% static 'designimages/metaseparator.png' %}"/></a> --><br/>
-			BY:  <b>{{ object.author_list }}</b>
+			{% translate "By" %}:  <b>{{ object.author_list }}</b>
 		</div>
-    {% image object.main_visual max-320x200 as im %}
+    {% image object.image max-320x200 as im %}
 		<div class="picture">
       <a href="{% pageurl object %}">
         <figure class="image">
-          <img src="{{ im.url}}" alt="{{ object.title }} Activity" />
+          {% image object.image max-320x200 %}
         </figure>
       </a>
     </div>
@@ -20,12 +20,12 @@
 		<div class="metadata_bottom">
 
 			<div class="col">
-				<div class="caption">{% trans "Theme" %}</div>
+				<div class="caption">{% translate "Theme" %}</div>
 				<div class="value">{{ object.theme }}</div>
 			</div>
 
 			<div class="col">
-				<div class="caption">{% trans "Age" %}</div>
+				<div class="caption">{% translate "Age" %}</div>
 				<div class="value">{{ object.age_range }}</div>
 			</div>
 

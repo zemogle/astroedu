@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-28 14:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: astroedu_wagtail/templates/base.html:25
+msgid "This site uses cookies to offer you a better browsing experience."
+msgstr ""
+"Questo sito usa dei cookied per offrirvi una migliore navigazione in rete. "
+"Leggi come utilizziamo i cookies."
+
+#: astroedu_wagtail/templates/base.html:25
+msgid "Read about how we use cookies."
+msgstr "Leggi come utilizziamo i cookies."
+
+#: astroedu_wagtail/templates/base.html:56
+#: home/templates/home/home_page.html:37
+msgid "apply as volunteer"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:56
+#: home/templates/home/home_page.html:37
+msgid "Join us"
+msgstr "Unisciti a noi"
+
+#: astroedu_wagtail/templates/base.html:56
+#: home/templates/home/home_page.html:37
+msgid "Volunteer"
+msgstr "Volontari"
+
+#: astroedu_wagtail/templates/base.html:88
+msgid "Activity Collections"
+msgstr "Attività a tema"
+
+#: astroedu_wagtail/templates/base.html:100
+msgid "See All Activities"
+msgstr "Vedi tutte le attività"
+
+#: astroedu_wagtail/templates/base.html:112
+msgid "Submit Your Activities"
+msgstr "Sottometti la tua attività"
+
+#: astroedu_wagtail/templates/base.html:127
+msgid "Language"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:129
+msgid "Submission"
+msgstr "Inviare un'attività"
+
+#: astroedu_wagtail/templates/base.html:130
+msgid "Peer Review"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:131
+msgid "Enquiry"
+msgstr "Modello di apprendimento"
+
+#: astroedu_wagtail/templates/base.html:132
+msgid "FAQ"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:137
+msgid "About"
+msgstr "Chi siamo"
+
+#: astroedu_wagtail/templates/base.html:138
+msgid "Workflow"
+msgstr "Flusso di lavoro"
+
+#: astroedu_wagtail/templates/base.html:139
+msgid "Blog"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:140
+msgid "Contact"
+msgstr "Contatti"
+
+#: astroedu_wagtail/templates/base.html:186
+msgid "Find Educational Activities"
+msgstr "trova le attività"
+
+#: astroedu_wagtail/templates/base.html:186
+msgid "Black holes"
+msgstr "buchi neri"
+
+#: astroedu_wagtail/templates/base.html:186
+msgid "Galaxies"
+msgstr "galassie"
+
+#: astroedu_wagtail/templates/base.html:186
+msgid "Drawing"
+msgstr "disegni"
+
+#: astroedu_wagtail/templates/base.html:186
+msgid "Primary School"
+msgstr "scuola primaria"
+
+#: home/templates/home/home_page.html:51
+msgid "Peer-reviewed"
+msgstr "Astronomia peer reviewed"
+
+#: home/templates/home/home_page.html:51
+msgid "astronomy education activities"
+msgstr "attività didattiche"
+
+msgid "Search results"
+msgstr "Risultati della ricerca"
+
+msgid "No results found!"
+msgstr "Non ho trovato nessun risultato!"
+
+msgid "Filters"
+msgstr "Filtri"
+
+msgid "Featured Activities"
+msgstr "In evidenza"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Age"
+msgstr "Età"
+
+msgid "Search"
+msgstr "Cerca"
+
+#, fuzzy
+msgid "Peer-reviewed educational activities"
+msgstr "trova le attività"
+
+#, fuzzy
+msgid "Navigation"
+msgstr "Citazione"
+
+msgid "Something went wrong."
+msgstr "Ops, qualcosa è andato storto"
+
+msgid "No collections are available."
+msgstr "Non ci sono attività a tema"
+
+msgid "Find Education Activities"
+msgstr "attività didattiche"
