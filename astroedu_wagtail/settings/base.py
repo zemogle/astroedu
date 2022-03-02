@@ -119,7 +119,7 @@ WSGI_APPLICATION = 'astroedu_wagtail.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite://:memory:')
 DATABASES = {'default': dj_database_url.config()}
 
 DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
@@ -194,7 +194,7 @@ MEDIA_ROOT = os.path.join('/data/media/')
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "astroedu_wagtail"
+WAGTAIL_SITE_NAME = "astroEDU"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
