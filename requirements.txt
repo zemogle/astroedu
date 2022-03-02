@@ -1,4 +1,5 @@
 Django>=3.2,<3.3
+uwsgi==2.0.19.1
 wagtail==2.15.4
 markdown
 beautifulsoup4==4.8.2
