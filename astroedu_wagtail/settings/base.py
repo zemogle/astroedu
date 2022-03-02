@@ -15,7 +15,7 @@ import os
 import dj_database_url
 from django_storage_url import dsn_configured_storage_class
 
-DEBUG = os.environ.get('DEBUG',False)
+DEBUG = False #os.environ.get('DEBUG',False)
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -159,7 +159,7 @@ LOCALE_PATHS = [ os.path.join(PROJECT_DIR, 'locale'),
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # read the setting value from the environment variable
 DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
