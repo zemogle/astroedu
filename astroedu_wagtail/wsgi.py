@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "astroedu_wagtail.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "astroedu_wagtail.settings.production")
 
 application = get_wsgi_application()
