@@ -14,6 +14,11 @@
 {% block content %}
 
 {% if page %}
+<span class="icon-text">
+  <span class="icon">
+    <i class="fa-solid fa-language"></i>
+  </span>
+  <span>
     {% for translation in page.get_translations.live %}
         {% get_language_info for translation.locale.language_code as lang %}
         <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
@@ -22,6 +27,8 @@
     {% empty %}
         {% trans "Currently there is no translation for this activity. Showing original version" %}
     {% endfor %}
+  </span>
+</span>
 {% endif %}
 
 <div class="columns">
@@ -29,9 +36,12 @@
 	<div class="column is-two-thirds">
 
 	<h1 class="detail">{{ page.title }}</h1>
+  <div class="authors">{{ page.author_list }}</div>
+  <figure class="image">
+    {% image page.image max-600x400 %}
+  </figure>
 
-	<div class="summary">{{ page.teaser }}</div>
-	<div class="authors">{{ page.author_list }}</div>
+	<div class="summary">{{ page.abstract }}</div>
 
     {% if page.main_video_link %}
 	<div class="section video">
@@ -87,25 +97,12 @@
 		{% endfor %}
 
 		<div style="margin-top: 20px;"></div>
-		{% if page.attachment_list or page.languageattachment_list %}
+		{% if page.attachment_documents.all %}
 		<div class="section_meta_2 grey">
 			<div class="title_text">{% trans "Attachments" %}</div>
-            {% if page.attachment_list %}
-                {% for attachment in page.attachment_list %}
-                    <div class="content"><img src="{% static 'designimages/attachment_icon.png' %}" alt="" /><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></div>
-                {% endfor %}
-            {% endif %}
-            {% if page.languageattachment_list %}
-                {% for attachment in page.languageattachment_list %}
-                    <div class="content"><img src="{% static 'designimages/attachment_icon.png' %}" alt="" /><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></div>
-                {% endfor %}
-            {% endif %}
-
-            {% if page.attachment_list|length > 1 or page.languageattachment_list|length > 1 %}
-                <div class="title_text">{% trans "All Attachments" %}</div>
-                <div class="content"><img src="{% static 'designimages/attachment_all_icon.png' %}" alt="" /><a href="format=zip">All attachments</a></div>
-            {% endif %}
-
+          {% for attachment in page.attachment_documents.all %}
+              <div class="content"><img src="{% static 'designimages/attachment_icon.png' %}" alt="" /><a href="{{ attachment.document.url }}" target="_blank">{{ attachment.document.title }}</a></div>
+          {% endfor %}
 		</div>
 		{% endif %}
 		<div class="section_meta_2 orange">

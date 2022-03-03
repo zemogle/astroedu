@@ -7,11 +7,10 @@
 			<!-- <img src="{% static 'designimages/metaseparator.png' %}"/></a> --><br/>
 			{% translate "By" %}:  <b>{{ object.author_list }}</b>
 		</div>
-    {% image object.image max-320x200 as im %}
 		<div class="picture">
       <a href="{% pageurl object %}">
         <figure class="image">
-          {% image object.image max-320x200 %}
+          {% image object.image fill-320x200 %}
         </figure>
       </a>
     </div>

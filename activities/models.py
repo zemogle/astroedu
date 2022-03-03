@@ -31,7 +31,7 @@ class BodyBlock(blocks.StreamBlock):
 class ActivityHome(Page):
     pass
 
-class Keyword(TaggedItemBase):
+class Keyword(TranslatableMixin, TaggedItemBase):
     content_object = ParentalKey('Activity', on_delete=models.CASCADE, related_name='keyword_items')
 
 @register_snippet
@@ -47,7 +47,7 @@ class Location(TranslatableMixin):
         return self.name
 
 @register_snippet
-class Skills(TranslatableMixin):
+class Skills(TranslatableMixin, models.Model):
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
@@ -63,6 +63,7 @@ class Learning(TranslatableMixin):
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
+
 
 @register_snippet
 class Group(TranslatableMixin):
@@ -148,7 +149,7 @@ class AuthorInstitute(Orderable, models.Model):
 class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
-    # theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
+    theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
     keywords = ClusterTaggableManager(through=Keyword, blank=True)
 
     acknowledgement = models.CharField(blank=True, max_length=255)
@@ -272,6 +273,9 @@ class Activity(Page):
         for item in self.author_institute.all():
             result.append(item.author.citable_name)
         return '; '.join(result)
+
+    def attachments(self):
+        return
 
     def get_context(self, request):
         context = super().get_context(request)

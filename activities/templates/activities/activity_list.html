@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="layout_content">
-  <div class="layout_container"><div class="layout_leftcolumn">
+<div class="columns">
+  <div class="column is-two-thirds">
 {% if object_list %}
 <div class="archives_list">
     {% for object in object_list %}
@@ -15,27 +15,6 @@
 {% else %}
     <p>No activities are available.</p>
 {% endif %}
-
-
-
-</div>
-<div class="layout_rightcolumn">
-  <div class="section_meta">
-    <div class="section_meta_inner">
-      <div class="facet">
-          <div class="title_text">{% trans 'Level' %}</div>
-          {% for option in levels %}
-          <div class="content">
-              <span class="facet_option" ><a href="?level={{option.code}}">{% trans option.title %}</a></span>
-          </div>
-          {% endfor %}
-      </div>
-      <div style="clear: both"></div>
-  </div></div>
-</div>
-<div style="clear: both;">
-</div>
-
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -53,9 +32,25 @@
         {% endif %}
     </span>
 </div>
-
-</div>
 </div>
 
+<div class="column">
+  <div class="section_meta">
+    <div class="section_meta_inner">
+      <div class="facet">
+          <div class="title_text">{% trans 'Level' %}</div>
+          {% for option in levels %}
+          <div class="content">
+              <span class="facet_option" ><a href="?level={{option.code}}">{% trans option.title %}</a></span>
+          </div>
+          {% endfor %}
+      </div>
+      <div style="clear: both"></div>
+  </div></div>
+</div>
+<div style="clear: both;">
+</div>
+
+</div>
 
 {% endblock %}
