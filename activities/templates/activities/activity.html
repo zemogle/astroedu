@@ -13,27 +13,30 @@
 
 {% block content %}
 
-{% if page %}
-<span class="icon-text">
-  <span class="icon">
-    <i class="fa-solid fa-language"></i>
-  </span>
-  <span>
-    {% for translation in page.get_translations.live %}
-        {% get_language_info for translation.locale.language_code as lang %}
-        <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
-            {{ lang.name_local }}
-        </a>
-    {% empty %}
-        {% trans "Currently there is no translation for this activity. Showing original version" %}
-    {% endfor %}
-  </span>
-</span>
-{% endif %}
-
 <div class="columns">
 
 	<div class="column is-two-thirds">
+
+    <div class="notification is-warning is-light">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fa-solid fa-language"></i>
+      </span>
+      <span>
+        {% if  page.get_translations.live %}
+        {% translate "Also available in" %}
+        {% else %}
+        {% trans "Currently there is no translation for this activity." %}
+        {% endif %}
+        {% for translation in page.get_translations.live %}
+            {% get_language_info for translation.locale.language_code as lang %}
+            <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
+                {{ lang.name_local }}
+            </a>
+        {% endfor %}
+      </span>
+    </span>
+    </div>
 
 	<h1 class="detail">{{ page.title }}</h1>
   <div class="authors">{{ page.author_list }}</div>
@@ -41,7 +44,7 @@
     {% image page.image max-600x400 %}
   </figure>
 
-	<div class="summary">{{ page.abstract }}</div>
+	<div class="summary">{{ page.abstract|richtext }}</div>
 
     {% if page.main_video_link %}
 	<div class="section video">

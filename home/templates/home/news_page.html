@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags i18n static getattribute %}
+
+{% block site_title %}{{ page.title }} | astroEDU {% endblock %}
+
+{% block extra_head %}
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:description" content="{{ page.summary }}" />
+{% image page.image fill-200x500 as im %}
+<meta property="og:image" content="{{ SITE_URL }}{{ im }}" />
+{% endblock %}
+
+{% block content %}
+
+<h1>{{page.title}}</h1>
+
+<div>{{page.go_live_at}}</div>
+<figure class="image">
+{% image page.image fill-1000x500 %}
+</figure>
+
+{{page.content}}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n wagtailcore_tags %}
+
+{% block site_title %}{% trans "Activity Collections" %} | astroEDU {% endblock %}
+
+{% block content %}
+
+      <div class="container">
+          <h2>{% trans "News" %}</h2>
+          <div class="intro">{{ page.intro|richtext }}</div>
+            {% for object in page.get_children %}
+              {% include 'home/partials/news_list_item.html' %}
+            {% endfor %}
+        </div>
+
+{% endblock %}

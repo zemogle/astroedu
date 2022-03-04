@@ -30,3 +30,28 @@ class ContentPage(Page):
         FieldPanel('summary'),
         StreamFieldPanel('content'),
     ]
+
+class NewsIndexPage(Page):
+    intro = RichTextField("optional summary/teaser", blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+    ]
+
+class NewsPage(Page):
+    summary = RichTextField("optional summary/teaser", blank=True)
+    content = StreamField(BodyBlock)
+
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('image'),
+        FieldPanel('summary'),
+        StreamFieldPanel('content'),
+    ]

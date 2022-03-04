@@ -150,7 +150,7 @@ class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
     theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
-    keywords = ClusterTaggableManager(through=Keyword, blank=True)
+    keywords = ClusterTaggableManager(through=Keyword, blank=True, verbose_name="Keywords")
 
     acknowledgement = models.CharField(blank=True, max_length=255)
     teaser = models.TextField(blank=True, verbose_name='Teaser', help_text='Maximum 2 sentences! Maybe what and how?')
@@ -300,7 +300,7 @@ class Activity(Page):
                 {'code':'supervised', 'text': _('Supervised'), 'content':self.supervised},
                 {'code':'cost', 'text': _('Cost'), 'content':self.cost},
                 {'code':'skills', 'text': _('Skills'), 'content':self.skills_joined()},
-                {'code':'learning', 'text': _('Learning'), 'content':self.learning_joined()},
+                {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning_joined()},
         ]
         return context
 

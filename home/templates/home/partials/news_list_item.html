@@ -1,0 +1,14 @@
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
+<div class="columns">
+  <div class="column is-one-quarter">
+    <figure class="image">
+      <a href="{% pageurl object.specific %}">
+      {% image object.specific.image fill-300x200 %}
+      </a>
+    </figure>
+    </div>
+  <div class="column">
+    <a href="{% pageurl object.specific %}"><h2>{{ object.specific.title }}</h2></a>
+    {{object.specific.summary|richtext}}
+    </div>
+  </div>
