@@ -200,6 +200,7 @@ class Activity(Page):
             FieldPanel('code'),
             FieldPanel('doi'),
             FieldPanel('pdf'),
+            FieldPanel('theme'),
             FieldPanel('abstract'),
             FieldPanel('acknowledgement'),
             FieldPanel('teaser'),

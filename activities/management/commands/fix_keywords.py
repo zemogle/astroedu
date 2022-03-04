@@ -56,7 +56,7 @@ class Command(BaseCommand):
         old_pages = parse_fixture(filename='import_content/activities.json')
         activitypages, meta = parse_models(old_pages, lang=lang)
         self.metadata = meta
-        self.upload_categories()
+        # self.upload_categories()
         self.process_activity(activitypages=activitypages, lang=lang)
 
     def upload_categories(self):
@@ -97,13 +97,15 @@ class Command(BaseCommand):
                 self.stdout.write(f"Cannot find {fi['code']}")
                 continue
 
-            newactivity.theme = fi['theme'] == "N/A"
+            print(fi['theme'])
+            if fi['theme'] and fi['theme'] != 'NA':
+                newactivity.theme = fi['theme']
 
-            for cat in self.get_categories(fi['astronomical_scientific_category']):
-                newactivity.astro_category.add(cat)
-                print(f"Added {cat.name} to {fi['code']}")
+            # for cat in self.get_categories(fi['astronomical_scientific_category']):
+            #     newactivity.astro_category.add(cat)
+            #     print(f"Added {cat.name} to {fi['code']}")
 
-            newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
+            # newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
 
             newactivity.save()
             self.stdout.write(f"Saved Categories for {newactivity.title}")

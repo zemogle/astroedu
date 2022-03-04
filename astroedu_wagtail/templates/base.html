@@ -103,7 +103,7 @@
 		<div class="container">
       <div class="columns">
 			<div class="column bigicon">
-				<a href="{% slugurl 'collections' %}">
+				<a href="/{{LANGUAGE_CODE}}/collections/">
 					<img src="
 					{% if LANGUAGE_CODE == 'en' %}
 						{% static 'designimages/bigicon_collections.svg' %}
@@ -127,7 +127,7 @@
 			</div>
 
 			<div class="column bigicon">
-				<a href="">
+				<a href="/{{LANGUAGE_CODE}}/submission/">
 					<img src="
 					{% if LANGUAGE_CODE == 'en' %}
 						{% static 'designimages/bigicon_submit.svg' %}
@@ -145,29 +145,34 @@
 
 	<footer class="footer">
 		<div class="container">
-		<div class="footer_left">
+      <div class="columns">
+    		<div class="column is-one-third">
 
-			<div class="footer_nav">
-				<ul class="unbulleted">
-                    <li style="border-bottom: #cccccc 1px dotted">{% translate "Language" %}
-                    </li>
-					<li><a href="">{% translate "Submission" %}</a></li>
-					<li><a href="">{% translate "Peer Review" %}</a></li>
-					<li><a href="">{% translate "Enquiry" %}</a></li>
-					<li><a href="">{% translate "FAQ" %}</a></li>
-				</ul>
-			</div>
-			<div class="footer_nav">
-				<ul class="unbulleted">
-					<li><a href="">{% translate "About" %}</a></li>
-					<li><a href="">{% translate "Workflow" %}</a></li>
-					<li><a href="/blog/">{% translate "Blog" %}</a></li>
-					<li><a href="">{% translate "Contact" %}</a></li>
-				</ul>
-			</div>
-		</div>
+    			<div class="footer_nav">
+    				<ul class="unbulleted">
+    					<li><a href="/{{LANGUAGE_CODE}}/submission/">{% translate "Submission" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/peer-review/">{% translate "Peer Review" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/ebl/">{% translate "Enquiry Based Learning" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/faq/">{% translate "FAQ" %}</a></li>
+    				</ul>
+    			</div>
+    			<div class="footer_nav">
+    				<ul class="unbulleted">
+    					<li><a href="/{{LANGUAGE_CODE}}/about/">{% translate "About" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/workflow/">{% translate "Workflow" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/news/">{% translate "Blog" %}</a></li>
+    					<li><a href="/{{LANGUAGE_CODE}}/contact/">{% translate "Contact" %}</a></li>
+    				</ul>
+    			</div>
+        </div>
 
-		<div class="footer_right">
+        <div class="footer_profiles">
+    			<a href="https://www.facebook.com/iauastroedu"><img src="{% static 'designimages/sections-orange/social_facebook.svg' %}" alt="astroEDU on Facebook" /></a>
+    			&nbsp;
+    			<a href="https://twitter.com/IAUastroEDU"><img src="{% static 'designimages/sections-orange/social_twitter.svg' %}" alt="astroEDU on Twitter" /></a>
+    		</div>
+
+		<div class="column">
 			<div class="sponsor-list">
 				<ul>
 					<li><a href="https://www.iau.org" title="IAU" target="_blank"><img src="{% static 'designimages/sponsors/iau_logo.png' %}" alt="sponsor: IAU" /></a></li>
@@ -187,18 +192,8 @@
 				</ul>
 			</div>
 		</div>
-		<!--
-		<div style="margin-top: 50px; ">
-			<a href="mailto:astroedu@strw.leidenuniv.nl?subject=Help+us+improve">
-				<img src="{% static 'designimages/helpus_badge.png' %}"/>
-			</a>
-		</div>
-		-->
-		<div class="footer_profiles">
-			<a href="https://www.facebook.com/iauastroedu"><img src="{% static 'designimages/sections-orange/social_facebook.svg' %}" alt="astroEDU on Facebook" /></a>
-			&nbsp;
-			<a href="https://twitter.com/IAUastroEDU"><img src="{% static 'designimages/sections-orange/social_twitter.svg' %}" alt="astroEDU on Twitter" /></a>
-		</div>
+
+    </div>
 	</div>
 </footer>
 </div>
