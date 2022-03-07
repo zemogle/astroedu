@@ -38,6 +38,11 @@ class NewsIndexPage(Page):
         FieldPanel('intro'),
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['newspages'] = NewsPage.objects.filter(locale=Locale.get_active())
+        return context
+
 class NewsPage(Page):
     summary = RichTextField("optional summary/teaser", blank=True)
     content = StreamField(BodyBlock)

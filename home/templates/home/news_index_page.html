@@ -8,7 +8,7 @@
       <div class="container">
           <h2>{% trans "News" %}</h2>
           <div class="intro">{{ page.intro|richtext }}</div>
-            {% for object in page.get_children %}
+            {% for object in newspages %}
               {% include 'home/partials/news_list_item.html' %}
             {% endfor %}
         </div>

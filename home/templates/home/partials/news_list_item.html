@@ -2,13 +2,13 @@
 <div class="columns">
   <div class="column is-one-quarter">
     <figure class="image">
-      <a href="{% pageurl object.specific %}">
-      {% image object.specific.image fill-300x200 %}
+      <a href="{% pageurl object %}">
+      {% image object.image fill-300x200 %}
       </a>
     </figure>
     </div>
   <div class="column">
-    <a href="{% pageurl object.specific %}"><h2>{{ object.specific.title }}</h2></a>
-    {{object.specific.summary|richtext}}
+    <a href="{% pageurl object %}"><h2>{{ object.title }}</h2></a>
+    {{object.summary|richtext}}
     </div>
   </div>

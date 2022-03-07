@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-03 11:28+0000\n"
+"POT-Creation-Date: 2022-03-07 12:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: astroedu_wagtail/templates/404.html:7
 msgid "404, Page not found."
-msgstr ""
+msgstr "404, pagina non trovata"
 
 #: astroedu_wagtail/templates/500.html:7
 msgid "Something went wrong."
@@ -27,9 +27,7 @@ msgstr "Ops, qualcosa è andato storto"
 
 #: astroedu_wagtail/templates/base.html:26
 msgid "This site uses cookies to offer you a better browsing experience."
-msgstr ""
-"Questo sito usa dei cookied per offrirvi una migliore navigazione in rete. "
-"Leggi come utilizziamo i cookies."
+msgstr "Questo sito usa dei cookies per offrirvi una migliore navigazione."
 
 #: astroedu_wagtail/templates/base.html:26
 msgid "Read about how we use cookies."
@@ -38,7 +36,7 @@ msgstr "Leggi come utilizziamo i cookies."
 #: astroedu_wagtail/templates/base.html:57
 #: home/templates/home/home_page.html:37
 msgid "apply as volunteer"
-msgstr ""
+msgstr "candidati come volontario"
 
 #: astroedu_wagtail/templates/base.html:57
 #: home/templates/home/home_page.html:37
@@ -51,72 +49,70 @@ msgid "Volunteer"
 msgstr "Volontari"
 
 #: astroedu_wagtail/templates/base.html:113
+#: home/templates/home/news_index_page.html:4
 msgid "Activity Collections"
 msgstr "Attività a tema"
 
 #: astroedu_wagtail/templates/base.html:125
 msgid "See All Activities"
-msgstr "Vedi tutte le attività"
+msgstr "Scopri tutte le attività"
 
 #: astroedu_wagtail/templates/base.html:137
 msgid "Submit Your Activities"
-msgstr "Sottometti la tua attività"
+msgstr "Invia la tua attività"
 
-#: astroedu_wagtail/templates/base.html:152
-msgid "Language"
-msgstr ""
-
-#: astroedu_wagtail/templates/base.html:154
+#: astroedu_wagtail/templates/base.html:153
 msgid "Submission"
 msgstr "Inviare un'attività"
 
-#: astroedu_wagtail/templates/base.html:155
+#: astroedu_wagtail/templates/base.html:154
 msgid "Peer Review"
-msgstr ""
+msgstr "Revisione paritaria"
 
-#: astroedu_wagtail/templates/base.html:156
-msgid "Enquiry"
+#: astroedu_wagtail/templates/base.html:155
+msgid "Enquiry Based Learning"
 msgstr "Modello di apprendimento"
 
-#: astroedu_wagtail/templates/base.html:157
+#: astroedu_wagtail/templates/base.html:156
 msgid "FAQ"
-msgstr ""
+msgstr "Domande frequenti"
 
-#: astroedu_wagtail/templates/base.html:162
+#: astroedu_wagtail/templates/base.html:161
 msgid "About"
 msgstr "Chi siamo"
 
-#: astroedu_wagtail/templates/base.html:163
+#: astroedu_wagtail/templates/base.html:162
 msgid "Workflow"
 msgstr "Flusso di lavoro"
 
-#: astroedu_wagtail/templates/base.html:164
-msgid "Blog"
-msgstr ""
+#: astroedu_wagtail/templates/base.html:163
+#: home/templates/home/news_index_page.html:9
+msgid "News"
+msgstr "Notizia"
 
-#: astroedu_wagtail/templates/base.html:165
+#: astroedu_wagtail/templates/base.html:164
 msgid "Contact"
 msgstr "Contatti"
 
-#: astroedu_wagtail/templates/base.html:211
+#: astroedu_wagtail/templates/base.html:206
 msgid "Find Educational Activities"
-msgstr "trova le attività"
+msgstr "Trova attività didattiche"
 
-#: astroedu_wagtail/templates/base.html:211
+#: astroedu_wagtail/templates/base.html:206
 msgid "Black holes"
-msgstr "buchi neri"
+msgstr "Buchi neri"
 
-#: astroedu_wagtail/templates/base.html:211
+#: astroedu_wagtail/templates/base.html:206
 msgid "Galaxies"
-msgstr "galassie"
+msgstr "Galassie"
 
-#: astroedu_wagtail/templates/base.html:211
+#: astroedu_wagtail/templates/base.html:206
 msgid "Drawing"
-msgstr "disegni"
+msgstr "Disegni"
 
-#: astroedu_wagtail/templates/base.html:211
+#: astroedu_wagtail/templates/base.html:206
 msgid "Primary School"
-msgstr "scuola primaria"
+msgstr "Scuola elementare"
 
 #: home/templates/home/home_page.html:65
 msgid "Peer-reviewed"
@@ -124,13 +120,20 @@ msgstr "Astronomia peer reviewed"
 
 #: home/templates/home/home_page.html:65
 msgid "astronomy education activities"
-msgstr "attività didattiche"
+msgstr "astronomia attività didattiche"
 
+#~ msgid "Language"
+#~ msgstr "Lingua"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+# should we capitalise the first letters of the words "astronomy" and "attività" ?
 #~ msgid "Search results"
 #~ msgstr "Risultati della ricerca"
 
 #~ msgid "No results found!"
-#~ msgstr "Non ho trovato nessun risultato!"
+#~ msgstr "Nessun risultato trovato!"
 
 #~ msgid "Filters"
 #~ msgstr "Filtri"
@@ -149,14 +152,10 @@ msgstr "attività didattiche"
 
 #, fuzzy
 #~ msgid "Peer-reviewed educational activities"
-#~ msgstr "trova le attività"
-
-#, fuzzy
-#~ msgid "Navigation"
-#~ msgstr "Citazione"
+#~ msgstr "Trova le attività"
 
 #~ msgid "No collections are available."
 #~ msgstr "Non ci sono attività a tema"
 
 #~ msgid "Find Education Activities"
-#~ msgstr "attività didattiche"
+#~ msgstr "Trova attività didattiche"
