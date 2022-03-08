@@ -88,7 +88,7 @@ msgstr "Flusso di lavoro"
 #: astroedu_wagtail/templates/base.html:163
 #: home/templates/home/news_index_page.html:9
 msgid "News"
-msgstr "Notizia"
+msgstr "Notizie"
 
 #: astroedu_wagtail/templates/base.html:164
 msgid "Contact"
@@ -116,11 +116,11 @@ msgstr "Scuola elementare"
 
 #: home/templates/home/home_page.html:65
 msgid "Peer-reviewed"
-msgstr "Astronomia peer reviewed"
+msgstr "attività didattiche peer-reviewed"
 
 #: home/templates/home/home_page.html:65
 msgid "astronomy education activities"
-msgstr "astronomia attività didattiche"
+msgstr "in astronomia"
 
 #~ msgid "Language"
 #~ msgstr "Lingua"

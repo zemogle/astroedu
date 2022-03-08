@@ -10,7 +10,7 @@ from activities.models import Activity, BodyBlock
 class HomePage(Page):
     def get_context(self, request):
         context = super().get_context(request)
-        context['featured'] = Activity.objects.filter(featured=True, locale=Locale.get_active())
+        context['featured'] = Activity.objects.filter(featured=True, locale=Locale.get_active()).live()
         return context
 
 class ContentPage(Page):
