@@ -115,7 +115,7 @@ class Command(BaseCommand):
             tc.create_translations(instance=activity)
             key = activity.translation_key
             tr = Translation.objects.get(source__object_id=key)
-            
+
             tr.enabled = False
             tr.save()
             print(f"Found and disabled translation")
@@ -138,9 +138,16 @@ class Command(BaseCommand):
             newactivity.short_desc_material = RichText(markdown.markdown(fi['short_desc_material']))
             newactivity.further_reading = RichText(markdown.markdown(fi['further_reading']))
             newactivity.reference = RichText(markdown.markdown(fi['reference']))
+            newactivity.theme = fi['theme'] if fi['theme'] else 'NA'
+
+            newactivity.keywords.clear()
+            newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
 
             newactivity.save()
 
+            # if attach.get(key, None):
+            #     for attachment in attach[key]:
+            #         import_attachments(activity=newactivity, filename=attachment['file'])
         print(f"Passed on {passed}")
 
 
@@ -182,33 +189,6 @@ def join_activites(old_pages, lang):
             activities[k] = {**activities[k], **trans[k]}
     return activities, trans, metadata, authors, institutes, attach
 
-
-def ingest_collections(oldpages):
-    collection = {}
-    collectionindex = CollectionIndexPage.objects.get(locale__language_code='en')
-    for p in oldpages:
-        if p['model'] == "activities.collection":
-            collection[p['pk']] = {'trans':'', 'fields':p['fields']}
-        if p['model'] == "activities.collectiontranslation":
-            collection[p['fields']['master']]['trans'] = p['fields']
-    for k, c in collection.items():
-        try:
-            coll = Collection.objects.get(title = c['trans']['title'])
-            created = False
-        except:
-            created = True
-            coll = Collection(title = c['trans']['title'])
-        r = import_image(filename=c['fields']['image'])
-        coll.description = c['trans']['description']
-        if r:
-            coll.image = Image.objects.get(id=r)
-            print(f"Adding image {r}")
-        if created:
-            collectionindex.add_child(instance=coll)
-        else:
-            coll.save()
-        print(f"Saved collection {coll.title}")
-    return
 
 def html_or_rich(mdcontent, code=None):
     content = replace_images_with_embeds(markdown.markdown(mdcontent, extensions=['tables']), code)
@@ -290,4 +270,11 @@ def import_attachments(activity, filename):
         obj, c = Attachment.objects.get_or_create(page=activity, document=doc)
         return True
     else:
-        return False
+        # Look to see if the document exists already by name
+        doc = Document.objects.filter(title=name.rsplit('.',1)[0])
+        if doc:
+            obj, c = Attachment.objects.get_or_create(page=activity, document=doc[0])
+            return True
+        else:
+            print(f"Does not Exist - {name}")
+            return False

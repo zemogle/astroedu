@@ -369,4 +369,5 @@ def import_attachments(activity, filename):
         obj, c = Attachment.objects.get_or_create(page=activity, document=doc)
         return True
     else:
+        print(f"Does not Exist - {filename}")
         return False
