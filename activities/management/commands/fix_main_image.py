@@ -59,15 +59,15 @@ class Command(BaseCommand):
                 name = values['image']['file'].split('/')[-1:][0].replace(' ','_')
                 image = Image.objects.filter(file__contains=name)
                 doc = Document.objects.filter(file__contains=name)
-                activities = Activity.objects.filter(code=values['code'], image__isnull=True)
+                activities = Activity.objects.filter(code=values['code'], image__isnull=True, locale__language_code='it')
                 if image:
                     activities.update(image=image[0])
                     self.stdout.write(f"Updating image for {values['code']} in {activities.values_list('locale', flat=True)}")
-                elif doc:
-                    docfile = File(file=default_storage.open(doc[0].file.path),name=name)
-                    image, c = Image.objects.get_or_create(file=docfile, title=name.rsplit('.',1)[0])
-                    activities.update(image=image)
-                    self.stdout.write(f"Creating image for {values['code']} in {activities.values_list('locale', flat=True)}")
+                # elif doc:
+                #     docfile = File(file=default_storage.open(doc[0].file.path),name=name)
+                #     image, c = Image.objects.get_or_create(file=docfile, title=name.rsplit('.',1)[0])
+                #     activities.update(image=image)
+                #     self.stdout.write(f"Creating image for {values['code']} in {activities.values_list('locale', flat=True)}")
                 else:
                     self.stderr.write(f"No image found for {values['code']} with {name}")
 

@@ -1,32 +1,31 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 
-from wagtail.core.models import Page
+from activities.models import Activity
 from wagtail.search.models import Query
+from wagtail.core.models import Page, Locale
 
+import logging
 
 def search(request):
-    search_query = request.GET.get('query', None)
+    search_query = request.GET.get('q', None)
     page = request.GET.get('page', 1)
 
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
-        query = Query.get(search_query)
-
-        # Record hit
-        query.add_hit()
+        search_results = Activity.objects.live().filter(locale=Locale.get_active()).search(search_query)
+        logging.error('here')
     else:
-        search_results = Page.objects.none()
+        search_results = Activity.objects.live()
 
-    # Pagination
-    paginator = Paginator(search_results, 10)
-    try:
-        search_results = paginator.page(page)
-    except PageNotAnInteger:
-        search_results = paginator.page(1)
-    except EmptyPage:
-        search_results = paginator.page(paginator.num_pages)
+    # # Pagination
+    # paginator = Paginator(search_results, 10)
+    # try:
+    #     search_results = paginator.page(page)
+    # except PageNotAnInteger:
+    #     search_results = paginator.page(1)
+    # except EmptyPage:
+    #     search_results = paginator.page(paginator.num_pages)
 
     return TemplateResponse(request, 'search/search.html', {
         'search_query': search_query,
