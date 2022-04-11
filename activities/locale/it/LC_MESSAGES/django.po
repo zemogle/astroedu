@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 12:27+0000\n"
+"POT-Creation-Date: 2022-04-07 16:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,81 +18,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activities/models.py:284
+#: activities/models.py:311
 msgid "Goals"
 msgstr "Obiettivi"
 
-#: activities/models.py:285
+#: activities/models.py:312
 msgid "Learning Objectives"
 msgstr "Obiettivi di apprendimento"
 
-#: activities/models.py:286
+#: activities/models.py:313
 msgid "Background"
 msgstr "Contesto"
 
-#: activities/models.py:287
+#: activities/models.py:314
 msgid "Full Description"
 msgstr "Descrizione completa"
 
-#: activities/models.py:288
+#: activities/models.py:315
 msgid "Evaluation"
 msgstr "Valutazione"
 
-#: activities/models.py:289
+#: activities/models.py:316
 msgid "Curriculum"
 msgstr "Programma didattico"
 
-#: activities/models.py:290
+#: activities/models.py:317
 msgid "Additional Information"
 msgstr "Informazioni aggiuntive"
 
-#: activities/models.py:291
+#: activities/models.py:318
 msgid "Conclusion"
 msgstr "Conclusione"
 
-#: activities/models.py:294
+#: activities/models.py:323
 msgid "Category"
 msgstr "Categoria"
 
-#: activities/models.py:295
+#: activities/models.py:324
 msgid "Location"
 msgstr "Luogo"
 
-#: activities/models.py:296
-#: activities/templates/activities/activity_list_item.html:31
+#: activities/models.py:325
+#: activities/templates/activities/activity_list_item.html:35
 #: activities/templates/featured_item.html:27
 msgid "Age"
 msgstr "Età"
 
-#: activities/models.py:297
-#: activities/templates/activities/activity_list.html:41
+#: activities/models.py:326
+#: activities/templates/activities/activity_list.html:43
 msgid "Level"
 msgstr "Livello"
 
-#: activities/models.py:298
-#: activities/templates/activities/activity_list_item.html:40
+#: activities/models.py:327
+#: activities/templates/activities/activity_list_item.html:44
 msgid "Time"
 msgstr "Durata"
 
-#: activities/models.py:299
+#: activities/models.py:328
 msgid "Group"
 msgstr "Gruppo"
 
-#: activities/models.py:300
+#: activities/models.py:329
 msgid "Supervised"
 msgstr "Sorvegliato"
 
-#: activities/models.py:301
+#: activities/models.py:330
 msgid "Cost"
 msgstr "Costo"
 
-#: activities/models.py:302
+#: activities/models.py:331
 msgid "Skills"
 msgstr "Abilità"
 
-#: activities/models.py:303
-#, fuzzy
-#| msgid "Types of Learning"
+#: activities/models.py:332
 msgid "Type of Learning"
 msgstr "Modalità di apprendimento"
 
@@ -110,7 +108,7 @@ msgid "Keywords"
 msgstr "Parole chiave"
 
 #: activities/templates/activities/activity.html:105
-#: activities/templates/activities/activity_detail_print.html:93
+#: activities/templates/activities/activity_detail_print.html:86
 msgid "Attachments"
 msgstr "Allegati"
 
@@ -127,20 +125,20 @@ msgid "Repositories"
 msgstr "Archivi"
 
 #: activities/templates/activities/activity.html:154
-#: activities/templates/activities/activity_detail_print.html:120
+#: activities/templates/activities/activity_detail_print.html:113
 msgid "Citation"
 msgstr "Come citare"
 
 #: activities/templates/activities/activity.html:160
-#: activities/templates/activities/activity_detail_print.html:129
+#: activities/templates/activities/activity_detail_print.html:122
 msgid "Acknowledgement"
 msgstr "Ringraziamenti"
 
-#: activities/templates/activities/activity_detail_print.html:110
+#: activities/templates/activities/activity_detail_print.html:103
 msgid "All Attachments"
 msgstr "Tutti gli allegati"
 
-#: activities/templates/activities/activity_list_item.html:22
+#: activities/templates/activities/activity_list_item.html:26
 #: activities/templates/featured_item.html:22
 msgid "Theme"
 msgstr "Tema"
@@ -167,14 +165,12 @@ msgstr "Autore"
 msgid "Search results"
 msgstr "Risultati della ricerca"
 
-#: activities/templates/search/search.html:29
-#: activities/templates/search/search.html:42
+#: activities/templates/search/search.html:38
 #: activities/templates/search/simplesearch.html:29
 #: activities/templates/search/simplesearch.html:42
 msgid "No results found!"
 msgstr "Nessun risultato trovato!"
 
-#: activities/templates/search/search.html:51
 #: activities/templates/search/simplesearch.html:53
 msgid "Filters"
 msgstr "Filtri"
