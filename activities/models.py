@@ -8,22 +8,23 @@ from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.utils.translation import activate
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, \
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import TaggedItemBase
+from wagtail_localize.fields import SynchronizedField
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel,\
     InlinePanel, PageChooserPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core import blocks
-from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page, TranslatableMixin,  Orderable, Locale
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.contrib.table_block.blocks import TableBlock
-from taggit.models import TaggedItemBase
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import Document
-from wagtail_localize.fields import SynchronizedField
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 from weasyprint import HTML, CSS
 
 
@@ -34,8 +35,14 @@ class BodyBlock(blocks.StreamBlock):
     htmltext = blocks.RawHTMLBlock()
     table =  TableBlock(template="home/partials/table_template.html")
 
-class ActivityHome(Page):
-    pass
+class ActivityHome(RoutablePageMixin, Page):
+    @route(r'^a/(\d+)/(\w+)$')
+    def activity_by_id(self, request, code=None, title=None):
+        activity = Activity.objects.get(code=code)
+
+        return self.render(request,
+                context_overrides={'page': activity},
+                template="activities/activity.html",)
 
 class Keyword(TranslatableMixin, TaggedItemBase):
     content_object = ParentalKey('Activity', on_delete=models.CASCADE, related_name='keyword_items')
@@ -249,7 +256,7 @@ class Activity(Page):
         SynchronizedField("code"),
     ]
 
-    template = "activities/activity_detail_print.html"
+    # template = "activities/activity_detail_print.html"
 
     def age_range(self):
         age_ranges = [obj.name for obj in self.age.all()]
@@ -309,6 +316,7 @@ class Activity(Page):
         fileobj.close()
         return pdf
 
+    @property
     def sections(self):
         return [
                 {'code':'goals', 'text':_('Goals'),'content':self.goals,'stream':False},

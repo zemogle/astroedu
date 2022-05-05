@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'wagtail.core',
     'wagtail.contrib.simple_translation',
     "wagtail.contrib.table_block",
-    # 'wagtail.locales',
+    "wagtail.contrib.routable_page",
 
     'modelcluster',
     'taggit',

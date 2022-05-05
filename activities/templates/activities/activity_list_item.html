@@ -2,16 +2,16 @@
 {% if object.live or request.user.is_authenticated %}
     <div class="list_item{% if not object.live %} unpublished{% endif %}">
 
-    	<div class="title"><a href="{% pageurl object %}">{{ object.specific.title }}</a></div>
+    	<div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.specific.title }}</a></div>
 
         <div class="metadata">
             DATE: <b style="bold">{{ object.first_published_at|date:"Y-m-d" }}</b>
-            <a href="{% pageurl object %}"><img src="{% static 'designimages/metaseparator.png' %}" alt="" /></a>
+            <a href="{% url 'activitydetail' object.code object.slug %}"><img src="{% static 'designimages/metaseparator.png' %}" alt="" /></a>
             BY:  <b>{{ object.author_list}}</b>
         </div>
 
         <div class="description">
-          <a href="{% pageurl object.specific %}">
+          <a href="{% url 'activitydetail' object.specific.code object.specific.slug %}">
             <figure class="image">
               {% image object.specific.image fill-368x180 %}
             </figure>
@@ -45,7 +45,7 @@
                 <div class="value">{{ object.time }}</div>
             </div>
             <div class="link_col">
-                <a href="{% pageurl object %}">
+                <a href="{% url 'activitydetail' object.code object.slug %}">
                     <img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" />
                 </a>
             </div>
