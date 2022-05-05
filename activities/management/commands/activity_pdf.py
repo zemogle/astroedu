@@ -49,7 +49,7 @@ class Command(BaseCommand):
                 self.stdout.write(f"Skipping {version.master.code} in {version.language_code}")
                 continue
             try:
-                file_obj = version.generate_pdf()
+                file_obj = version.generate_pdf(lang_code=options['lang'])
             except Exception as e:
                 self.stderr.write(f"{e}")
                 self.stderr.write(f"Failed to create  {version.code} in {version.locale.language_code}")

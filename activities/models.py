@@ -249,6 +249,8 @@ class Activity(Page):
         SynchronizedField("code"),
     ]
 
+    template = "activities/activity_detail_print.html"
+
     def age_range(self):
         age_ranges = [obj.name for obj in self.age.all()]
         return utils.beautify_age_range(age_ranges)
@@ -288,16 +290,17 @@ class Activity(Page):
     def generate_pdf(self, no_trans=False, path='', lang_code='en'):
         activate(lang_code)
         context = {
-            'object': self,
+            'page': self,
             'pdf': True,
             'media_root' : settings.MEDIA_ROOT,
-            # 'sections': self,
+            'sections': self.sections(),
+            'meta' : self.meta(),
             'long_meta' : ['skills','learning']
         }
         with open(finders.find('css/print.css')) as f:
             css = CSS(string=f.read())
         html_string = render_to_string('activities/activity_detail_print.html', context)
-        html = HTML(string=html_string, base_url="https://astroedu.iau.org")
+        html = HTML(string=html_string, base_url="https://www.astroedu.info")
         # filepath = Path(path) / filename
         fileobj = io.BytesIO()
         html.write_pdf(fileobj, stylesheets=[css])

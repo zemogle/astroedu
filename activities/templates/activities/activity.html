@@ -7,7 +7,7 @@
 {% block extra_head %}
 <meta property="og:title" content="{{ page.title }}" />
 <meta property="og:description" content="{{ page.teaser }}" />
-{% image page.main_visual fill-200x500 as im %}
+{% image page.image fill-200x500 as im %}
 <meta property="og:image" content="{{ SITE_URL }}{{ im }}" />
 {% endblock %}
 

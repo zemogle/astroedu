@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load i18n static wagtailcore_tags %}
+<!DOCTYPE html>{% load i18n static wagtailcore_tags wagtailimages_tags %}
 
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
@@ -25,83 +25,63 @@
 
 <div id="frontpage">
       <img src="{% static 'designimages/astroEDU_pdf_cover.png' %}"/>
-        <h1 class="title_text">{{ object.title }}</h1>
+        <h1 class="title_text">{{ page.title }}</h1>
 
-        <h2 class="orange title_text">{{ object.teaser }}</h2>
-      	<div class="authors">{{ object.author_list }}</div>
+        <h2 class="orange title_text">{{ page.teaser }}</h2>
+      	<div class="authors"><strong>{% trans 'Author' %}:</strong> {{ page.author_list }}</div>
 </div>
 
   <div class="row">
-{% if object.main_visual %}
-    <img src="{{ object.main_visual.url}}" class="main_visual"/>
+{% if page.image %}
+  {% image page.image max-600x400 class="main_visual" %}
 {% endif %}
 
 
-<div class="row">
+<div class="grid-wrapper">
   <div class="section_meta">
-  {% for section in object.meta_list %}
-  {% if section.0 not in long_meta %}
     <div class="section_meta_inner">
-      <div class="meta">
-        <div class="icon"><img src="{% static 'designimages/sections-grey/'|add:section.0|add:'.svg' %}" alt="" /></div>
-        <div class="title_text">{% trans section.1|upper %}</div>
-      </div>
-      <div class="content">{{ section.2 }}</div>
-    </div>
-    {% endif %}
-  {% endfor %}
-  {% for section in object.metadata_aslist %}
-  {% if section.0 in long_meta %}
-    <div class="section_long_meta_inner">
-      <div class="meta">
-        <div class="icon"><img src="{% static 'designimages/sections-grey/'|add:section.0|add:'.svg' %}" alt="" /></div>
-        <div class="title_text">{% trans section.1|upper %}</div>
-      </div>
-      <div class="content">{{ section.2 }}</div>
-    </div>
-    {% endif %}
-  {% endfor %}
-  </div>
-  <div class="section_meta"><div class="section_long_meta_inner">
     <div class="meta">
       <div class="icon"><img src="{% static 'designimages/sections-grey/keywords.svg' %}" alt="" /></div>
       <div class="title_text">{% trans 'Keywords' %}</div>
     </div>
-    <div class="content">{{ object.keywords_joined }}</div>
+    <div class="content">{{ page.keywords_joined }}</div>
   </div>
 </div>
+{% for section in meta %}
+  {% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content %}
+{% endfor %}
 </div>
 
 <div class="maincontent">
-  {% for section in object.sections %}
+  {% for section in page.sections %}
   {% include 'activities/partials/activity_detail_section.html' with code=section.code text=section.text content=section.content stream=section.stream %}
-  {% endfor %}get
+  {% endfor %}
 </div>
 
 <div class="layout_rightcolumn">
 
 
-		{% if object.attachment_list or object.languageattachment_list %}
+		{% if page.attachment_list or page.languageattachment_list %}
 		<div class="section grey">
 			<div class="title_text">{% trans "Attachments" %}</div>
-            {% if object.attachment_list %}
+            {% if page.attachment_list %}
             <ul>
-                {% for attachment in object.attachment_list %}
+                {% for attachment in page.attachment_list %}
                     <li><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></li>
                 {% endfor %}
             </ul>
             {% endif %}
-            {% if object.languageattachment_list %}
+            {% if page.languageattachment_list %}
               <ul>
-                {% for attachment in object.languageattachment_list %}
+                {% for attachment in page.languageattachment_list %}
                     <li><a href="{{ attachment.file.url }}" target="_blank">{{ attachment.display_name }}</a></li>
                 {% endfor %}
                 </ul>
             {% endif %}
 
-    {% if object.attachment_list|length > 1 or object.languageattachment_list|length > 1 %}
+    {% if page.attachment_list|length > 1 or page.languageattachment_list|length > 1 %}
         <div class="title_text">{% trans "All Attachments" %}</div>
-        <a href="{% url 'activities:detail-code' code=object.code %}?format=zip">All attachments</a>
+        <a href="{% url 'activities:detail-code' code=page.code %}?format=zip">All attachments</a>
     {% endif %}
 
 		</div>
@@ -112,16 +92,16 @@
 		<div class="section grey">
 			<div class="title_text">{% trans "Citation" %}</div>
 			<div class="text">
-				{{object.citable_author_list}}, {{object.release_date|date:"Y"}}, <em>{{object.title}}</em>, <a href="{{object.get_absolute_url}}">astroEDU, {{object.code}}</a>{% if object.doi %} <a href="http://dx.doi.org/{{object.doi}}"> doi:{{object.doi}}</a>{% endif %}
+				{{page.citable_author_list}}, {{page.release_date|date:"Y"}}, <em>{{page.title}}</em>, <a href="{{page.get_absolute_url}}">astroEDU, {{page.code}}</a>{% if page.doi %} <a href="http://dx.doi.org/{{page.doi}}"> doi:{{page.doi}}</a>{% endif %}
 			</div>
 		</div>
 </div>
 <div class="row">
-		{% if object.acknowledgement %}
+		{% if page.acknowledgement %}
 		<div class="section orange">
 			<div class="title_text">{% trans "Acknowledgement" %}</div>
 			<div class="text">
-				{{object.acknowledgement}}
+				{{page.acknowledgement}}
 			</div>
 		</div>
 		{% endif %}
