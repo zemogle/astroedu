@@ -176,7 +176,7 @@ class Activity(Page):
     fulldesc = StreamField(BodyBlock, verbose_name='Full description of the activity')
     curriculum = StreamField(BodyBlock, blank=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
     additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
-    conclusion = RichTextField()
+    conclusion = RichTextField(blank=True)
 
     short_desc_material = RichTextField(blank=True, verbose_name='Short description of Suplementary material')
     further_reading = RichTextField(blank=True, verbose_name='Further reading', default='')
@@ -242,7 +242,7 @@ class Activity(Page):
             FieldPanel('age', widget=forms.CheckboxSelectMultiple),
             FieldPanel('level', widget=forms.CheckboxSelectMultiple),
             FieldPanel('time', widget=forms.Select),
-            FieldPanel('group', widget=forms.Select),
+            FieldPanel('group'),
             FieldPanel('supervised', widget=forms.Select),
             FieldPanel('cost', widget=forms.Select),
             FieldPanel('skills', widget=forms.CheckboxSelectMultiple),
