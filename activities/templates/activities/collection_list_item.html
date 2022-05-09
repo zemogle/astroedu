@@ -1,9 +1,9 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 <div class="column is-one-third">
     <div class="featured_item{% if not object.live%} unpublished{% endif %}">
-        <div class="title"><a href="{% url 'activitydetail' object.specific.code object.specific.slug %}">{{ object.specific.title }}</a></div>
+        <div class="title"><a href="{% pageurl object %}">{{ object.specific.title }}</a></div>
 
-              <a href="{% url 'activitydetail' object.specific.code object.specific.slug %}">
+              <a href="{% pageurl object %}">
                 <figure class="image">
                   {% image object.specific.image fill-320x200 %}
                 </figure>
@@ -12,7 +12,7 @@
         <div class="metadata_bottom">
             <p>{{ object.specific.description }}</p>
         </div>
-        <div class="activity-link"><a href="{% url 'activitydetail' object.specific.code object.specific.slug %}"><img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" /></a></div>
+        <div class="activity-link"><a href="{% pageurl object %}"><img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" /></a></div>
         <div class="collection_footer"><img src="{% static 'designimages/collection_footer.png' %}" alt=""/></div>
     </div>
   </div>
