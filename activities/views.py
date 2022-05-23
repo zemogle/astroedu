@@ -29,3 +29,6 @@ class ActivityDetailView(DetailView):
 
 class CollectionListView(ListView):
     model = Collection
+
+    def get_queryset(self):
+        return Collection.objects.filter(locale=Locale.get_active())
