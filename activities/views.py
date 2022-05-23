@@ -17,7 +17,10 @@ class ActivityDetailView(DetailView):
     template_name = 'activities/activity.html'
 
     def get_object(self, queryset=None):
-        return Activity.objects.get(locale=Locale.get_active(),code=self.kwargs.get("code"))
+        try:
+            return Activity.objects.get(locale=Locale.get_active(),code=self.kwargs.get("code"))
+        except Activity.DoesNotExist:
+            return Activity.objects.get(locale=Locale.get_active(),slug=self.kwargs.get("code"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

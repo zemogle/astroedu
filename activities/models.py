@@ -162,7 +162,7 @@ class AuthorInstitute(Orderable, models.Model):
 class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
-    theme = models.CharField(blank=False, max_length=40, help_text='Use top level AVM metadata')
+    theme = models.CharField(blank=True, max_length=40, help_text='Use top level AVM metadata')
     keywords = ClusterTaggableManager(through=Keyword, blank=True, verbose_name="Keywords")
 
     acknowledgement = models.CharField(blank=True, max_length=255)

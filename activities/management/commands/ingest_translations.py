@@ -96,32 +96,34 @@ class Command(BaseCommand):
         return obj.objects.filter(id__in=cids)
 
     def process_activity(self, activitypages, attach, lang, authors):
+        # Remove any translations in the system
+        
         passed = []
         self.stdout.write("Processing Activities - {} in {}".format(len(activitypages), lang))
-        locales = Locale.objects.filter(language_code=lang)
-        user = User.objects.get(username='admin')
-        tc = TranslationCreator(user=user, target_locales=locales)
+        try:
+            activityhome = ActivityHome.objects.get(title="Activities IT", locale__language_code='en')
+        except ActivityHome.DoesNotExist:
+            activityhome = ActivityHome(title="Activities IT")
+            homepage = HomePage.objects.get(locale__language_code='en')
+            homepage.add_child(instance=activityhome)
+            homepage.save()
 
         for count,(key, fi) in enumerate(activitypages.items()):
             print(f"Ingesting {count}")
-            if fi['code'] == '1754' or fi['code'] == '0000':
+            if fi['code'] == '0000':
                 continue
             if not fi.get('language_code', None) or fi['language_code'] != lang or fi['code'] == '0000':
                 passed.append(fi['code'])
                 continue
 
             self.stdout.write(f"Updating {fi['code']} - {fi['title']}")
-            activity  = Activity.objects.get(code = fi['code'], locale__language_code='en')
-            tc.create_translations(instance=activity)
-            key = activity.translation_key
-            tr = Translation.objects.get(source__object_id=key)
 
-            tr.enabled = False
-            tr.save()
-            print(f"Found and disabled translation")
 
-            newactivity = Activity.objects.get(code=fi['code'], locale__language_code=lang)
+            newactivity  = Activity(code = fi['code'])
+            self.stdout.write(f"Creating {fi['code']}")
+            new = True
 
+            print(f"{fi['title']}")
             newactivity.title = fi['title']
             newactivity.abstract = RichText(markdown.markdown(fi['abstract']))
             newactivity.fulldesc = html_or_rich(fi['fulldesc'], 'fulldesc')
@@ -138,10 +140,31 @@ class Command(BaseCommand):
             newactivity.short_desc_material = RichText(markdown.markdown(fi['short_desc_material']))
             newactivity.further_reading = RichText(markdown.markdown(fi['further_reading']))
             newactivity.reference = RichText(markdown.markdown(fi['reference']))
-            newactivity.theme = fi['theme'] if fi['theme'] else 'NA'
+            newactivity.doi = fi['doi']
+            newactivity.first_published_at = fi['creation_date']
+            newactivity.live = fi['published']
+            newactivity.latest_revision_created_at = fi['modification_date']
+            newactivity.go_live_at = fi["release_date"]
+            newactivity.slug = fi['slug']
+            newactivity.time = self.get_categories([fi['time']], Time)[0]
+            newactivity.group = self.get_categories([fi['group']], Group)[0]
+            newactivity.supervised = self.get_categories([fi['supervised']], Supervised)[0]
+            newactivity.cost = self.get_categories([fi['cost']], Cost)[0]
+            newactivity.location = self.get_categories([fi['location']], Location)[0]
 
-            newactivity.keywords.clear()
+            if new:
+                activityhome.add_child(instance=newactivity)
+                activityhome.save()
+                self.stdout.write(f"Saved {newactivity.title}")
+
+            newactivity.astro_category.add(*list(self.get_categories(fi['astronomical_scientific_category'], Category)))
+            newactivity.age.add(*list(self.get_categories(fi['age'], Age)))
+            newactivity.level.add(*list(self.get_categories(fi['level'], Level)))
+            newactivity.skills.add(*list(self.get_categories(fi['skills'], Skills)))
+            newactivity.learning.add(*list(self.get_categories(fi['learning'], Learning)))
+
             newactivity.keywords.add(*[x.strip() for x in fi['keywords'].split(',')])
+
 
             newactivity.save()
 
@@ -192,12 +215,7 @@ def join_activites(old_pages, lang):
 
 def html_or_rich(mdcontent, code=None):
     content = replace_images_with_embeds(markdown.markdown(mdcontent, extensions=['tables']), code)
-    if not content:
-        return [('htmltext', '')]
-    elif content.find("<table") != -1 :
-        return [('htmltext', content)]
-    else:
-        return [('richtext', RichText(content))]
+    return [('richtext', RichText(content))]
 
 def image_replace(value):
     new_start = 0
