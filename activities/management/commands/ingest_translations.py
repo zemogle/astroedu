@@ -97,7 +97,7 @@ class Command(BaseCommand):
 
     def process_activity(self, activitypages, attach, lang, authors):
         # Remove any translations in the system
-        
+
         passed = []
         self.stdout.write("Processing Activities - {} in {}".format(len(activitypages), lang))
         try:
@@ -157,7 +157,7 @@ class Command(BaseCommand):
                 activityhome.save()
                 self.stdout.write(f"Saved {newactivity.title}")
 
-            newactivity.astro_category.add(*list(self.get_categories(fi['astronomical_scientific_category'], Category)))
+            newactivity.astro_category.add(*list(self.get_categories(fi['astronomical_categories'], Category)))
             newactivity.age.add(*list(self.get_categories(fi['age'], Age)))
             newactivity.level.add(*list(self.get_categories(fi['level'], Level)))
             newactivity.skills.add(*list(self.get_categories(fi['skills'], Skills)))

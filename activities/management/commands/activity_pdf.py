@@ -1,11 +1,15 @@
 import sys
 import tempfile
 import base64
+from pathlib import Path
 
 from django.db.models import Q
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
+from django.core.files import File
+from django.core.files.storage import default_storage
+from wagtail.documents.models import Document
 
 from activities.models import Activity
 
@@ -19,6 +23,7 @@ class Command(BaseCommand):
         parser.add_argument('--lang', help='Language of the article')
         parser.add_argument('--new', action='store_true', help='Generate PDFs for new activities')
         parser.add_argument('--all', action='store_true', help='(Re-)Generate PDFs for all activities')
+        parser.add_argument('--fileonly', action='store_true', help='Just generate the file and not the Document')
 
 
     def handle(self, *args, **options):
@@ -46,16 +51,34 @@ class Command(BaseCommand):
         self.stdout.write(f'Generating PDFs for {len(versions)} activities')
         for version in versions:
             if options['new'] and version.pdf:
-                self.stdout.write(f"Skipping {version.master.code} in {version.language_code}")
+                self.stdout.write(f"Skipping {version.master.code} in {version.local.language_code}")
                 continue
-            try:
-                file_obj = version.generate_pdf(lang_code=options['lang'])
-            except Exception as e:
-                self.stderr.write(f"{e}")
-                self.stderr.write(f"Failed to create  {version.code} in {version.locale.language_code}")
-                continue
-            filename = f'astroedu-{version.code}-{version.locale.language_code}.pdf'
-            version.pdf.delete(save=False)
-            version.pdf.save(filename, ContentFile(file_obj))
-            version.save()
-            self.stdout.write(f'Written {filename}')
+
+            self.add_document(version, lang=options['lang'])
+
+    def add_document(self, activity, lang, file_only=False):
+        try:
+            file_obj = activity.generate_pdf(lang_code=lang)
+        except Exception as e:
+            self.stderr.write(f"{e}")
+            self.stderr.write(f"Failed to create  {activity.code} in {activity.locale.language_code}")
+            return
+
+        if file_only:
+            filepath = Path('/data/') / filename
+            Path(filepath).write_bytes(file_obj)
+            return
+        filename = f'astroedu-{activity.code}-{activity.locale.language_code}.pdf'
+        # try:
+        docfile = ContentFile(file_obj)
+        if not activity.pdf:
+            doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")
+        doc.file.save(filename, docfile)
+        doc.save()
+        # except Exception as e:
+        #     print(f"Problem with {filename} in {activity}: {e}")
+        #     return False
+        activity.pdf = doc
+        activity.save()
+        self.stdout.write(f'Written {filename}')
+        return True
