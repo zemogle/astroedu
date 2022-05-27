@@ -69,15 +69,15 @@ class Command(BaseCommand):
             Path(filepath).write_bytes(file_obj)
             return
         filename = f'astroedu-{activity.code}-{activity.locale.language_code}.pdf'
-        # try:
-        docfile = ContentFile(file_obj)
-        if not activity.pdf:
-            doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")
-        doc.file.save(filename, docfile)
-        doc.save()
-        # except Exception as e:
-        #     print(f"Problem with {filename} in {activity}: {e}")
-        #     return False
+        try:
+            docfile = ContentFile(file_obj)
+            if not activity.pdf:
+                doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")
+            doc.file.save(filename, docfile)
+            doc.save()
+        except Exception as e:
+            print(f"Problem with {filename} in {activity}: {e}")
+            return False
         activity.pdf = doc
         activity.save()
         self.stdout.write(f'Written {filename}')
