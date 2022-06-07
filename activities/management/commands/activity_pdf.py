@@ -28,9 +28,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['new'] and not options['code']:
-            versions = Activity.objects.filter(Q(pdf='')|Q(pdf=False), live=True).order_by('-first_published_at')
+            versions = Activity.objects.filter(pdf__isnull=True, live=True).order_by('code')
         elif options['all']:
-            versions = Activity.objects.filter(live=True).order_by('-first_published_at')
+            versions = Activity.objects.filter(live=True).order_by('code')
         elif options['code']:
             try:
                 versions = Activity.objects.filter(code=options['code'])
