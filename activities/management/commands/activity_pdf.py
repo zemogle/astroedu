@@ -71,8 +71,7 @@ class Command(BaseCommand):
         filename = f'astroedu-{activity.code}-{activity.locale.language_code}.pdf'
         try:
             docfile = ContentFile(file_obj)
-            if not activity.pdf:
-                doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")
+            doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")
             doc.file.save(filename, docfile)
             doc.save()
         except Exception as e:
