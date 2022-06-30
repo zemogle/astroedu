@@ -92,7 +92,7 @@
 		<div class="section grey">
 			<div class="title_text">{% trans "Citation" %}</div>
 			<div class="text">
-				{{page.citable_author_list}}, {{page.release_date|date:"Y"}}, <em>{{page.title}}</em>, <a href="{{page.get_absolute_url}}">astroEDU, {{page.code}}</a>{% if page.doi %} <a href="http://dx.doi.org/{{page.doi}}"> doi:{{page.doi}}</a>{% endif %}
+				{{page.citable_author_list}}, {{page.first_published_at|date:"Y"}}, <em>{{page.title}}</em>, <a href="{{page.get_absolute_url}}">astroEDU, {{page.code}}</a>{% if page.doi %} <a href="http://dx.doi.org/{{page.doi}}"> doi:{{page.doi}}</a>{% endif %}
 			</div>
 		</div>
 </div>

@@ -1,5 +1,7 @@
 import io
 from pathlib import Path
+from datetime import timedelta
+
 from django import forms
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -144,7 +146,7 @@ class AuthorInstitute(Orderable, models.Model):
         except:
             pass
         try:
-            display.append(self.institution.name)
+            display.append(self.author.institution.name)
         except:
             pass
         return ', '. join(display)
@@ -279,6 +281,13 @@ class Activity(Page):
         return ', '.join(astro_category)
 
     @property
+    def updated_date(self):
+        if self.go_live_at and self.go_live_at > self.first_published_at +timedelta(seconds=3600):
+            return self.go_live_at
+        else:
+            return False
+
+    @property
     def author_list(self):
         result = []
         for item in self.author_institute.all():
@@ -326,11 +335,13 @@ class Activity(Page):
                 {'code':'goals', 'text':_('Goals'),'content':self.goals,'stream':False},
                 {'code':'objectives','text':_('Learning Objectives'),'content': self.objectives, 'stream':False},
                 {'code':'background', 'text':_('Background'),'content':self.background,'stream':True},
+                {'code':'materials', 'text':_('Materials'),'content':self.materials,'stream':True},
                 {'code':'fulldesc', 'text':_('Full Description'), 'content':self.fulldesc,'stream':True},
                 {'code':'evaluation', 'text':_('Evaluation'), 'content':self.evaluation,'stream':True},
                 {'code':'curriculum', 'text':_('Curriculum'), 'content':self.curriculum,'stream':True},
                 {'code':'additional_information', 'text':_('Additional Information'), 'content':self.additional_information,'stream':True},
                 {'code':'conclusion', 'text':_('Conclusion'), 'content':self.conclusion,'stream':False},
+                {'code':'further_reading', 'text':_('Further Reading'), 'content':self.further_reading,'stream':False},
         ]
 
     def meta(self):
