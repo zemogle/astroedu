@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-07 16:08+0000\n"
+"POT-Creation-Date: 2022-07-01 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,79 +18,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activities/models.py:311
+#: activities/models.py:335
 msgid "Goals"
 msgstr "Obiettivi"
 
-#: activities/models.py:312
+#: activities/models.py:336
 msgid "Learning Objectives"
 msgstr "Obiettivi di apprendimento"
 
-#: activities/models.py:313
+#: activities/models.py:337
 msgid "Background"
 msgstr "Contesto"
 
-#: activities/models.py:314
+#: activities/models.py:338
+msgid "Materials"
+msgstr "Materiali"
+
+#: activities/models.py:339
 msgid "Full Description"
 msgstr "Descrizione completa"
 
-#: activities/models.py:315
+#: activities/models.py:340
 msgid "Evaluation"
 msgstr "Valutazione"
 
-#: activities/models.py:316
+#: activities/models.py:341
 msgid "Curriculum"
 msgstr "Programma didattico"
 
-#: activities/models.py:317
+#: activities/models.py:342
 msgid "Additional Information"
 msgstr "Informazioni aggiuntive"
 
-#: activities/models.py:318
+#: activities/models.py:343
 msgid "Conclusion"
 msgstr "Conclusione"
 
-#: activities/models.py:323
+#: activities/models.py:344
+msgid "Further Reading"
+msgstr "Altri Approfondimenti"
+
+#: activities/models.py:349
 msgid "Category"
 msgstr "Categoria"
 
-#: activities/models.py:324
+#: activities/models.py:350
 msgid "Location"
 msgstr "Luogo"
 
-#: activities/models.py:325
+#: activities/models.py:351
 #: activities/templates/activities/activity_list_item.html:35
 #: activities/templates/featured_item.html:27
 msgid "Age"
 msgstr "Età"
 
-#: activities/models.py:326
+#: activities/models.py:352
 #: activities/templates/activities/activity_list.html:43
 msgid "Level"
 msgstr "Livello"
 
-#: activities/models.py:327
+#: activities/models.py:353
 #: activities/templates/activities/activity_list_item.html:44
 msgid "Time"
 msgstr "Durata"
 
-#: activities/models.py:328
+#: activities/models.py:354
 msgid "Group"
 msgstr "Gruppo"
 
-#: activities/models.py:329
+#: activities/models.py:355
 msgid "Supervised"
 msgstr "Sorvegliato"
 
-#: activities/models.py:330
+#: activities/models.py:356
 msgid "Cost"
 msgstr "Costo"
 
-#: activities/models.py:331
+#: activities/models.py:357
 msgid "Skills"
 msgstr "Abilità"
 
-#: activities/models.py:332
+#: activities/models.py:358
 msgid "Type of Learning"
 msgstr "Modalità di apprendimento"
 
@@ -102,39 +110,61 @@ msgstr ""
 msgid "Currently there is no translation for this activity."
 msgstr "Per questa attività una traduzione non è al momento disponibile."
 
-#: activities/templates/activities/activity.html:86
-#: activities/templates/activities/activity_detail_print.html:68
+#: activities/templates/activities/activity.html:43
+msgid "Created"
+msgstr "Creato"
+
+#: activities/templates/activities/activity.html:45
+msgid "Updated"
+msgstr "Aggiornato"
+
+#: activities/templates/activities/activity.html:48
+#, fuzzy
+#| msgid "Author"
+msgid "Author(s)"
+msgstr "Autore/i"
+
+#: activities/templates/activities/activity.html:92
+#: activities/templates/activities/activity_detail_print.html:45
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: activities/templates/activities/activity.html:105
-#: activities/templates/activities/activity_detail_print.html:86
+#: activities/templates/activities/activity.html:111
+#: activities/templates/activities/activity_detail_print.html:66
 msgid "Attachments"
 msgstr "Allegati"
 
-#: activities/templates/activities/activity.html:112
+#: activities/templates/activities/activity.html:118
 msgid "Downloads"
 msgstr "Scarica"
 
-#: activities/templates/activities/activity.html:120
+#: activities/templates/activities/activity.html:126
 msgid "Share"
 msgstr "Condividi"
 
-#: activities/templates/activities/activity.html:144
+#: activities/templates/activities/activity.html:150
 msgid "Repositories"
 msgstr "Archivi"
 
-#: activities/templates/activities/activity.html:154
-#: activities/templates/activities/activity_detail_print.html:113
+#: activities/templates/activities/activity.html:160
+#: activities/templates/activities/activity_detail_print.html:93
 msgid "Citation"
 msgstr "Come citare"
 
-#: activities/templates/activities/activity.html:160
-#: activities/templates/activities/activity_detail_print.html:122
+#: activities/templates/activities/activity.html:166
+#: activities/templates/activities/activity_detail_print.html:102
 msgid "Acknowledgement"
 msgstr "Ringraziamenti"
 
-#: activities/templates/activities/activity_detail_print.html:103
+#: activities/templates/activities/activity.html:172
+msgid "Permalink"
+msgstr "Permalink"
+
+#: activities/templates/activities/activity_detail_print.html:31
+msgid "Author"
+msgstr "Autore"
+
+#: activities/templates/activities/activity_detail_print.html:83
 msgid "All Attachments"
 msgstr "Tutti gli allegati"
 
