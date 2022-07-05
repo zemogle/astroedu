@@ -119,8 +119,6 @@ msgid "Updated"
 msgstr "Aggiornato"
 
 #: activities/templates/activities/activity.html:48
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
 msgstr "Autore/i"
 
