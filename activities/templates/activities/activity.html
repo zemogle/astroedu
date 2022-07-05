@@ -40,9 +40,9 @@
 
 	<h1 class="detail">{{ page.title }}</h1>
   <div class="subtitle is-6 article-subtitle">
-    <strong>{% translate "Created" %}:</strong> {{ object.first_published_at|date:"Y-m-d" }}
-    {% if object.updated_date %}
-    <strong>{% translate "Updated" %}:</strong> {{ object.updated_date|date:"Y-m-d" }}
+    <strong>{% translate "Created" %}:</strong> {{ page.first_published_at|date:"Y-m-d" }}
+    {% if page.updated_date %}
+    <strong>{% translate "Updated" %}:</strong> {{ page.updated_date|date:"Y-m-d" }}
     {% endif %}
   </div>
   <div class="authors subtitle is-6 article-subtitle"><strong>{% translate "Author(s)" %}:</strong> {{ page.author_list }}</div>
