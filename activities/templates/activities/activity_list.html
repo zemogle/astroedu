@@ -5,13 +5,15 @@
 {% block content %}
 
 <div class="columns">
-  <div class="column is-two-thirds">
+  <div class="column is-four-fifths">
 {% if object_list %}
     <div class="archives_list columns is-multiline">
         {% for object in object_list %}
+        {% if object.live or request.user.is_authenticated %}
         <div class="column is-half">
         	{% include 'activities/activity_list_item.html' %}
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 {% else %}

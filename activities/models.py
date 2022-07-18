@@ -151,6 +151,15 @@ class AuthorInstitute(Orderable, models.Model):
             pass
         return ', '. join(display)
 
+    def author_name(self):
+        display = []
+        try:
+            display.append(self.author.name)
+        except:
+            pass
+        return ', '. join(display)
+
+
     class Meta:
         verbose_name = "author"
 
@@ -195,11 +204,11 @@ class Activity(Page):
 
     age = ParentalManyToManyField('activities.Age',blank=True)
     level = ParentalManyToManyField(Level, help_text='Specify at least one of "Age" and "Level". ', verbose_name='Education level', blank=True)
-    time = models.ForeignKey(Time, on_delete=models.SET_NULL, null=True)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, verbose_name='Group or individual activity')
-    supervised = models.ForeignKey(Supervised, on_delete=models.SET_NULL, null=True, verbose_name='Supervised for safety')
-    cost = models.ForeignKey(Cost, on_delete=models.SET_NULL, null=True, verbose_name='Cost per student')
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+    time = models.ForeignKey(Time, on_delete=models.SET_NULL, blank=True, null=True)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Group or individual activity')
+    supervised = models.ForeignKey(Supervised, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Supervised for safety')
+    cost = models.ForeignKey(Cost, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Cost per student')
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
     skills = ParentalManyToManyField(Skills, blank=True, verbose_name='core skills')
     learning = ParentalManyToManyField(Learning, blank=True, verbose_name='type of learning activity', help_text='Enquiry-based learning model')
 
@@ -288,10 +297,24 @@ class Activity(Page):
             return False
 
     @property
-    def author_list(self):
+    def sort_date(self):
+        if self.go_live_at and self.go_live_at > self.first_published_at +timedelta(seconds=3600):
+            return self.go_live_at
+        else:
+            return self.first_published_at
+
+    @property
+    def author_inst_list(self):
         result = []
         for item in self.author_institute.all():
             result.append(item.display_name())
+        return '; '.join(result)
+
+    @property
+    def author_list(self):
+        result = []
+        for item in self.author_institute.all():
+            result.append(item.author.name)
         return '; '.join(result)
 
     def citable_author_list(self):

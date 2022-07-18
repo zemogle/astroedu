@@ -1,5 +1,4 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags %}
-{% if object.live or request.user.is_authenticated %}
     <div class="list_item{% if not object.live %} unpublished{% endif %}">
 
     	<div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.localized.title }}</a></div>
@@ -52,4 +51,3 @@
         </div>
 
     </div>
-{% endif %}
