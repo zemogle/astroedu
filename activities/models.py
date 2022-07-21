@@ -288,6 +288,7 @@ class Activity(Page):
         ], heading="Activity Information"),
         MultiFieldPanel([
             FieldPanel('astro_category', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('category', widget=forms.CheckboxSelectMultiple),
             FieldPanel('location', widget=forms.Select),
             FieldPanel('keywords'),
             FieldPanel('age', widget=forms.CheckboxSelectMultiple),
