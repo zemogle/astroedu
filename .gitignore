@@ -18,3 +18,5 @@ staticfiles/
 data/
 .env-local
 dev.py
+__pycache__
+build.log
