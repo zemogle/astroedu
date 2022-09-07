@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 
 from .models import Activity, Collection
 

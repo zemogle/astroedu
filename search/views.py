@@ -3,7 +3,7 @@ from django.template.response import TemplateResponse
 
 from activities.models import Activity
 from wagtail.search.models import Query
-from wagtail.core.models import Page, Locale
+from wagtail.models import Page, Locale
 
 import logging
 

@@ -1,9 +1,9 @@
 from django.db import models
 
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.models import Page, Locale
+from wagtail.models import Page, Locale
 
 from activities.models import Activity, BodyBlock
 

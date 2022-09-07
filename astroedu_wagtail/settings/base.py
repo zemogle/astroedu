@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
     'wagtail.contrib.simple_translation',
     "wagtail.contrib.table_block",
     "wagtail.contrib.routable_page",

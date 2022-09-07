@@ -14,8 +14,8 @@ from django.core.management.base import CommandError, BaseCommand
 from django.utils.crypto import get_random_string
 from io import BytesIO
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Page, Site, Locale
-from wagtail.core.rich_text import RichText
+from wagtail.models import Page, Site, Locale
+from wagtail.rich_text import RichText
 from wagtail.images.models import Image
 from wagtail.documents.models import Document
 from wagtail.users.models import UserProfile

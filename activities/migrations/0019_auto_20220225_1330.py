@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='collection',
             name='description',
-            field=wagtail.core.fields.RichTextField(blank=True, verbose_name='brief description'),
+            field=wagtail.fields.RichTextField(blank=True, verbose_name='brief description'),
         ),
     ]

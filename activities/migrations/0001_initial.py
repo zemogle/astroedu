@@ -5,8 +5,8 @@ import django.db.models.deletion
 import modelcluster.fields
 import uuid
 import wagtail.contrib.table_block.blocks
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -24,21 +24,21 @@ class Migration(migrations.Migration):
             name='Activity',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('abstract', wagtail.core.fields.RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')),
+                ('abstract', wagtail.fields.RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')),
                 ('acknowledgement', models.CharField(blank=True, max_length=255)),
                 ('teaser', models.TextField(blank=True, help_text='Maximum 2 sentences! Maybe what and how?', verbose_name='Teaser')),
-                ('goals', wagtail.core.fields.RichTextField()),
-                ('objectives', wagtail.core.fields.RichTextField(verbose_name='Learning Objectives')),
-                ('evaluation', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?')),
-                ('materials', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Please indicate costs and/or suppliers if possible', verbose_name='List of material')),
-                ('background', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], verbose_name='Background Information')),
-                ('fulldesc', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], verbose_name='Full description of the activity')),
-                ('curriculum', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Please indicate which country', verbose_name='Connection to school curriculum')),
-                ('additional_information', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')),
-                ('conclusion', wagtail.core.fields.RichTextField()),
-                ('short_desc_material', wagtail.core.fields.RichTextField(blank=True, verbose_name='Short description of Suplementary material')),
-                ('further_reading', wagtail.core.fields.RichTextField(blank=True, default='', verbose_name='Further reading')),
-                ('reference', wagtail.core.fields.RichTextField(blank=True, verbose_name='References')),
+                ('goals', wagtail.fields.RichTextField()),
+                ('objectives', wagtail.fields.RichTextField(verbose_name='Learning Objectives')),
+                ('evaluation', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?')),
+                ('materials', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Please indicate costs and/or suppliers if possible', verbose_name='List of material')),
+                ('background', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], verbose_name='Background Information')),
+                ('fulldesc', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], verbose_name='Full description of the activity')),
+                ('curriculum', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Please indicate which country', verbose_name='Connection to school curriculum')),
+                ('additional_information', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))], blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')),
+                ('conclusion', wagtail.fields.RichTextField()),
+                ('short_desc_material', wagtail.fields.RichTextField(blank=True, verbose_name='Short description of Suplementary material')),
+                ('further_reading', wagtail.fields.RichTextField(blank=True, default='', verbose_name='Further reading')),
+                ('reference', wagtail.fields.RichTextField(blank=True, verbose_name='References')),
                 ('pdf', models.FileField(blank=True, help_text='PDF will be autogenerated after publication. Do not upload one.', null=True, upload_to='pdf/')),
                 ('code', models.CharField(help_text='The 4 digit code that identifies the Activity, in the format "YY##": year, folowed by sequential number.', max_length=4)),
                 ('doi', models.CharField(blank=True, help_text='Digital Object Identifier, in the format XXXX/YYYY. See http://www.doi.org/', max_length=50, verbose_name='DOI')),
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
             name='Institution',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('description', wagtail.core.fields.RichTextField(blank=True, help_text='Text to appear in Institution page', null=True)),
+                ('description', wagtail.fields.RichTextField(blank=True, help_text='Text to appear in Institution page', null=True)),
                 ('fullname', models.CharField(blank=True, help_text='If set, the full name will be used in some places instead of the name', max_length=255)),
                 ('country', models.CharField(blank=True, max_length=255, null=True)),
                 ('url', models.URLField(blank=True, max_length=255, null=True)),

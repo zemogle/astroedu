@@ -3,8 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import wagtail.contrib.table_block.blocks
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='NewsIndexPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('intro', wagtail.core.fields.RichTextField(blank=True, verbose_name='optional summary/teaser')),
+                ('intro', wagtail.fields.RichTextField(blank=True, verbose_name='optional summary/teaser')),
             ],
             options={
                 'abstract': False,
@@ -31,8 +31,8 @@ class Migration(migrations.Migration):
             name='NewsPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('summary', wagtail.core.fields.RichTextField(blank=True, verbose_name='optional summary/teaser')),
-                ('content', wagtail.core.fields.StreamField([('richtext', wagtail.core.blocks.RichTextBlock()), ('htmltext', wagtail.core.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))])),
+                ('summary', wagtail.fields.RichTextField(blank=True, verbose_name='optional summary/teaser')),
+                ('content', wagtail.fields.StreamField([('richtext', wagtail.blocks.RichTextBlock()), ('htmltext', wagtail.blocks.RawHTMLBlock()), ('table', wagtail.contrib.table_block.blocks.TableBlock(template='home/partials/table_template.html'))])),
                 ('image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
             ],
             options={

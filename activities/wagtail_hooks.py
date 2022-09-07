@@ -1,5 +1,5 @@
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from taggit.models import Tag
 
 

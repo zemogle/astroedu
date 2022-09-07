@@ -7,7 +7,7 @@ from django.conf import settings
 
 from django.core.management.base import CommandError, BaseCommand
 
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 
 
 from activities.models import *
