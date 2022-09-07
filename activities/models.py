@@ -559,6 +559,14 @@ class Collection(Page):
     def get_absolute_url(self):
         return reverse('collections:detail', args=[self.slug])
 
+    def get_context(self, request):
+        # Update context to include only published posts, ordered by reverse-chron
+        context = super().get_context(request)
+        activities = self.activity_pages.all().order_by('activity__title')
+
+        context['activities'] = activities
+        return context
+
 class CollectionPage(Orderable):
     page = ParentalKey(Collection, on_delete=models.CASCADE, related_name='activity_pages')
     activity = models.ForeignKey(Activity, related_name='+', on_delete=models.SET_NULL, null=True)
