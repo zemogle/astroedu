@@ -247,7 +247,7 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.name} at {self.institution}"
 
-class AuthorInstitute(Orderable, models.Model):
+class AuthorInstitute(Orderable):
     activity = ParentalKey('activities.Activity', related_name='author_institute', on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(Person, on_delete=models.CASCADE)
 
@@ -275,7 +275,7 @@ class AuthorInstitute(Orderable, models.Model):
 
     class Meta:
         verbose_name = "author"
-        ordering = ['author',]
+        ordering = ['sort_order','author',]
 
     panels = [
         SnippetChooserPanel('author'),
@@ -347,6 +347,9 @@ class Activity(Page):
             FieldPanel('image'),
         ], heading="Core Information"),
         MultiFieldPanel([
+            InlinePanel('author_institute', label="Author(s)"),
+        ], heading="Authors"),
+        MultiFieldPanel([
             FieldPanel('goals'),
             FieldPanel('objectives'),
             FieldPanel('evaluation'),
@@ -375,7 +378,6 @@ class Activity(Page):
             LocalizedSelectPanel('cost',widget_class=Select,),
             LocalizedSelectPanel('skills',widget_class=CheckboxSelectMultiple,),
             LocalizedSelectPanel('learning',widget_class=CheckboxSelectMultiple,),
-            InlinePanel('author_institute', label="Author(s)"),
         ], heading="Meta data")
     ]
 
@@ -385,7 +387,6 @@ class Activity(Page):
     ]
 
     # template = "activities/activity_detail_print.html"
-
     def age_range(self):
         age_ranges = [obj.name for obj in self.age.all()]
         return utils.beautify_age_range(age_ranges)

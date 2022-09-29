@@ -2,7 +2,7 @@ FROM python:3.8
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN apt-get update && \
-    apt-get install gettext libgettextpo-dev -y && \
+    apt-get install gettext libgettextpo-dev postgresql-client -y && \
     pip3 install -r requirements.txt
 COPY . /app
 

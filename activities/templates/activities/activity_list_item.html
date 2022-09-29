@@ -1,4 +1,4 @@
-{% load i18n static wagtailcore_tags wagtailimages_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags astroedu_extras %}
     <div class="list_item{% if not object.live %} unpublished{% endif %}">
 
     	<div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.localized.title }}</a></div>
@@ -32,7 +32,7 @@
 
             <div class="feat_col">
                 <div class="caption">{% trans "Age" %}</div>
-                <div class="value">{{ object.age_range }}</div>
+                <div class="value">{{ object.age|beautify_ages }}</div>
             </div>
 
             <div class="feat_col">

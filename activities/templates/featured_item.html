@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailimages_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n astroedu_extras %}
 	<div class="column featured_item">
 		<!-- <div class="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></div> -->
 		<div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.title }}</a></div>
@@ -25,7 +25,7 @@
 
 			<div class="col">
 				<div class="caption">{% translate "Age" %}</div>
-				<div class="value">{{ object.age_range }}</div>
+				<div class="value">{{ object.age|beautify_ages }}</div>
 			</div>
 
 			<div class="activity-link">

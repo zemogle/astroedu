@@ -5,12 +5,11 @@
 {% block content %}
 
 <div class="columns">
-  <div class="column is-four-fifths">
 {% if object_list %}
     <div class="archives_list columns is-multiline">
         {% for object in object_list %}
         {% if object.live or request.user.is_authenticated %}
-        <div class="column is-half">
+        <div class="column is-one-third">
         	{% include 'activities/activity_list_item.html' %}
         </div>
         {% endif %}
@@ -36,9 +35,8 @@
         {% endif %}
     </span>
   </div>
-</div>
 
-<div class="column">
+<!-- div class="column">
   <div class="section_meta">
     <div class="section_meta_inner">
       <div class="facet">
@@ -52,8 +50,7 @@
       <div style="clear: both"></div>
   </div></div>
 </div>
-<div style="clear: both;">
-</div>
+</div -->
 
 </div>
 
