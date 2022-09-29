@@ -192,26 +192,29 @@ class Supervised(TranslatableMixin):
 @register_snippet
 class Cost(TranslatableMixin):
     name = models.CharField(max_length=255)
+    order = models.PositiveSmallIntegerField()
     def __str__(self):
         return self.name
 
     class Meta:
-        ordering = ['name',]
+        ordering = ['order',]
         unique_together = ('translation_key', 'locale')
 
 @register_snippet
 class Age(TranslatableMixin):
     name = models.CharField(max_length=255)
+    order = models.PositiveSmallIntegerField()
     def __str__(self):
         return self.name
 
     class Meta:
-        ordering = ['name',]
+        ordering = ['order',]
         unique_together = ('translation_key', 'locale')
 
 @register_snippet
 class Time(TranslatableMixin):
     name = models.CharField(max_length=255)
+    order = models.PositiveSmallIntegerField()
     def __str__(self):
         return self.name
 
@@ -219,7 +222,7 @@ class Time(TranslatableMixin):
         verbose_name = "Duration"
         verbose_name_plural = "Duration"
         unique_together = ('translation_key', 'locale')
-        ordering = ['name',]
+        ordering = ['order',]
 
 @register_snippet
 class Institute(models.Model):
