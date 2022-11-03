@@ -303,7 +303,7 @@ class Activity(Page):
     materials = StreamField(BodyBlock, blank=True, verbose_name='List of material', help_text='Please indicate costs and/or suppliers if possible')
     background = StreamField(BodyBlock, verbose_name='Background Information', )
     fulldesc = StreamField(BodyBlock, verbose_name='Full description of the activity')
-    curriculum = StreamField(BodyBlock, blank=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
+    curriculum = StreamField(BodyBlock, blank=True, null=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
     additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
     conclusion = RichTextField(blank=True)
 
