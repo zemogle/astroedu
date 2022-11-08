@@ -20,6 +20,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.api import APIField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
@@ -382,6 +383,14 @@ class Activity(Page):
             LocalizedSelectPanel('skills',widget_class=CheckboxSelectMultiple,),
             LocalizedSelectPanel('learning',widget_class=CheckboxSelectMultiple,),
         ], heading="Meta data")
+    ]
+
+    api_fields = [
+        APIField('title'),
+        APIField('teaser'),
+        APIField('theme'),
+        APIField('pdf'),
+        APIField('image')
     ]
 
     override_translatable_fields = [

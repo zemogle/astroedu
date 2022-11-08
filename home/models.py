@@ -1,5 +1,6 @@
 from django.db import models
 
+from wagtail.api import APIField
 from wagtail.fields import RichTextField, StreamField
 from wagtail.admin.panels import FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -29,6 +30,12 @@ class ContentPage(Page):
         ImageChooserPanel('image'),
         FieldPanel('summary'),
         StreamFieldPanel('content'),
+    ]
+
+    api_fields = [
+        APIField('title'),
+        APIField('summary'),
+        APIField('content'),
     ]
 
 class NewsIndexPage(Page):

@@ -1,6 +1,6 @@
 Django>=3.2,<4
 uwsgi==2.0.19.1
-wagtail==3.0.2
+wagtail==3.0.3
 markdown
 beautifulsoup4==4.8.2
 wagtail-localize==1.2

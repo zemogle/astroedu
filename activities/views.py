@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from wagtail.models import Locale
+from wagtail.api.v2.views import BaseAPIViewSet
 
 from .models import Activity, Collection
 
@@ -41,3 +42,6 @@ class CollectionListView(ListView):
 
     def get_queryset(self):
         return Collection.objects.filter(locale=Locale.get_active())
+
+class ActivityAPIView(BaseAPIViewSet):
+    model = Activity

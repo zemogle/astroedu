@@ -68,6 +68,9 @@ INSTALLED_APPS = [
     "wagtail.contrib.table_block",
     "wagtail.contrib.routable_page",
 
+    'wagtail.api.v2',
+    'rest_framework',
+
     'modelcluster',
     'taggit',
 
