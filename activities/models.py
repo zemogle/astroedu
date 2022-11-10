@@ -339,7 +339,7 @@ class LevelSerializer(serializers.ModelSerializer):
 
 class CatSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = SciCategory
         fields = (
             "name",
         )
@@ -374,7 +374,7 @@ class Activity(Page):
 
 # Meta data
     astro_category = ParentalManyToManyField(Category, blank=True, verbose_name='Old Scientific Categories')
-    category = ParentalManyToManyField(SciCategory, blank=True, verbose_name='New Scientific Categories')
+    category = ParentalManyToManyField(SciCategory, blank=True, verbose_name='Scientific Categories')
 
     age = ParentalManyToManyField('activities.Age',blank=True)
     level = ParentalManyToManyField(Level, help_text='Specify at least one of "Age" and "Level". ', verbose_name='Education level', blank=True)
@@ -424,7 +424,6 @@ class Activity(Page):
             InlinePanel('attachment_documents', label="Attachment(s)"),
         ], heading="Activity Information"),
         MultiFieldPanel([
-            LocalizedSelectPanel('astro_category',widget_class=CheckboxSelectMultiple,),
             LocalizedSelectPanel('category',widget_class=CheckboxSelectMultiple,),
             FieldPanel('location', widget=forms.Select),
             LocalizedSelectPanel('location',widget_class=Select,),
@@ -447,7 +446,7 @@ class Activity(Page):
         APIField('pdf'),
         APIField('image'),
         APIField('author_institute'),
-        APIField('astro_category', serializer=CatSerializer(many=True)),
+        APIField('category', serializer=CatSerializer(many=True)),
         APIField('doi'),
         APIField('level', serializer=LevelSerializer(many=True)),
         APIField('age', serializer=AgeSerializer(many=True))
@@ -476,7 +475,7 @@ class Activity(Page):
         return ', '.join(learning)
 
     def categories_joined(self):
-        astro_category = [obj.name for obj in self.astro_category.all()]
+        astro_category = [obj.name for obj in self.category.all()]
         return ', '.join(astro_category)
 
     @property
@@ -559,7 +558,7 @@ class Activity(Page):
 
     def meta(self):
         return [
-                {'code':'astro_category', 'text': _('Category'), 'content':self.categories_joined()},
+                {'code':'category', 'text': _('Category'), 'content':self.categories_joined()},
                 {'code':'location', 'text': _('Location'), 'content':self.location},
                 {'code':'age', 'text': _('Age'), 'content':self.age_range()},
                 {'code':'level', 'text': _('Level'), 'content':self.levels_joined()},
