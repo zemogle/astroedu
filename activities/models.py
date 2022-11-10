@@ -34,6 +34,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from weasyprint import HTML, CSS
 
+from rest_framework import serializers
+
 from activities import utils
 
 
@@ -238,6 +240,13 @@ class Institute(models.Model):
     class Meta:
         ordering = ['name',]
 
+class InstituteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institute
+        fields = (
+            "name",
+        )
+
 @register_snippet
 class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
@@ -245,11 +254,26 @@ class Person(models.Model):
     email = models.EmailField(blank=False, max_length=255)
     institution = models.ForeignKey(Institute, on_delete=models.CASCADE, blank=True, null=True)
 
+    api_fields = [
+            APIField('name'),
+             APIField('institution', serializer=InstituteSerializer),
+        ]
+
     class Meta:
         ordering = ['name']
 
+
     def __str__(self):
         return f"{self.name} at {self.institution}"
+
+class AuthorSerializer(serializers.ModelSerializer):
+    institute_name = serializers.CharField(source='institution.name')
+    class Meta:
+        model = Person
+        fields = (
+            "name",
+            "institute_name"
+        )
 
 class AuthorInstitute(Orderable):
     activity = ParentalKey('activities.Activity', related_name='author_institute', on_delete=models.CASCADE, null=True)
@@ -285,9 +309,40 @@ class AuthorInstitute(Orderable):
         SnippetChooserPanel('author'),
     ]
 
+    api_fields = [
+         APIField('author', serializer=AuthorSerializer()),
+    ]
+
     def __str__(self):
         return self.display_name()
 
+class AuthorInstSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AuthorInstitute
+        fields = (
+            "author",
+        )
+
+class AgeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Age
+        fields = (
+            "name",
+        )
+
+class LevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Level
+        fields = (
+            "name",
+        )
+
+class CatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = (
+            "name",
+        )
 
 class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
@@ -390,7 +445,12 @@ class Activity(Page):
         APIField('teaser'),
         APIField('theme'),
         APIField('pdf'),
-        APIField('image')
+        APIField('image'),
+        APIField('author_institute'),
+        APIField('astro_category', serializer=CatSerializer(many=True)),
+        APIField('doi'),
+        APIField('level', serializer=LevelSerializer(many=True)),
+        APIField('age', serializer=AgeSerializer(many=True))
     ]
 
     override_translatable_fields = [
