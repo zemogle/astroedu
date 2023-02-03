@@ -12,3 +12,4 @@ boto3==1.16.4
 WeasyPrint==52.5
 django-weasyprint==1.1.0
 django-storage-url==0.9.0
+django-countries==7.5.1

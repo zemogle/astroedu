@@ -14,6 +14,7 @@ from django.forms.models import ModelChoiceIterator
 from django.forms.widgets import (CheckboxSelectMultiple, RadioSelect, Select,
                                   SelectMultiple)
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -240,9 +241,25 @@ class Institute(models.Model):
     class Meta:
         ordering = ['name',]
 
+@register_snippet
+class Organization(TranslatableMixin, models.Model):
+    name = models.CharField(blank=False, max_length=255)
+    fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
+    country = CountryField(blank=True)
+    url = models.URLField(blank=True, null=True, max_length=255 )
+    about = RichTextField(blank=True)
+    slug = models.CharField(blank=True, max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        unique_together = [("translation_key", "locale")]
+        ordering = ['name',]
+
 class InstituteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Institute
+        model = Organization
         fields = (
             "name",
         )
@@ -252,7 +269,7 @@ class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
     citable_name = models.CharField(blank=True, max_length=255, help_text='Required for astroEDU activities')
     email = models.EmailField(blank=False, max_length=255)
-    institution = models.ForeignKey(Institute, on_delete=models.CASCADE, blank=True, null=True)
+    org = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
 
     api_fields = [
             APIField('name'),
@@ -349,6 +366,7 @@ class Activity(Page):
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
     theme = models.CharField(blank=True, max_length=40, help_text='Use top level AVM metadata')
     keywords = ClusterTaggableManager(through=Keyword, blank=True, verbose_name="Keywords")
+    countries = CountryField(multiple=True, blank=True, help_text='Activity originally developed in')
 
     acknowledgement = models.CharField(blank=True, max_length=255)
     teaser = models.TextField(blank=True, verbose_name='Teaser', help_text='Maximum 2 sentences! Maybe what and how?')
@@ -407,6 +425,7 @@ class Activity(Page):
         ], heading="Core Information"),
         MultiFieldPanel([
             InlinePanel('author_institute', label="Author(s)"),
+            FieldPanel('countries')
         ], heading="Authors"),
         MultiFieldPanel([
             FieldPanel('goals'),
