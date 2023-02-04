@@ -281,7 +281,7 @@ class Person(models.Model):
 
 
     def __str__(self):
-        return f"{self.name} at {self.institution}"
+        return f"{self.name} at {self.org}"
 
 class AuthorSerializer(serializers.ModelSerializer):
     institute_name = serializers.CharField(source='institution.name')
