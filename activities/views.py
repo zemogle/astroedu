@@ -4,9 +4,20 @@ from django.views.generic import ListView, DetailView
 from wagtail.models import Locale
 from wagtail.api.v2.views import BaseAPIViewSet
 
-from .models import Activity, Collection
+from .models import Activity, Collection, Organization
 
 import logging
+
+
+class OrganizationListView(ListView):
+    model = Organization
+
+    def get_queryset(self):
+        return Organization.objects.filter(locale=Locale.get_active()).order_by('name')
+
+class OrganizationDetail(DetailView):
+    model = Organization
+    template_name = 'activities/organization.html'
 
 class ActivityListView(ListView):
     model = Activity

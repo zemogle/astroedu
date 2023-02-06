@@ -10,7 +10,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 from .api import api_router
 
 from search import views as search_views
-from activities.views import CollectionListView, ActivityListView, ActivityDetailView
+from activities.views import CollectionListView, ActivityListView, ActivityDetailView, \
+    OrganizationListView, OrganizationDetail
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -33,5 +34,7 @@ urlpatterns += i18n_patterns(
     path('activities/',ActivityListView.as_view(), name='activitylist'),
     path('activities/<slug:code>/<slug:slug>/', ActivityDetailView.as_view(), name="activitydetail"),
     path('activities/<slug:code>/', ActivityDetailView.as_view(), name="activitydetail_short"),
+    path('partners/', OrganizationListView.as_view(), name='orglist'),
+    path('partners/<slug:slug>/', OrganizationDetail.as_view(), name='orgdetail'),
     path("", include(wagtail_urls)),
 )

@@ -248,13 +248,13 @@ class Organization(TranslatableMixin, models.Model):
     country = CountryField(blank=True)
     url = models.URLField(blank=True, null=True, max_length=255 )
     about = RichTextField(blank=True)
-    slug = models.CharField(blank=True, max_length=255)
+    slug = models.CharField(max_length=255, help_text='URL slug for this page e.g. my-organization')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        unique_together = [("translation_key", "locale")]
+        unique_together = [("translation_key", "locale"), ("slug", "locale")]
         ordering = ['name',]
 
 class InstituteSerializer(serializers.ModelSerializer):
@@ -284,7 +284,7 @@ class Person(models.Model):
         return f"{self.name} at {self.org}"
 
 class AuthorSerializer(serializers.ModelSerializer):
-    institute_name = serializers.CharField(source='institution.name')
+    institute_name = serializers.CharField(source='org.name')
     class Meta:
         model = Person
         fields = (
