@@ -1,23 +1,22 @@
 {% load i18n static wagtailcore_tags wagtailimages_tags astroedu_extras %}
     <div class="list_item{% if not object.live %} unpublished{% endif %}">
 
-    	<div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.localized.title }}</a></div>
-
-        <div class="metadata">
-            DATE: <b style="bold">{{ object.first_published_at|date:"Y-m-d" }}</b>
-            <a href="{% url 'activitydetail' object.code object.slug %}"><img src="{% static 'designimages/metaseparator.png' %}" alt="" /></a>
-            BY:  <b>{{ object.author_list}}</b>
-        </div>
-
         <div class="description">
           <a href="{% url 'activitydetail' object.specific.code object.specific.slug %}">
             <figure class="image">
               {% image object.specific.image fill-368x180 %}
             </figure>
-            <div class="list_item_short">{{ object.localized.teaser }}</div>
-
           </a>
         </div>
+
+        <div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.localized.title }}</a></div>
+        <div class="list_item_short">{{ object.localized.teaser }}</div>
+
+          <div class="metadata">
+              DATE: <b style="bold">{{ object.first_published_at|date:"Y-m-d" }}</b>
+              <a href="{% url 'activitydetail' object.code object.slug %}"><img src="{% static 'designimages/metaseparator.png' %}" alt="" /></a>
+              BY:  <b>{{ object.author_list}}</b>
+          </div>
 
         <div class="metadata_bottom">
 

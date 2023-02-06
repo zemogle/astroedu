@@ -1,18 +1,17 @@
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 <div class="column is-one-third">
-    <div class="list_item">
-
+        <div class="list_item">
               <a href="{% url 'orgdetail' object.slug  %}">
-                <figure class="image">
-                  {% image object.image fill-320x200 %}
+                <figure class="image is-16by9">
+                  {% image object.logo fill-320x200 %}
                 </figure>
               </a>
-              <div class=""><a href="{% url 'orgdetail' object.slug %}">{{ object.name }}</a></div>
 
         <div class="metadata_bottom">
-            <p>{{ object.specific.description }}</p>
+            <div class="title_col is-flex is-vcentered">
+              <a href="{% url 'orgdetail' object.slug %}">{{ object.name }}</a>
+            </div>
+            <div class="link_col"><a href="{% url 'orgdetail' object.slug  %}"><img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" /></a></div>
         </div>
-        <div class="activity-link"><a href="{% url 'orgdetail' object.slug  %}"><img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" /></a></div>
-        <div class="collection_footer"><img src="{% static 'designimages/collection_footer.png' %}" alt=""/></div>
-    </div>
+      </div>
   </div>

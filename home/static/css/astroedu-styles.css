@@ -18,6 +18,10 @@ ol { margin-left: 35px; }
 ul.unbulleted {
     margin-left: 0px;
 }
+
+.title {
+  font-size: 1.75rem;
+}
 #page-wrapper {
   flex: 1;
 }
@@ -188,10 +192,9 @@ header nav {
 }
 
 .featured_item .title {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 .featured_item .title a {
-    font-size: 40px;
     font-weight: bold;
     color: #6c6c70;
     text-decoration: none;
@@ -286,6 +289,14 @@ header nav {
 .list_item .metadata_bottom .feat_col {
     width: 15%;
 }
+.list_item .metadata_bottom .title_col {
+    border-bottom: 2px solid #fce3c4;
+    width: 90%;
+}
+
+.list_item .metadata_bottom .title_col a {
+  font-size:1.5rem;
+}
 .list_item .metadata_bottom .link_col {
     width: 10%;
     min-height: 90px;
@@ -302,7 +313,7 @@ header nav {
 .list_item .list_item_short {
     font-size: 14px;
     font-weight: 500;
-    margin-top: 20px;
+    margin-bottom: 15px;
 }
 .list_item .metadata_bottom .caption {
     margin-top: 16px;

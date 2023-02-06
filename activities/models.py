@@ -230,6 +230,7 @@ class Time(TranslatableMixin):
 
 @register_snippet
 class Organization(TranslatableMixin, models.Model):
+    logo = models.ForeignKey('wagtailimages.Image', help_text="Logo or other image", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     name = models.CharField(blank=False, max_length=255)
     fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
     country = CountryField(blank=True)
@@ -550,10 +551,10 @@ class Activity(Page):
     @property
     def sections(self):
         return [
+                {'code':'materials', 'text':_('Materials'),'content':self.materials,'stream':True},
                 {'code':'goals', 'text':_('Goals'),'content':self.goals,'stream':False},
                 {'code':'objectives','text':_('Learning Objectives'),'content': self.objectives, 'stream':False},
                 {'code':'background', 'text':_('Background'),'content':self.background,'stream':True},
-                {'code':'materials', 'text':_('Materials'),'content':self.materials,'stream':True},
                 {'code':'fulldesc', 'text':_('Full Description'), 'content':self.fulldesc,'stream':True},
                 {'code':'evaluation', 'text':_('Evaluation'), 'content':self.evaluation,'stream':True},
                 {'code':'curriculum', 'text':_('Curriculum'), 'content':self.curriculum,'stream':True},
