@@ -229,19 +229,6 @@ class Time(TranslatableMixin):
         ordering = ['order',]
 
 @register_snippet
-class Institute(models.Model):
-    name = models.CharField(blank=False, max_length=255)
-    fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
-    country = models.CharField(max_length=255, blank=True, null=True)
-    url = models.URLField(blank=True, null=True, max_length=255 )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name',]
-
-@register_snippet
 class Organization(TranslatableMixin, models.Model):
     name = models.CharField(blank=False, max_length=255)
     fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
