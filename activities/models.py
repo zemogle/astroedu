@@ -238,6 +238,13 @@ class Organization(TranslatableMixin, models.Model):
     about = RichTextField(blank=True)
     slug = models.CharField(max_length=255, help_text='URL slug for this page e.g. my-organization')
 
+    @property
+    def title(self):
+        if self.fullname:
+            return self.fullname
+        else:
+            return self.name
+
     def __str__(self):
         return self.name
 

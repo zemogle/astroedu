@@ -1,10 +1,45 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n wagtailimages_tags %}
+
+{% block site_title %}{% trans "Partner" %} - {{object.name}} | astroEDU {% endblock %}
 
 
 {% block content %}
 
-<div class="columns">
-  </div>
+<h1 class="title">{% translate 'Partners'%}</h1>
+<h2>{{object.title}}</h2>
 
-  {% endblock %}
+    <div class="picture">
+      {% if object.url %}
+      <a href="{{ object.url }}">
+          {% image object.logo max-400x400 %}
+      </a>
+      {% else %}
+        {% image object.logo max-400x400 %}
+      {% endif %}
+    </div>
+      {% if object.about %}
+      <h3>{% translate 'About'%}</h3>
+      {{object.about}}
+      {% endif %}
+      {% for person in people %}
+      <h3>{% translate 'Author(s)' %}</h3>
+      {{person}}{% if not forloop.last%},{% endif%}
+      {% endfor %}
+
+
+{% if activities %}
+<h3>{% translate 'Activities' %}</h3>
+    <div class="columns is-multiline">
+        {% for object in activities %}
+        {% if object.live or request.user.is_authenticated %}
+        <div class="column is-one-third">
+        	{% include 'activities/activity_list_item.html' %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>{% translate 'No activities are available' %}</p>
+{% endif %}
+{% endblock %}
