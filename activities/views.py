@@ -19,6 +19,12 @@ class OrganizationDetail(DetailView):
     model = Organization
     template_name = 'activities/organization.html'
 
+    def get_object(self, queryset=None):
+        try:
+            return Organization.objects.get(locale=Locale.get_active(),slug=self.kwargs.get("slug"))
+        except Organization.DoesNotExist:
+            raise Http404(f"This partner is not available in {Locale.get_active()}")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         activity_list = AuthorInstitute.objects.filter(author__org=self.object).values_list('activity', flat=True)
