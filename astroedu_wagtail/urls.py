@@ -31,7 +31,7 @@ if settings.DEBUG:
 
 urlpatterns += i18n_patterns(
     path('search/', search_views.search, name='search'),
-    path('activities/',ActivityListView.as_view(), name='activitylist'),
+    # path('activities/',ActivityListView.as_view(), name='activitylist'),
     path('activities/<slug:code>/<slug:slug>/', ActivityDetailView.as_view(), name="activitydetail"),
     path('activities/<slug:code>/', ActivityDetailView.as_view(), name="activitydetail_short"),
     path('partners/', OrganizationListView.as_view(), name='orglist'),

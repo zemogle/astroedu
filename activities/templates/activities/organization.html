@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n wagtailimages_tags %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block site_title %}{% trans "Partner" %} - {{object.name}} | astroEDU {% endblock %}
 
@@ -12,15 +12,15 @@
     <div class="picture">
       {% if object.url %}
       <a href="{{ object.url }}">
-          {% image object.logo max-400x400 %}
+          {% image object.logo max-200x400 %}
       </a>
       {% else %}
-        {% image object.logo max-400x400 %}
+        {% image object.logo max-200x400 %}
       {% endif %}
     </div>
       {% if object.about %}
       <h3>{% translate 'About'%}</h3>
-      {{object.about}}
+      {{object.about|richtext}}
       {% endif %}
       <h3>{% translate 'Author(s)' %}</h3>
       {% for person in people %}

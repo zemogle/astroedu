@@ -104,6 +104,25 @@ class ActivityHome(RoutablePageMixin, Page):
                 context_overrides={'page': activity},
                 template="activities/activity.html",)
 
+class ActivityIndexPage(Page):
+    about = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('about')
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        activities = Activity.objects.filter(locale=Locale.get_active()).order_by('-first_published_at')
+        # Filter by tag
+        tag = request.GET.get('tag')
+        if tag:
+            activities = activities.filter(keywords__name=tag)
+            context['tag'] = tag
+
+        context['activities'] = activities
+        return context
+
 class Keyword(TranslatableMixin, TaggedItemBase):
     content_object = ParentalKey('Activity', on_delete=models.CASCADE, related_name='keyword_items')
 

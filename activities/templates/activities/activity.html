@@ -93,7 +93,7 @@
   				<div class="content">
             <div class="tags">
             {% for tag in page.keywords.all %}
-                <span class="tag">{{ tag }}</span>
+                <span class="tag"><a href="{{ page.get_parent.url }}?tag={{ tag }}">{{ tag }}</a></span>
             {% endfor %}
             </div>
           </div>

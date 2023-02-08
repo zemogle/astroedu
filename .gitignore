@@ -1,4 +1,4 @@
-q# macOS
+# macOS
 .DS_Store
 .DS_Store?
 ._*
@@ -20,3 +20,4 @@ data/
 dev.py
 __pycache__
 build.log
+*.dump

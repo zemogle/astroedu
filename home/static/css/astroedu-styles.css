@@ -154,7 +154,6 @@ header nav {
 .featured_item .metadata_bottom .col {
     width: 39%;
     margin-left: 0;
-    margin-right: 10px;
     min-height: 110px;
     border-bottom: 2px solid #cccecf;
 }
@@ -212,7 +211,6 @@ header nav {
 }
 .list_item .metadata_bottom,
 .featured_item .metadata_bottom {
-    margin-top: 44px;
     font-size: 14px;
     font-weight: bold;
     display:flex;
