@@ -30,5 +30,6 @@ class Command(BaseCommand):
                     person.save()
                 else:
                     continue
-            except:
-                print(person, person.institution.fullname)
+            except Exception as e:
+                print(e)
+                print(person, person.institution.name)

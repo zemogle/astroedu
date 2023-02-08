@@ -259,6 +259,7 @@ class InstituteSerializer(serializers.ModelSerializer):
             "name",
         )
 
+
 @register_snippet
 class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
