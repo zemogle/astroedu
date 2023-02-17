@@ -6,6 +6,5 @@ register = template.Library()
 
 @register.filter
 def beautify_ages(age):
-    print(age)
     age_ranges = [obj.name for obj in age.all()]
     return beautify_age_range(age_ranges)

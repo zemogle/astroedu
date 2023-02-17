@@ -50,6 +50,11 @@ def beautify_age_range(age_ranges):
     age_max = ''
     error = False
 
+    # Sort age ranges
+    convert = lambda text: int(text) if text.isdigit() else text.lower()
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    age_ranges = sorted(age_ranges, key=alphanum_key)
+
     for item in age_ranges:
         if ' - ' in item:
             x, y = item.split(' - ')
