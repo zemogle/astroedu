@@ -267,16 +267,14 @@ class Organization(TranslatableMixin, models.Model):
     def __str__(self):
         return self.name
 
+    api_fields = [
+            APIField('name'),
+        ]
+
     class Meta:
         unique_together = [("translation_key", "locale"), ("slug", "locale")]
         ordering = ['name',]
 
-class InstituteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Organization
-        fields = (
-            "name",
-        )
 
 
 @register_snippet
@@ -286,26 +284,16 @@ class Person(models.Model):
     email = models.EmailField(blank=False, max_length=255)
     org = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
 
-    api_fields = [
-            APIField('name'),
-             APIField('institution', serializer=InstituteSerializer),
-        ]
-
     class Meta:
         ordering = ['name']
 
 
     def __str__(self):
-        return f"{self.name} at {self.org}"
+        if self.org:
+            return f"{self.name}, {self.org}"
+        else:
+            return f"{self.name}"
 
-class AuthorSerializer(serializers.ModelSerializer):
-    institute_name = serializers.CharField(source='org.name')
-    class Meta:
-        model = Person
-        fields = (
-            "name",
-            "institute_name"
-        )
 
 class AuthorInstitute(Orderable):
     activity = ParentalKey('activities.Activity', related_name='author_institute', on_delete=models.CASCADE, null=True)
@@ -341,14 +329,11 @@ class AuthorInstitute(Orderable):
         SnippetChooserPanel('author'),
     ]
 
-    api_fields = [
-         APIField('author', serializer=AuthorSerializer()),
-    ]
-
     def __str__(self):
         return self.display_name()
 
 class AuthorInstSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField()
     class Meta:
         model = AuthorInstitute
         fields = (
@@ -358,23 +343,47 @@ class AuthorInstSerializer(serializers.ModelSerializer):
 class AgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Age
-        fields = (
-            "name",
-        )
+        fields = ("name",)
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
-        fields = (
-            "name",
-        )
+        fields = ("name",)
+
+class LearningSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Learning
+        fields = ("name",)
+
+class CostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cost
+        fields = ("name",)
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ("name",)
+
+class SupervisedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supervised
+        fields = ("name",)
+
+class TimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Time
+        fields = ("name",)
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ("name",)
 
 class CatSerializer(serializers.ModelSerializer):
     class Meta:
         model = SciCategory
-        fields = (
-            "name",
-        )
+        fields = ("name",)
 
 class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
@@ -479,11 +488,18 @@ class Activity(Page):
         APIField('theme'),
         APIField('pdf'),
         APIField('image'),
-        APIField('author_institute'),
+        APIField('author_institute', serializer=AuthorInstSerializer(many=True)),
         APIField('category', serializer=CatSerializer(many=True)),
         APIField('doi'),
         APIField('level', serializer=LevelSerializer(many=True)),
-        APIField('age', serializer=AgeSerializer(many=True))
+        APIField('age', serializer=AgeSerializer(many=True)),
+        APIField('learning', serializer=LearningSerializer(many=True)),
+        APIField('cost', serializer=CostSerializer()),
+        APIField('time', serializer=TimeSerializer()),
+        APIField('supervised', serializer=SupervisedSerializer()),
+        APIField('location', serializer=LocationSerializer()),
+        APIField('group', serializer=GroupSerializer()),
+
     ]
 
     override_translatable_fields = [
