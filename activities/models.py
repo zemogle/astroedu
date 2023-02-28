@@ -276,7 +276,6 @@ class Organization(TranslatableMixin, models.Model):
         ordering = ['name',]
 
 
-
 @register_snippet
 class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
@@ -383,6 +382,11 @@ class LocationSerializer(serializers.ModelSerializer):
 class CatSerializer(serializers.ModelSerializer):
     class Meta:
         model = SciCategory
+        fields = ("name",)
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skills
         fields = ("name",)
 
 class Activity(Page):
@@ -499,6 +503,7 @@ class Activity(Page):
         APIField('supervised', serializer=SupervisedSerializer()),
         APIField('location', serializer=LocationSerializer()),
         APIField('group', serializer=GroupSerializer()),
+        APIField('skills', serializer=SkillSerializer(many=True)),
 
     ]
 
