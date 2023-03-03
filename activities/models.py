@@ -306,7 +306,7 @@ class AuthorInstitute(Orderable):
         except:
             pass
         try:
-            display.append(self.author.institution.name)
+            display.append(self.author.org.name)
         except:
             pass
         return ', '. join(display)

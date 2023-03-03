@@ -332,6 +332,12 @@ header nav {
   text-align: right;
 }
 
+/* Big Icons */
+
+.bigicon strong {
+  font-size: 1.5rem;
+}
+
 /* background images */
 body {
     background-image: url("../designimages/stars_bg.png");
@@ -406,6 +412,14 @@ button.search_btn {
     border: 0;
     cursor: default !important;
     float: left;
+}
+
+.yellow-bg {
+  background-color: #F8B132;
+}
+
+.grey {
+  color: #6C6C70
 }
 
 /* details & collections */
@@ -520,4 +534,20 @@ span.close-btn img {
 }
 .sponsor-list li:first-child {
     margin-left: 0;
+}
+@media screen and (max-width: 1023px) {
+  .section_feature {
+      display:none;
+  }
+  .bigicon strong {
+    font-size: 1rem;
+  }
+  .footer .container {
+      background-image:none;
+    }
+}
+@media screen and (min-width: 1024px) {
+  .section_feature {
+      display:block;
+  }
 }

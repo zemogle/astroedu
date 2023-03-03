@@ -120,41 +120,33 @@
 
 	<section class="section layout_resources">
 		<div class="container">
-      <div class="columns">
-			<div class="column bigicon">
+      <div class="columns is-variable is-8">
+			<div class="column is-one-third bigicon">
 				<a href="/{{LANGUAGE_CODE}}/collections/">
-					<img src="
-					{% if LANGUAGE_CODE == 'en' %}
-						{% static 'designimages/bigicon_collections.svg' %}
-					{% elif LANGUAGE_CODE == 'it' %}
-						{% static 'designimages/attivita_a_tema.svg' %}
-					{% endif %}
-					" alt="{% translate "Activity Collections" %} " />
+          <figure class="image section_feature px-6 pb-4">
+					<img src="{% static 'designimages/bigicon_collections.png' %}" alt="{% translate "Activity Collections" %}" />
+        </figure>
 				</a>
+        <a href="/{{LANGUAGE_CODE}}/collections/" class="button py-2 is-fullwidth is-rounded yellow-bg grey"><strong>{% translate "Activity Collections" %}</strong></a>
 			</div>
 
-			<div class="column bigicon">
+			<div class="column is-one-third bigicon">
 				<a href="{% slugurl 'activities' %}">
-					<img src="
-					{% if LANGUAGE_CODE == 'en' %}
-						{% static 'designimages/bigicon_activities.svg' %}
-					{% elif LANGUAGE_CODE == 'it' %}
-						{% static 'designimages/vedi_tutte_le_attivita.svg' %}
-					{% endif %}
-					" alt="{% translate "See All Activities" %}" />
+          <figure class="image section_feature px-6 pb-4">
+					<img src="{% static 'designimages/bigicon_activities.png' %}" alt="{% translate "See All Activities" %}"/>
+        </figure>
 				</a>
+        <a href="{% slugurl 'activities' %}" class="button py-2 is-fullwidth is-rounded yellow-bg grey"><strong>{% translate "See All Activities" %}</strong></a>
 			</div>
 
-			<div class="column bigicon">
+			<div class="column is-one-third bigicon">
 				<a href="/{{LANGUAGE_CODE}}/submission/">
-					<img src="
-					{% if LANGUAGE_CODE == 'en' %}
-						{% static 'designimages/bigicon_submit.svg' %}
-					{% elif LANGUAGE_CODE == 'it' %}
-						{% static 'designimages/sottometti_la_tua_attivita.svg' %}
-					{% endif %}
-					" alt="{% translate "Submit Your Activities" %}" />
+          <figure class="image section_feature px-6 pb-4">
+					<img src="{% static 'designimages/bigicon_submit.png' %}" alt="{% translate "Submit Your Activities" %}" />
+        </figure>
 				</a>
+        <a href="/{{LANGUAGE_CODE}}/submission/" class="button py-2 is-fullwidth is-rounded yellow-bg grey"><strong>{% translate "Submit Your Activities" %}</strong></a>
+
 			</div>
 
 			</div>
@@ -187,13 +179,13 @@
     			</div>
         </div>
 
-        <div class="footer_profiles">
+        <div class="column">
     			<a href="https://www.facebook.com/iauastroedu"><img src="{% static 'designimages/sections-orange/social_facebook.svg' %}" alt="astroEDU on Facebook" /></a>
     			&nbsp;
     			<a href="https://twitter.com/IAUastroEDU"><img src="{% static 'designimages/sections-orange/social_twitter.svg' %}" alt="astroEDU on Twitter" /></a>
     		</div>
 
-		<div class="column">
+		<div class="column is-half">
 			<div class="sponsor-list">
 				<ul>
 					<li><a href="https://www.iau.org" title="IAU" target="_blank"><img src="{% static 'designimages/sponsors/iau_logo.png' %}" alt="sponsor: IAU" /></a></li>
