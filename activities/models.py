@@ -31,9 +31,11 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import Document
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from weasyprint import HTML, CSS
+
 
 from rest_framework import serializers
 
@@ -510,6 +512,13 @@ class Activity(Page):
     override_translatable_fields = [
         SynchronizedField("slug"),
         SynchronizedField("code"),
+    ]
+
+    search_fields = Page.search_fields + [ # Inherit search_fields from Page
+        index.SearchField('teaser'),
+        index.SearchField('theme'),
+        index.SearchField('background'),
+        index.SearchField('fulldesc'),
     ]
 
     # template = "activities/activity_detail_print.html"

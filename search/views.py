@@ -4,6 +4,7 @@ from django.template.response import TemplateResponse
 from activities.models import Activity
 from wagtail.search.models import Query
 from wagtail.models import Page, Locale
+from wagtail.search.backends import get_search_backend
 
 import logging
 
@@ -13,7 +14,8 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Activity.objects.live().filter(locale=Locale.get_active()).search(search_query)
+        s = get_search_backend()
+        search_results = s.search(search_query, Activity.objects.live().filter(locale=Locale.get_active()))
         logging.error('here')
     else:
         search_results = Activity.objects.live()

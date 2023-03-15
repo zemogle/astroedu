@@ -1,13 +1,13 @@
 $(document).ready(function () {
 	// svg icon fallbacks
 	svgeezy.init(false, 'png');
-	
+
 	// $.removeCookie('eu-warning'); // uncomment for debugging
 	if ( $.cookie('eu-warning') == undefined ) {
 		$('#cookie-policy').delay(500).animate({marginBottom: '0'}, 500);
 		$('span.close-btn').on('click', function() {
 			$('#cookie-policy').animate({marginBottom: '-50px'}, 200);
-			$.cookie('eu-warning', 'warning-accepted', { expires: 7, path: '/' } );
+			$.cookie('eu-warning', 'warning-accepted', { expires: 28, path: '/' } );
 		});
 	}
 
