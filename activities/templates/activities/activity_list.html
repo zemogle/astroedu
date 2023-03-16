@@ -4,6 +4,8 @@
 
 {% block content %}
 
+<h1>{{page.id}}</h1>
+
 <div class="columns">
 {% if object_list %}
     <div class="archives_list columns is-multiline">
@@ -18,7 +20,7 @@
 {% else %}
     <p>No activities are available.</p>
 {% endif %}
-  <div class="pagination">
+  <!-- <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -34,7 +36,7 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-  </div>
+  </div> -->
 
 <!-- div class="column">
   <div class="section_meta">

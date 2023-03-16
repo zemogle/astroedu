@@ -1,0 +1,27 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block titletag %}Tags Inspector{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Tags Inspector" icon="date" %}
+
+<div class="nice-padding">
+  <table>
+    <tr>
+      <th>Tag</th><th>Activities</th>
+    </tr>
+    {% for tag, activities in keywords.items %}
+    <tr>
+        <td>{{tag}}</td>
+        <td>
+        {% for activity in activities %}
+        <a href="{% pageurl activity.content_object %}" target="_blank">{{activity.content_object.code}} ({{activity.content_object.locale.language_code}})</a>,
+        {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</div>
+
+{% endblock %}
