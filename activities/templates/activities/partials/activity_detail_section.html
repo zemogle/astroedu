@@ -17,6 +17,8 @@
             {{ block.value|richtext }}
           {% elif block.block_type == 'htmltext'%}
             {{ block.value}}
+          {% elif block.block_type == 'table' %}
+            {% include_block block %}
           {% else %}
               {{ block.value }}
           {% endif %}

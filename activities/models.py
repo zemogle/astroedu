@@ -95,7 +95,7 @@ def limit_lang_choice():
 class BodyBlock(blocks.StreamBlock):
     richtext = blocks.RichTextBlock()
     htmltext = blocks.RawHTMLBlock()
-    table =  TableBlock(template="home/partials/table_template.html")
+    table =  TableBlock(template="activities/partials/table_template.html")
 
 class ActivityHome(RoutablePageMixin, Page):
     @route(r'^a/(\d+)/(\w+)$')
