@@ -282,7 +282,7 @@ class Organization(TranslatableMixin, models.Model):
 class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
     citable_name = models.CharField(blank=True, max_length=255, help_text='Required for astroEDU activities')
-    email = models.EmailField(blank=False, max_length=255)
+    email = models.EmailField(blank=False, null=True, max_length=255)
     org = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:

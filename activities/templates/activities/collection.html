@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load i18n static %}
+{% load i18n wagtailcore_tags %}
 
 {% block site_title %}{{ page.title }} | astroEDU {% endblock %}
 
@@ -10,7 +10,7 @@
 
 		<div class="layout_leftcolumn">
 			<h1>{{ page.title }}</h1>
-			<div class="summary">{{ page.description }}</div>
+			<div class="summary">{{ page.description|richtext }}</div>
       <div class="columns is-multiline">
 			{% for object in activities %}
         <div class="column is-one-third">

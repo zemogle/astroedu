@@ -7,7 +7,7 @@
 
       <div class="container">
           <h2>{% trans "Activity Collections" %}</h2>
-          <div class="intro">{{ page.intro|richtext }}</div>
+          <div class="intro">{{ page.intro|richtext}}</div>
           <div class="columns is-multiline">
             {% for object in page.get_children %}
               {% include 'activities/collection_list_item.html' %}
