@@ -639,6 +639,11 @@ class Activity(Page):
         context['sections']  = self.sections
         context['meta'] = self.meta
         return context
+    
+    @property
+    def languages(self):
+        locales = Locale.objects.all()
+        return ", ".join([l.language_code for l in locales if self.has_translation(locale=l)])
 
 class Attachment(Orderable):
     page = ParentalKey(Activity, on_delete=models.CASCADE, related_name='attachment_documents')
