@@ -120,6 +120,7 @@ class ActivityIndexPage(Page):
         context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
         context['facets']['learning'] = {'all': Learning.objects.filter(locale=Locale.get_active()), 'name': 'Type of Learning'}
         context['facets']['age'] = {'all': Age.objects.filter(locale=Locale.get_active()), 'name': 'Age'}
+        context['facets']['keywords'] = {'name' : 'Keyword'}
         for param in params:
             if request.GET.get(param):
                 activities = activities.filter(**{param+'__name':request.GET.get(param)})

@@ -35,6 +35,7 @@
     </div>
     <div class="column">
     {% for code, facet in facets.items %}
+    {% if facet.name != 'Keywords' %}
     <div class="section_meta">
         <div class="section_meta_inner">
         <div class="facet">
@@ -47,6 +48,7 @@
         </div>
         </div> 
     </div>
+    {% endif %}
     {% endfor %}
     </div>
 </div>
