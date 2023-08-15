@@ -115,7 +115,6 @@ class ActivityIndexPage(Page):
         # Filter by tag
         params = ['keywords','category','level','skills','learning','age']
         context['facets'] = {param: {} for param in params}
-        logging.error(context['facets'])
         context['facets']['level'] = {'all': Level.objects.filter(locale=Locale.get_active()), 'name': 'Level' }
         context['facets']['category'] = {'all': Category.objects.filter(locale=Locale.get_active()), 'name': 'Category'}
         context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
@@ -126,7 +125,6 @@ class ActivityIndexPage(Page):
                 activities = activities.filter(**{param+'__name':request.GET.get(param)})
                 context['facets'][param]['selected'] = request.GET.get(param)
         context['activities'] = activities
-        logging.error(context['facets'])
         return context
 
 class Keyword(TranslatableMixin, TaggedItemBase):

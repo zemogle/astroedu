@@ -1,13 +1,15 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from wagtail.models import Locale
 from wagtail.api.v2.views import BaseAPIViewSet
 
 from .models import Activity, Collection, Organization, AuthorInstitute
+from .wagtail_hooks import ActAdmin
 
-import logging
-
+activity_modeladmin = ActAdmin()
 
 class OrganizationListView(ListView):
     model = Organization
@@ -70,3 +72,13 @@ class CollectionListView(ListView):
 
 class ActivityAPIView(BaseAPIViewSet):
     model = Activity
+
+class ActivityResetDateView(LoginRequiredMixin, DetailView):
+    model = Activity
+
+    def get(self, request, *args, **kwargs):
+        activity = self.get_object()
+        activity.first_published_at = None
+        activity.save()
+        messages.success(self.request, f'Date reset for {activity.title}')
+        return HttpResponseRedirect(activity_modeladmin.url_helper.get_action_url('edit', activity.pk))

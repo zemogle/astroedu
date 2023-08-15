@@ -1,13 +1,39 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register)
 from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
+from wagtail.contrib.modeladmin.helpers import ButtonHelper
 
+from django.urls import reverse
 
 from .models import Activity
 
+import logging
+
+class DateButtonHelper(ButtonHelper):
+
+    view_button_classnames = ['button', 'no button-small', 'button-secondary'] 
+
+    def view_button(self, obj):
+        # Define a label for our button
+        text = 'Reset date'
+        return {
+            'url': reverse('activityresetdate', args=(obj.pk,)),
+            'label': text,
+            'classname': self.finalise_classname(self.view_button_classnames),
+            'title': "Reset activity published date",
+        }
+
+    def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None, classnames_exclude=None):
+        btns = super().get_buttons_for_obj(obj, exclude, classnames_add, classnames_exclude)
+        if 'view' not in (exclude or []):
+            btns.append(
+                self.view_button(obj)
+            )
+        return btns
 
 class ActAdmin(ThumbnailMixin, ModelAdmin):
     model = Activity
+    button_helper_class = DateButtonHelper
     menu_label = 'Activities'  # ditch this to use verbose_name_plural from model
     menu_icon = 'pilcrow'  # change as required
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
