@@ -338,6 +338,20 @@ header nav {
   font-size: 1.5rem;
 }
 
+a.filter-link {
+  color: #f8b132;
+  border-bottom: thin dotted #f8b132;
+  padding-bottom: 2px;
+}
+
+a.filter-link:hover {
+	background-color: #f8b132;
+    color: #666;
+    text-decoration: none;
+}
+
+
+
 /* background images */
 body {
     background-image: url("../designimages/stars_bg.png");

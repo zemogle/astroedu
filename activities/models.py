@@ -1,4 +1,5 @@
 import io
+import logging
 from pathlib import Path
 from datetime import timedelta
 
@@ -6,7 +7,6 @@ from django import forms
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.db import models
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.translation import activate, get_language
 from django.core.exceptions import ImproperlyConfigured
@@ -19,7 +19,7 @@ from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from taggit.models import TaggedItemBase
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail_localize.fields import SynchronizedField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.api import APIField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -27,10 +27,6 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, TranslatableMixin,  Orderable, Locale
-from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.documents.models import Document
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -117,12 +113,20 @@ class ActivityIndexPage(Page):
         context = super().get_context(request)
         activities = Activity.objects.filter(locale=Locale.get_active()).order_by('-first_published_at')
         # Filter by tag
-        tag = request.GET.get('tag')
-        if tag:
-            activities = activities.filter(keywords__name=tag)
-            context['tag'] = tag
-
+        params = ['keywords','category','level','skills','learning','age']
+        context['facets'] = {param: {} for param in params}
+        logging.error(context['facets'])
+        context['facets']['level'] = {'all': Level.objects.filter(locale=Locale.get_active()), 'name': 'Level' }
+        context['facets']['category'] = {'all': Category.objects.filter(locale=Locale.get_active()), 'name': 'Category'}
+        context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
+        context['facets']['learning'] = {'all': Learning.objects.filter(locale=Locale.get_active()), 'name': 'Type of Learning'}
+        context['facets']['age'] = {'all': Age.objects.filter(locale=Locale.get_active()), 'name': 'Age'}
+        for param in params:
+            if request.GET.get(param):
+                activities = activities.filter(**{param+'__name':request.GET.get(param)})
+                context['facets'][param]['selected'] = request.GET.get(param)
         context['activities'] = activities
+        logging.error(context['facets'])
         return context
 
 class Keyword(TranslatableMixin, TaggedItemBase):
@@ -541,6 +545,10 @@ class Activity(Page):
     def categories_joined(self):
         astro_category = [obj.name for obj in self.category.all()]
         return ', '.join(astro_category)
+    
+    def categories_joined_links(self):
+        astro_category = [obj.name for obj in self.category.all()]
+        return ', '.join(astro_category)
 
     @property
     def updated_date(self):
@@ -622,16 +630,16 @@ class Activity(Page):
 
     def meta(self):
         return [
-                {'code':'category', 'text': _('Category'), 'content':self.categories_joined()},
+                {'code':'category', 'text': _('Category'), 'content':self.category.all(), 'links':True},
                 {'code':'location', 'text': _('Location'), 'content':self.location},
                 {'code':'age', 'text': _('Age'), 'content':self.age_range()},
-                {'code':'level', 'text': _('Level'), 'content':self.levels_joined()},
+                {'code':'level', 'text': _('Level'), 'content':self.level.all(), 'links':True},
                 {'code':'time', 'text': _('Time'), 'content':self.time},
                 {'code':'group', 'text': _('Group'), 'content':self.group},
                 {'code':'supervised', 'text': _('Supervised'), 'content':self.supervised},
                 {'code':'cost', 'text': _('Cost'), 'content':self.cost},
-                {'code':'skills', 'text': _('Skills'), 'content':self.skills_joined()},
-                {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning_joined()},
+                {'code':'skills', 'text': _('Skills'), 'content':self.skills.all(), 'links':True},
+                {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning.all(), 'links':True},
         ]
 
     def get_context(self, request):

@@ -91,18 +91,16 @@
   			<div class="text">
   				<div class="title_text">{% trans 'Keywords' %}</div>
   				<div class="content">
-            <div class="tags">
             {% for tag in page.keywords.all %}
-                <span class="tag"><a href="{{ page.get_parent.url }}?tag={{ tag }}">{{ tag }}</a></span>
+                <a href="{{ page.get_parent.url }}?keywords={{ tag }}" class="filter-link">{{ tag }}</a> &nbsp;
             {% endfor %}
-            </div>
           </div>
   			</div>
   		</div>
     </div>
 
 		{% for section in page.meta %}
-			{% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content %}
+			{% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content links=section.links%}
 		{% endfor %}
 
 		<div style="margin-top: 20px;"></div>
