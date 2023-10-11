@@ -286,15 +286,14 @@ class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
     citable_name = models.CharField(blank=True, max_length=255, help_text='Required for astroEDU activities')
     email = models.EmailField(blank=True, null=True, max_length=255)
-    org = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
-
+    orgs = models.ManyToManyField(Organization, blank=True, null=True, related_name='organizations')
+  
     class Meta:
         ordering = ['name']
 
-
     def __str__(self):
-        if self.org:
-            return f"{self.name}, {self.org}"
+        if self.orgs.all():
+            return f"{self.name} ({', '.join([org.name for org in self.orgs.all()])})"
         else:
             return f"{self.name}"
 
@@ -305,16 +304,16 @@ class AuthorInstitute(Orderable):
 
     def display_name(self):
         # there were errors with no existing relations. Now display only relevant data
-        display = []
         try:
-            display.append(self.author.name)
+            author = self.author.name
         except:
-            pass
-        try:
-            display.append(self.author.org.name)
-        except:
-            pass
-        return ', '. join(display)
+            return 'Author not yet assigned'
+        if instlist := self.author.orgs.all():
+            inst = ', '.join([org.name for org in instlist])
+            return f"{author} ({inst})"
+        else:
+            return f"{author}"
+        
 
     def author_name(self):
         display = []
@@ -565,10 +564,10 @@ class Activity(Page):
 
     @property
     def author_inst_list(self):
-        result = []
+        authors = []
         for item in self.author_institute.all():
-            result.append(item.display_name())
-        return '; '.join(result)
+            authors.append(item.display_name())
+        return authors
 
     @property
     def author_list(self):
