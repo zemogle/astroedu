@@ -26,13 +26,14 @@
         {% if  page.get_translations.live %}
         {% translate "Also available in" %}
         {% else %}
-        {% trans "Currently there is no translation for this activity." %}
+        {% translate "Currently there is no translation for this activity." %}
         {% endif %}
         {% for translation in page.get_translations.live %}
             {% get_language_info for translation.locale.language_code as lang %}
+            {% language language_code %}
             <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
-                {{ lang.name_local }}
-            </a>
+              {% translate lang.name_local %}</a> {% if not forloop.last %}, {% endif %}
+            {% endlanguage %}
         {% endfor %}
       </span>
     </span>
