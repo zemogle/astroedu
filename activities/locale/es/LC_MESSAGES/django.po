@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-17 12:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: activities/models.py:53
+msgid ""
+"widget_class should be a Django form widget class of type "
+"CheckboxSelectMultiple, RadioSelect, Select or SelectMultiple"
+msgstr "" 
+
+#: activities/models.py:617
+msgid "Materials"
+msgstr "Materiales"
+
+#: activities/models.py:618
+msgid "Goals"
+msgstr "Metas"
+
+#: activities/models.py:619
+msgid "Learning Objectives"
+msgstr "Objetivos De Aprendizaje"
+
+#: activities/models.py:620
+msgid "Background"
+msgstr "Antecedentes"
+
+#: activities/models.py:621
+msgid "Full Description"
+msgstr "Descripción Completa"
+
+#: activities/models.py:622
+msgid "Evaluation"
+msgstr "Evaluación"
+
+#: activities/models.py:623
+msgid "Curriculum"
+msgstr "Currículum"
+
+#: activities/models.py:624
+msgid "Additional Information"
+msgstr "Información Adicional"
+
+#: activities/models.py:625
+msgid "Conclusion"
+msgstr "Conclusión"
+
+#: activities/models.py:626
+msgid "Further Reading"
+msgstr "Lecturas Complementarias"
+
+#: activities/models.py:631
+msgid "Category"
+msgstr "Categoría"
+
+#: activities/models.py:632
+msgid "Location"
+msgstr "Locación"
+
+#: activities/models.py:633
+#: activities/templates/activities/activity_list_item.html:33
+#: activities/templates/featured_item.html:26
+msgid "Age"
+msgstr "Edad"
+
+#: activities/models.py:634
+#: activities/templates/activities/activity_list.html:45
+msgid "Level"
+msgstr "Nivel"
+
+#: activities/models.py:635
+#: activities/templates/activities/activity_list_item.html:42
+msgid "Time"
+msgstr "Tiempo de Duración"
+
+#: activities/models.py:636
+msgid "Group"
+msgstr "Grupo"
+
+#: activities/models.py:637
+msgid "Supervised"
+msgstr "Supervisado"
+
+#: activities/models.py:638
+msgid "Cost"
+msgstr "Costo"
+
+#: activities/models.py:639
+msgid "Skills"
+msgstr "Habilidades"
+
+#: activities/models.py:640
+msgid "Type of Learning"
+msgstr "Tipo de Aprendizaje"
+
+#: activities/templates/activities/activity.html:27
+msgid "Also available in"
+msgstr "También disponible en"
+
+#: activities/templates/activities/activity.html:29
+msgid "Currently there is no translation for this activity."
+msgstr "Actualmente no hay traducción para esta actividad."
+
+#: activities/templates/activities/activity.html:43
+msgid "Created"
+msgstr "Creada"
+
+#: activities/templates/activities/activity.html:45
+msgid "Updated"
+msgstr "Actualizada"
+
+#: activities/templates/activities/activity.html:48
+#: activities/templates/activities/organization.html:25
+msgid "Author(s)"
+msgstr "Autor(es)"
+
+#: activities/templates/activities/activity.html:96
+#: activities/templates/activities/activity_detail_print.html:45
+msgid "Keywords"
+msgstr "Palabras clave"
+
+#: activities/templates/activities/activity.html:113
+#: activities/templates/activities/activity_detail_print.html:66
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#: activities/templates/activities/activity.html:120
+msgid "Downloads"
+msgstr "Descargas"
+
+#: activities/templates/activities/activity.html:128
+msgid "Share"
+msgstr "Compartir"
+
+#: activities/templates/activities/activity.html:152
+msgid "Repositories"
+msgstr "Repositorios"
+
+#: activities/templates/activities/activity.html:162
+#: activities/templates/activities/activity_detail_print.html:93
+msgid "Citation"
+msgstr "Citación"
+
+#: activities/templates/activities/activity.html:168
+#: activities/templates/activities/activity_detail_print.html:102
+msgid "Acknowledgement"
+msgstr "Agradecimientos"
+
+#: activities/templates/activities/activity.html:174
+msgid "Permalink"
+msgstr "Permalink"
+
+#: activities/templates/activities/activity.html:178
+msgid "License"
+msgstr "Licencia"
+
+#: activities/templates/activities/activity.html:179
+msgid "This work is licensed under"
+msgstr "Este trabajo está bajo licencia"
+
+#: activities/templates/activities/activity.html:179
+msgid "Attribution 4.0 International"
+msgstr "Atribución 4.0 Internacional"
+
+#: activities/templates/activities/activity_detail_print.html:31
+msgid "Author"
+msgstr "Autor"
+
+#: activities/templates/activities/activity_detail_print.html:83
+msgid "All Attachments"
+msgstr "TODOS los Adjuntos"
+
+#: activities/templates/activities/activity_list_item.html:24
+#: activities/templates/featured_item.html:21
+msgid "Theme"
+msgstr "Tema"
+
+#: activities/templates/activities/collection_index_page.html:4
+#: activities/templates/activities/collection_index_page.html:9
+msgid "Activity Collections"
+msgstr "Colecciones De Actividades"
+
+#: activities/templates/activities/organization.html:4
+msgid "Partner"
+msgstr "Colaboradores"
+
+#: activities/templates/activities/organization.html:9
+#: activities/templates/activities/organization_list.html:4
+#: activities/templates/activities/organization_list.html:9
+msgid "Partners"
+msgstr "Colaboradores"
+
+#: activities/templates/activities/organization.html:22
+msgid "About"
+msgstr "Acerca de"
+
+#: activities/templates/activities/organization.html:32
+msgid "Activities"
+msgstr "Actividades"
+
+#: activities/templates/activities/organization.html:43
+msgid "No activities are available"
+msgstr "No hay actividades disponibles"
+
+#: activities/templates/featured.html:4
+msgid "Featured Activities"
+msgstr "Actividades Destacadas"
+
+#: activities/templates/featured_item.html:13
+msgid "Date"
+msgstr "Fecha"
+
+#: activities/templates/featured_item.html:15
+msgid "By"
+msgstr "Por"
+
+#: activities/templates/search/search.html:14
+#: activities/templates/search/simplesearch.html:14
+msgid "Search results"
+msgstr "Buscar resultados"
+
+#: activities/templates/search/search.html:38
+#: activities/templates/search/simplesearch.html:29
+#: activities/templates/search/simplesearch.html:42
+msgid "No results found!"
+msgstr "¡No se han encontrado resultados!"
+
+#: activities/templates/search/simplesearch.html:53
+msgid "Filters"
+msgstr "Filtros"
+
+#: activities/templates/search_form.html:4
+msgid "Find Educational Activities"
+msgstr "Encontrar Actividades Educativas"
+
+#: activities/templates/search_form.html:5
+msgid "Search"
+msgstr "Buscar"
