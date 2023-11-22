@@ -50,9 +50,6 @@ INSTALLED_APPS = [
     'search',
     'activities',
 
-    'wagtail_localize',
-    'wagtail_localize.locales',
-
     'wagtail.contrib.forms',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.redirects',
@@ -62,10 +59,11 @@ INSTALLED_APPS = [
     'wagtail.snippets',
     'wagtail.documents',
     'wagtail.images',
+    'wagtail_localize',
+    'wagtail_localize.locales',
     'wagtail.search',
     'wagtail.admin',
     'wagtail',
-    'wagtail.contrib.simple_translation',
     "wagtail.contrib.table_block",
     "wagtail.contrib.routable_page",
 
@@ -86,7 +84,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -94,6 +91,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
