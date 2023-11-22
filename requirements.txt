@@ -1,9 +1,9 @@
-Django>=3.2,<4
+Django==4.1
 uwsgi==2.0.19.1
-wagtail==3.0.3
+wagtail==4.1
 markdown
 beautifulsoup4==4.8.2
-wagtail-localize==1.2
+wagtail-localize==1.7
 psycopg2==2.8.5
 dj-database-url==0.5.0 #1.0.0
 whitenoise==5.2.0
@@ -13,3 +13,4 @@ WeasyPrint==52.5
 django-weasyprint==1.1.0
 django-storage-url==0.9.0
 django-countries==7.5.1
+django-taggit==3.0.0
