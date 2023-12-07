@@ -55,7 +55,7 @@ msgstr "Sea Voluntario"
 #: astroedu_wagtail/templates/base.html:132
 #: home/templates/home/news_index_page.html:4
 msgid "Activity Collections"
-msgstr "Colecciones se actividades"
+msgstr "Colecciones de actividades"
 
 #: astroedu_wagtail/templates/base.html:138
 #: astroedu_wagtail/templates/base.html:141
@@ -138,10 +138,10 @@ msgstr "Actividades educativas de astronomía"
 
 #: home/templates/home/home_page.html:77
 msgid "Coming Soon"
-msgstr ""
+msgstr "Próximamente"
 
 #: home/templates/home/home_page.html:78
 msgid ""
 "We are preparing a new edition of astroEDU. As soon as we have translations "
 "for activities they will appear here."
-msgstr ""
+msgstr "Estamos preparando una nueva edición de astroEDU. En cuanto tengamos las traducciones de las actividades, aparecerán aquí."
