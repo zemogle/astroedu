@@ -66,14 +66,14 @@
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
         <div class="navbar-item">
-          <a href="/volunteer" target="_blank">
-  					<img src="
-  					{% if LANGUAGE_CODE == 'en' %}
-  						{% static 'designimages/volunteer_badge.png' %}
-  					{% elif LANGUAGE_CODE == 'it' %}
-  						{% static 'designimages/unisciti_a_noi_volontari.png' %}
-  					{% endif %}
-    					" alt="{% translate "apply as volunteer"%}" title="{% translate "Join us" %}: {% translate "Volunteer"%}!" />
+          <a href="/volunteer" target="_blank" class="button is-ghost is-large">
+          <span class="icon is-large">
+  					<img src="{% static 'designimages/volunteer_badge_sq.png' %}" alt="{% translate "apply as volunteer"%}" title="{% translate "Join us" %}: {% translate "Volunteer"%}!" />
+          </span>
+          <span class="nav_volunteer">
+            {% translate "Join us" %}<br/>
+            <strong>{% translate "Volunteer"%}</strong>
+          </span>
   				</a>
         </div>
         <div class="navbar-item">

@@ -83,6 +83,13 @@ header nav {
     text-align: center;
 }
 
+.nav_volunteer {
+    text-transform: uppercase;
+    color: #6c6c70;
+    font-size:11px;
+    text-decoration: none;
+}
+
 /* featured items */
 .layout_featured {
     background-color: #FFFFFF; /*#F8B132;*/

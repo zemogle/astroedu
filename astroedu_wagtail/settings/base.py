@@ -172,6 +172,11 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('es', "Spanish"),
 ]
 
+LIVE_LANGUAGES = [
+    ('en', "English"),
+    ('it', "Italian"),
+]
+
 
 LOCALE_PATHS = [ os.path.join(PROJECT_DIR, 'locale'),
                 os.path.join(PROJECT_DIR, 'activities/locale')]

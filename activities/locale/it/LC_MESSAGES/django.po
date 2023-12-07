@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-16 12:32+0000\n"
+"POT-Creation-Date: 2023-12-07 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,64 +116,64 @@ msgstr "Disponibile anche in"
 msgid "Currently there is no translation for this activity."
 msgstr "Per questa attività una traduzione non è al momento disponibile."
 
-#: activities/templates/activities/activity.html:43
+#: activities/templates/activities/activity.html:44
 msgid "Created"
 msgstr "Creato"
 
-#: activities/templates/activities/activity.html:45
+#: activities/templates/activities/activity.html:46
 msgid "Updated"
 msgstr "Aggiornato"
 
-#: activities/templates/activities/activity.html:48
+#: activities/templates/activities/activity.html:49
 #: activities/templates/activities/organization.html:25
 msgid "Author(s)"
 msgstr "Autore/i"
 
-#: activities/templates/activities/activity.html:96
+#: activities/templates/activities/activity.html:97
 #: activities/templates/activities/activity_detail_print.html:45
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: activities/templates/activities/activity.html:113
+#: activities/templates/activities/activity.html:114
 #: activities/templates/activities/activity_detail_print.html:66
 msgid "Attachments"
 msgstr "Allegati"
 
-#: activities/templates/activities/activity.html:120
+#: activities/templates/activities/activity.html:121
 msgid "Downloads"
 msgstr "Scarica"
 
-#: activities/templates/activities/activity.html:128
+#: activities/templates/activities/activity.html:129
 msgid "Share"
 msgstr "Condividi"
 
-#: activities/templates/activities/activity.html:152
+#: activities/templates/activities/activity.html:153
 msgid "Repositories"
 msgstr "Archivi"
 
-#: activities/templates/activities/activity.html:162
+#: activities/templates/activities/activity.html:163
 #: activities/templates/activities/activity_detail_print.html:93
 msgid "Citation"
 msgstr "Come citare"
 
-#: activities/templates/activities/activity.html:168
+#: activities/templates/activities/activity.html:169
 #: activities/templates/activities/activity_detail_print.html:102
 msgid "Acknowledgement"
 msgstr "Ringraziamenti"
 
-#: activities/templates/activities/activity.html:174
+#: activities/templates/activities/activity.html:175
 msgid "Permalink"
 msgstr "Permalink"
 
-#: activities/templates/activities/activity.html:178
+#: activities/templates/activities/activity.html:179
 msgid "License"
 msgstr "Licenza"
 
-#: activities/templates/activities/activity.html:179
+#: activities/templates/activities/activity.html:180
 msgid "This work is licensed under"
 msgstr "Questo lavoro è messo a disposizione sulla base della licenza"
 
-#: activities/templates/activities/activity.html:179
+#: activities/templates/activities/activity.html:180
 msgid "Attribution 4.0 International"
 msgstr "Attribuzione 4.0 internazionale"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 12:41+0000\n"
+"POT-Creation-Date: 2023-12-07 12:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: activities/models.py:53
 msgid ""
 "widget_class should be a Django form widget class of type "
 "CheckboxSelectMultiple, RadioSelect, Select or SelectMultiple"
-msgstr "" 
+msgstr ""
 
 #: activities/models.py:617
 msgid "Materials"
@@ -115,64 +116,64 @@ msgstr "También disponible en"
 msgid "Currently there is no translation for this activity."
 msgstr "Actualmente no hay traducción para esta actividad."
 
-#: activities/templates/activities/activity.html:43
+#: activities/templates/activities/activity.html:44
 msgid "Created"
 msgstr "Creada"
 
-#: activities/templates/activities/activity.html:45
+#: activities/templates/activities/activity.html:46
 msgid "Updated"
 msgstr "Actualizada"
 
-#: activities/templates/activities/activity.html:48
+#: activities/templates/activities/activity.html:49
 #: activities/templates/activities/organization.html:25
 msgid "Author(s)"
 msgstr "Autor(es)"
 
-#: activities/templates/activities/activity.html:96
+#: activities/templates/activities/activity.html:97
 #: activities/templates/activities/activity_detail_print.html:45
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: activities/templates/activities/activity.html:113
+#: activities/templates/activities/activity.html:114
 #: activities/templates/activities/activity_detail_print.html:66
 msgid "Attachments"
 msgstr "Adjuntos"
 
-#: activities/templates/activities/activity.html:120
+#: activities/templates/activities/activity.html:121
 msgid "Downloads"
 msgstr "Descargas"
 
-#: activities/templates/activities/activity.html:128
+#: activities/templates/activities/activity.html:129
 msgid "Share"
 msgstr "Compartir"
 
-#: activities/templates/activities/activity.html:152
+#: activities/templates/activities/activity.html:153
 msgid "Repositories"
 msgstr "Repositorios"
 
-#: activities/templates/activities/activity.html:162
+#: activities/templates/activities/activity.html:163
 #: activities/templates/activities/activity_detail_print.html:93
 msgid "Citation"
 msgstr "Citación"
 
-#: activities/templates/activities/activity.html:168
+#: activities/templates/activities/activity.html:169
 #: activities/templates/activities/activity_detail_print.html:102
 msgid "Acknowledgement"
 msgstr "Agradecimientos"
 
-#: activities/templates/activities/activity.html:174
+#: activities/templates/activities/activity.html:175
 msgid "Permalink"
 msgstr "Permalink"
 
-#: activities/templates/activities/activity.html:178
+#: activities/templates/activities/activity.html:179
 msgid "License"
 msgstr "Licencia"
 
-#: activities/templates/activities/activity.html:179
+#: activities/templates/activities/activity.html:180
 msgid "This work is licensed under"
 msgstr "Este trabajo está bajo licencia"
 
-#: activities/templates/activities/activity.html:179
+#: activities/templates/activities/activity.html:180
 msgid "Attribution 4.0 International"
 msgstr "Atribución 4.0 Internacional"
 
@@ -182,7 +183,7 @@ msgstr "Autor"
 
 #: activities/templates/activities/activity_detail_print.html:83
 msgid "All Attachments"
-msgstr "TODOS los Adjuntos"
+msgstr "Todos los adjuntos"
 
 #: activities/templates/activities/activity_list_item.html:24
 #: activities/templates/featured_item.html:21
@@ -192,7 +193,7 @@ msgstr "Tema"
 #: activities/templates/activities/collection_index_page.html:4
 #: activities/templates/activities/collection_index_page.html:9
 msgid "Activity Collections"
-msgstr "Colecciones De Actividades"
+msgstr "Colecciones de actividades"
 
 #: activities/templates/activities/organization.html:4
 msgid "Partner"
