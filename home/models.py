@@ -2,8 +2,7 @@ from django.db import models
 
 from wagtail.api import APIField
 from wagtail.fields import RichTextField, StreamField
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page, Locale
 
 from activities.models import Activity, BodyBlock
@@ -27,9 +26,9 @@ class ContentPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('summary'),
-        StreamFieldPanel('content'),
+        FieldPanel('content'),
     ]
 
     api_fields = [
@@ -63,7 +62,7 @@ class NewsPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('summary'),
-        StreamFieldPanel('content'),
+        FieldPanel('content'),
     ]
