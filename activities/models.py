@@ -523,6 +523,10 @@ class Activity(Page):
         index.SearchField('fulldesc'),
     ]
 
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+
     # template = "activities/activity_detail_print.html"
     def age_range(self):
         age_ranges = [obj.name for obj in self.age.all()]
