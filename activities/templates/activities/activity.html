@@ -40,6 +40,7 @@
     </div>
 
 	<h1 class="detail">{{ page.title }}</h1>
+
   <div class="subtitle is-6 article-subtitle">
     <strong>{% translate "Created" %}:</strong> {{ page.first_published_at|date:"Y-m-d" }}
     {% if page.updated_date %}
@@ -92,6 +93,29 @@
 	<div class="meta">
     <div class="section_meta">
       <div class="section_meta_inner">
+        <div class="text">
+          <div class="title_text">{{page.activity_type.name}}</div>
+        </div>
+      </div>
+    </div>
+
+    {% if page.countries %}
+    <div class="section_meta">
+      <div class="section_meta_inner">
+        <div class="text">
+          <div class="title_text">{%translate 'Originally developed in' %}</div>
+          <div class="content">
+            {% for country in page.countries %}
+                {{ country.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="section_meta">
+      <div class="section_meta_inner">
   			<div class="icon is-large"><img src="{% static 'designimages/sections-grey/keywords.svg' %}" alt="" /></div>
   			<div class="text">
   				<div class="title_text">{% trans 'Keywords' %}</div>
@@ -102,6 +126,7 @@
           </div>
   			</div>
   		</div>
+
     </div>
 
 		{% for section in page.meta %}

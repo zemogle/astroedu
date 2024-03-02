@@ -155,6 +155,18 @@ class SciCategory(TranslatableMixin):
         unique_together = ('translation_key', 'locale')
         ordering = ['name',]
 
+@register_snippet
+class ActivityType(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Activity Type"
+        verbose_name_plural = "Activity Types"
+        unique_together = ('translation_key', 'locale')
+        ordering = ['name',]
 
 @register_snippet
 class Location(TranslatableMixin):
@@ -399,6 +411,7 @@ class Activity(Page):
     theme = models.CharField(blank=True, max_length=40, help_text='Use top level AVM metadata')
     keywords = ClusterTaggableManager(through=Keyword, blank=True, verbose_name="Keywords")
     countries = CountryField(multiple=True, blank=True, help_text='Activity originally developed in')
+    activity_type = models.ForeignKey(ActivityType, on_delete=models.SET_NULL, related_name='activity_type', default=1, null=True)
 
     acknowledgement = models.CharField(blank=True, max_length=255)
     teaser = models.TextField(blank=True, verbose_name='Teaser', help_text='Maximum 2 sentences! Maybe what and how?')
@@ -475,6 +488,7 @@ class Activity(Page):
             InlinePanel('attachment_documents', label="Attachment(s)"),
         ], heading="Activity Information"),
         MultiFieldPanel([
+            LocalizedSelectPanel('activity_type',widget_class=RadioSelect),
             LocalizedSelectPanel('category',widget_class=CheckboxSelectMultiple,),
             FieldPanel('location', widget=forms.Select),
             LocalizedSelectPanel('location',widget_class=Select,),
