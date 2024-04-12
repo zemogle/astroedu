@@ -15,6 +15,8 @@ from django.forms.widgets import (CheckboxSelectMultiple, RadioSelect, Select,
                                   SelectMultiple)
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from django.utils.html import format_html
+
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -667,7 +669,8 @@ class Activity(Page):
     @property
     def languages(self):
         locales = Locale.objects.all()
-        return ", ".join([l.language_code for l in locales if self.has_translation(locale=l)])
+        langs = [f"<a href=''>{l.language_code.upper()}</a>" for l in locales if self.has_translation(locale=l)]
+        return format_html(', '.join(langs))
 
 class Attachment(Orderable):
     page = ParentalKey(Activity, on_delete=models.CASCADE, related_name='attachment_documents')
