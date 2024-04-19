@@ -46,15 +46,8 @@ class ActAdmin(ThumbnailMixin, ModelAdmin):
     thumb_image_field_name = 'image'
     thumb_default = 'https://via.placeholder.com/100x100.png?text=No+Image+Set'
 
-    def languages_upper(self, obj):
-        locales = Locale.objects.all()
-        langs = [format_html(f"<a href=''>{l.language_code.upper()}</a>") for l in locales if obj.has_translation(locale=l)]
-        return ', '.join(langs)
-    languages_upper.short_description = 'Languages'
-
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        # Only show people managed by the current user
         codes = set(list(qs.values_list('code', flat=True)))
         return Activity.objects.filter(code__in=codes).order_by('-code').distinct('code')
 

@@ -668,9 +668,15 @@ class Activity(Page):
     
     @property
     def languages(self):
-        locales = Locale.objects.all()
-        langs = [f"<a href=''>{l.language_code.upper()}</a>" for l in locales if self.has_translation(locale=l)]
-        return format_html(', '.join(langs))
+        langs = []
+        for a in Activity.objects.filter(code=self.code):
+            if a.live:
+                status = 'primary'
+            else:
+                status = ''
+            html = f'<div class="status-tag {status}">{a.locale.language_code.upper()}</div>'
+            langs.append(html)
+        return format_html(' '.join(langs))
 
 class Attachment(Orderable):
     page = ParentalKey(Activity, on_delete=models.CASCADE, related_name='attachment_documents')

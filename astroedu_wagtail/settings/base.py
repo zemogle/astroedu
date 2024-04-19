@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tagsinspector',
+    'wagtail.contrib.styleguide'
 ]
 
 MIDDLEWARE = [
