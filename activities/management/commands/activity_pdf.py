@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 self.stdout.write(f"Skipping {version.master.code} in {version.local.language_code}")
                 continue
 
-            self.add_document(version, lang=options['lang'])
+            self.add_document(version, lang=options['lang'], file_only=options['fileonly'])
 
     def add_document(self, activity, lang, file_only=False):
         try:
@@ -64,11 +64,11 @@ class Command(BaseCommand):
             self.stderr.write(f"Failed to create  {activity.code} in {activity.locale.language_code}")
             return
 
+        filename = f'astroedu-{activity.code}-{activity.locale.language_code}.pdf'
         if file_only:
             filepath = Path('/data/') / filename
             Path(filepath).write_bytes(file_obj)
             return
-        filename = f'astroedu-{activity.code}-{activity.locale.language_code}.pdf'
         try:
             docfile = ContentFile(file_obj)
             doc, c = Document.objects.get_or_create(title=f"Activity for {activity.code} in {activity.locale.language_code}")

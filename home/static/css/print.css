@@ -122,6 +122,11 @@ html[dir=rtl] .article-title .right {
   max-width:50px;
 }
 
+.section_meta_inner .icon img {
+  max-width:30px;
+  max-height: 30px;
+}
+
 .meta {
   display:table;
 }

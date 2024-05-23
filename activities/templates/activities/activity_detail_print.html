@@ -28,7 +28,11 @@
         <h1 class="title_text">{{ page.title }}</h1>
 
         <h2 class="orange title_text">{{ page.teaser }}</h2>
-      	<div class="authors"><strong>{% trans 'Author' %}:</strong> {{ page.author_inst_list }}</div>
+      	<div class="authors"><strong>{% trans 'Author' %}:</strong><br/>
+          {% for author in  page.author_inst_list %}
+          {{ author }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+          </div>
 </div>
 
   <div class="row">
@@ -48,7 +52,7 @@
   </div>
 </div>
 {% for section in meta %}
-  {% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content %}
+  {% include 'activities/partials/activity_detail_section_meta.html' with code=section.code text=section.text content=section.content links=section.links print=True %}
 {% endfor %}
 </div>
 

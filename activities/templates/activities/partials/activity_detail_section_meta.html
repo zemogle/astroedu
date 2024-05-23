@@ -4,13 +4,19 @@
 		{% if content %}
 		<div class="section_meta">
       <div class="section_meta_inner">
-  			<div class="icon is-large"><img src="{% static 'designimages/sections-grey/'|add:code|add:'.svg' %}" alt="" /></div>
+  			<div class="icon {% if print %}is-small{% else %}is-large{% endif %}">
+				<img src="{% static 'designimages/sections-grey/'|add:code|add:'.svg' %}" alt="" />
+			</div>
   			<div class="text">
   				<div class="title_text">{% trans text %}</div>
 				  <div class="content">
 				{% if links %}
-				{% for item in content %}			
+				{% for item in content %}
+				{% if print %}
+				{{item}} &nbsp;
+				{% else %}
 				<a href="{{ page.get_parent.url }}?{{code}}={{item}}" class="filter-link">{{item}}</a> &nbsp;
+				{% endif %}
 				{% endfor %}
 				{% else %}
   				{{ content }}
