@@ -298,7 +298,7 @@ class Organization(TranslatableMixin, models.Model):
 @register_snippet
 class Person(models.Model):
     name = models.CharField(blank=False, max_length=255)
-    citable_name = models.CharField(blank=False, max_length=255)
+    citable_name = models.CharField(blank=False, max_length=255, help_text='Name as it should appear in citations, i.e. Surname, Initial')
     email = models.EmailField(blank=True, null=True, max_length=255)
     orgs = models.ManyToManyField(Organization, blank=True, null=True, related_name='organizations')
   
