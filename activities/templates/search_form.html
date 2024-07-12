@@ -1,7 +1,17 @@
 {% load i18n %}
 <div id="search-form">
 	<form method="get" action="{% url 'search' %}" name="search">
-		<input type="text" name="q" class="search_textbox" placeholder="{% trans "Find Educational Activities" %}:" value="{{ form.q.value }}" />
-		<button type="submit" class="search_btn" onclick="document.forms['search'].submit()">{% trans 'Search' %}</button>
+	<div class="field has-addons">
+		<div class="control">
+		  <input type="text" name="q" class="search_textbox input"
+		  placeholder="{% trans "Find Educational Activities" %}:"
+		  value="{{ form.q.value }}" 
+		  />
+		</div>
+		<div class="control">
+			<button type="submit" class="search_btn button" onclick="document.forms['search'].submit()">{% trans 'Search' %}</button>
+		</div>
+	  </div>
 	</form>
+
 </div>

@@ -32,7 +32,7 @@
             {% get_language_info for translation.locale.language_code as lang %}
             {% language language_code %}
             <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
-              {% translate lang.name_local %}</a> {% if not forloop.last %}, {% endif %}
+              {% translate lang.name %}</a> {% if not forloop.last %}, {% endif %}
             {% endlanguage %}
         {% endfor %}
       </span>

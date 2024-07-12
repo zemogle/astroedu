@@ -32,7 +32,7 @@
   <title>{% block site_title %}astroEDU{% endblock %}</title>
 
   <link href="{% static 'css/fonts.css' %}" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="{% static 'css/astroedu-styles.css' %}" rel="stylesheet" />
   {% block extra_head %}{% endblock %}
@@ -47,25 +47,29 @@
 </div>
 <div id="page-wrapper">
 
-<header>
+<header class="ae-header">
 {% block top %}
   <div class="container">
+
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img src="{% static 'designimages/astroedu_logo.png' %}" class="logo" alt="astroEDU Logo" />
+        <img src="{% static 'designimages/astroedu_logo.png' %}" class="logo" alt="astroEDU Logo" />  
       </a>
-
+  
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
-
+  
     <div id="navbarBasicExample" class="navbar-menu">
+  
       <div class="navbar-end">
-        <div class="navbar-item">
+
+        <div class="navbar-item top_volunteer">
           <a href="/volunteer" target="_blank" class="button is-ghost is-large">
           <span class="icon is-large">
   					<img src="{% static 'designimages/volunteer_badge_sq.png' %}" alt="{% translate "apply as volunteer"%}" title="{% translate "Join us" %}: {% translate "Volunteer"%}!" />
@@ -79,6 +83,12 @@
         <div class="navbar-item">
           <div class="top_search">{% include 'search_form.html' %} </div>
         </div>
+        <div class="navbar-item mobile_menu_item">
+          <a href="">{% translate "Volunteer"%}</a>
+        </div>
+        <div class="navbar-item mobile_menu_item">
+          <a  href="">{% translate "Search"%}</a>
+        </div>
         {% if  page.get_translations.live %}
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link is-arrowless">
@@ -91,7 +101,7 @@
                 {% for translation in page.get_translations.live %}
                     {% get_language_info for translation.locale.language_code as lang %}
                     <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}" class="navbar-item">
-                      {% translate lang.name_local %}
+                      {% translate lang.name %}
                     </a>
                 {% endfor %}
             {% else %}
@@ -105,9 +115,9 @@
           </div>
         </div>
         {% endif %}
-      </div>
     </div>
   </nav>
+
 </div>
 {% endblock %}
 </header>
@@ -188,18 +198,16 @@
     		</div>
 
 		<div class="column is-half">
-			<div class="sponsor-list">
-				<ul>
-					<li><a href="https://www.iau.org" title="IAU" target="_blank"><img src="{% static 'designimages/sponsors/iau_logo.png' %}" alt="sponsor: IAU" /></a></li>
-          <li><a href="https://www.astro4edu.org" title="IAU OAE" target="_blank"><img src="{% static 'designimages/sponsors/OAE_logo_astroedu.png' %}" alt="sponsor: IAU Office of Astronomy Education" /></a></li>
-          <li><a href="http://www.inaf.it/" title="INAF" target="_blank"><img style="width:190px;height:auto;" src="{% static 'designimages/sponsors/INAF_logo_2023.png' %}" alt="sponsor: INAF" /></a></li>
+			<div class="sponsors">
+					<div><a href="https://www.iau.org" title="IAU" target="_blank"><img src="{% static 'designimages/sponsors/iau_logo.png' %}" alt="sponsor: IAU" /></a></div>
+          <div><a href="https://www.astro4edu.org" title="IAU OAE" target="_blank"><img src="{% static 'designimages/sponsors/OAE_logo_astroedu.png' %}" alt="sponsor: IAU Office of Astronomy Education" /></a></div>
+          <div><a href="http://www.inaf.it/" title="INAF" target="_blank"><img style="width:190px;height:auto;" src="{% static 'designimages/sponsors/INAF_logo_2023.png' %}" alt="sponsor: INAF" /></a></div>
 					{% if LANGUAGE_CODE == 'en' %}
-					<li><a href="https://lco.global/" title="LCO" target="_blank"><img style="width:80px;height:auto;" src="{% static 'designimages/sponsors/lco_logo.png' %}" alt="sponsor: LCO" /></a></li>
+					<div><a href="https://lco.global/" title="LCO" target="_blank"><img style="width:80px;height:auto;" src="{% static 'designimages/sponsors/lco_logo.png' %}" alt="sponsor: LCO" /></a></div>
 					{% endif %}
 					{% if LANGUAGE_CODE == 'it' %}
-					<li><a href="http://www.sait.it/" title="SAI" target="_blank"><img style="width:80px;height:auto;" src="{% static 'designimages/sponsors/sai_logo.png' %}" alt="sponsor: SAI" /></a></li>
+					<div><a href="http://www.sait.it/" title="SAI" target="_blank"><img style="width:80px;height:auto;" src="{% static 'designimages/sponsors/sai_logo.png' %}" alt="sponsor: SAI" /></a></div>
 					{% endif %}
-				</ul>
 			</div>
 		</div>
 

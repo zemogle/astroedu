@@ -1,3 +1,12 @@
+/* Bulma overrides*/
+
+:root {
+--bulma-scheme-main: #eee;
+--bulma-subtitle-strong-color: #000 ;
+--bulma-text-strong: #515050;
+
+} 
+
 /* base */
 body, p, td, th, ul, ol, input, textarea { font-family: 'Gotham', sans-serif; color: #666666; font-size: 16px; font-weight: 500; }
 h1, h2, h3, h4 { margin-top: 1em; margin-bottom: 1em; }
@@ -28,6 +37,7 @@ ul.unbulleted {
 
 /* Navbar and header */
 
+
 header {
     background-image: url("../designimages/home_top_bg.png");
 }
@@ -41,6 +51,14 @@ header nav {
 
 .navbar-item img {
     max-height: 4rem;
+}
+
+a.navbar-item {
+    background-color: #eee;
+}
+
+.navbar-dropdown .navbar-item:not(.is-active,.is-selected) {
+    background-color: #eee;
 }
 
 /* home */
@@ -416,8 +434,6 @@ span.close-btn img {
     text-decoration: none;
     border-radius: 6px;
     border: 0;
-    float: left;
-    margin-right: 6px;
     width: 320px;
 }
 button.search_btn {
@@ -541,6 +557,16 @@ span.close-btn img {
 }
 /* sponsors */
 
+.sponsors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.sponsors > div {
+    padding: 5px;
+  }
+
 .sponsor-list {
     float: right;
     text-align: right;
@@ -556,6 +582,17 @@ span.close-btn img {
 .sponsor-list li:first-child {
     margin-left: 0;
 }
+
+@media screen and (max-width: 999px) {
+    .ae-header .ae-logo {
+        margin-inline-end: auto;
+        margin-inline-start: auto;
+    }
+    .navbar-item img {
+        max-height: 1.5rem;
+    }
+}
+
 @media screen and (max-width: 1023px) {
   .section_feature {
       display:none;
@@ -566,9 +603,38 @@ span.close-btn img {
   .footer .container {
       background-image:none;
     }
+    header nav {
+        height: auto;
+      }
+    .search_textbox {
+        width: 100%;
+    }
+    .hero {
+        background-image: none;
+    }
+    .home_search_box{
+        height: auto;
+    }
+    .hero #search-form {
+        margin: 25px;
+    }
+    #cookie-policy {
+        height:50px;
+        margin-bottom: -60px;
+    }
+    #cookie-policy p, #cookie-policy a {
+        margin:5px;
+    }
+    .top_search,
+    .top_volunteer {
+        display: none;
+    }
 }
 @media screen and (min-width: 1024px) {
   .section_feature {
       display:block;
   }
+  .mobile_menu_item {
+    display: none;
+}
 }
