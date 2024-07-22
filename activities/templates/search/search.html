@@ -13,20 +13,7 @@ page.next_page_number
 {% block site_title %} {% trans 'Search results' %} | astroEDU {% endblock %}
 
 {% block content %}
-    <h1>Search</h1>
-
-    <form action="{% url 'search' %}" method="get">
-        <div class="field has-addons">
-        <div class="control">
-          <input class="input" type="text" name="q"{% if search_query %} value="{{ search_query }}"{% endif %}>
-        </div>
-        <div class="control">
-          <a class="button">
-            Search
-          </a>
-        </div>
-      </div>
-    </form>
+    <h1>Search Results - "{{search_query}}"</h1>
 
       <div class="archives_list columns is-multiline">
     {% for result in search_results %}
