@@ -16,7 +16,6 @@ def search(request):
     if search_query:
         s = get_search_backend()
         search_results = s.search(search_query, Activity.objects.live().filter(locale=Locale.get_active()))
-        logging.error('here')
     else:
         search_results = Activity.objects.live()
 

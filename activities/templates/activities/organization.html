@@ -6,18 +6,21 @@
 
 {% block content %}
 
-<h1 class="title">{% translate 'Partners'%}</h1>
-<h2>{{object.title}}</h2>
+<h1 class="title">{% translate 'Partner'%}: {{object.title}}</h1>
 
-    <div class="picture">
-      {% if object.url %}
-      <a href="{{ object.url }}">
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <div class="picture">
+        {% if object.url %}
+        <a href="{{ object.url }}">
+            {% image object.logo max-200x400 %}
+        </a>
+        {% else %}
           {% image object.logo max-200x400 %}
-      </a>
-      {% else %}
-        {% image object.logo max-200x400 %}
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
+    <div class="column">
       {% if object.about %}
       <h3>{% translate 'About'%}</h3>
       {{object.about|richtext}}
@@ -26,6 +29,8 @@
       {% for person in people %}
       {{person}}{% if not forloop.last%},{% endif%}
       {% endfor %}
+    </div>
+  </div>
 
 
 {% if activities %}

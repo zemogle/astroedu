@@ -2,13 +2,13 @@
 	<div class="column featured_item">
 		<!-- <div class="title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></div> -->
 		<div class="picture">
-      <a href="{% url 'activitydetail' object.code object.slug %}">
+      <a href="{{ object.get_url}}">
         <figure class="image">
           {% image object.image fill-320x200 %}
         </figure>
       </a>
     </div>
-    <div class="title"><a href="{% url 'activitydetail' object.code object.slug %}">{{ object.title }}</a></div>
+    <div class="title"><a href="{{ object.get_url }}">{{ object.title }}</a></div>
 		<div class="metadata">
 			{% translate "Date" %}: <b>{{ object.first_published_at|date:"Y-m-d" }}</b>
 			<!-- <img src="{% static 'designimages/metaseparator.png' %}"/></a> --><br/>
@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="activity-link">
-				<a href="{% url 'activitydetail' object.code object.slug %}">
+				<a href="{{ object.get_url}}">
 					<img src="{% static 'designimages/arrow_next.svg' %}" alt="View activity" />
 				</a>
 			</div>

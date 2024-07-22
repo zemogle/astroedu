@@ -16,6 +16,7 @@ from django.forms.widgets import (CheckboxSelectMultiple, RadioSelect, Select,
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from django.utils.html import format_html
+from django.http import Http404
 
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -24,7 +25,7 @@ from taggit.models import TaggedItemBase
 from wagtail_localize.fields import SynchronizedField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.api import APIField
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path, route
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
 from wagtail.fields import RichTextField, StreamField
@@ -95,16 +96,16 @@ class BodyBlock(blocks.StreamBlock):
     htmltext = blocks.RawHTMLBlock()
     table =  TableBlock(template="activities/partials/table_template.html")
 
-class ActivityHome(RoutablePageMixin, Page):
-    @route(r'^a/(\d+)/(\w+)$')
-    def activity_by_id(self, request, code=None, title=None):
-        activity = Activity.objects.get(code=code)
+# class ActivityHome(RoutablePageMixin, Page):
+#     @route(r'^a/(\d+)/(\w+)$')
+#     def activity_by_id(self, request, code=None, title=None):
+#         activity = Activity.objects.get(code=code)
 
-        return self.render(request,
-                context_overrides={'page': activity},
-                template="activities/activity.html",)
+#         return self.render(request,
+#                 context_overrides={'page': activity},
+#                 template="activities/activity.html",)
 
-class ActivityIndexPage(Page):
+class ActivityIndexPage(RoutablePageMixin, Page):
     about = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -129,6 +130,19 @@ class ActivityIndexPage(Page):
                 context['facets'][param]['selected'] = request.GET.get(param)
         context['activities'] = activities
         return context
+    
+    @path('<int:code>/')
+    @path('<int:code>/<slug:slug>/')
+    def activity_detail(self, request, code=None, slug=None):
+        try:
+            activity = Activity.objects.get(locale=Locale.get_active(),code=code)
+        except Activity.DoesNotExist:
+            activities = Activity.objects.filter(code=code)
+            if activities:
+                activity = activities[0]
+            else:
+                raise Http404(f"This activity is not available in {Locale.get_active()}")
+        return activity.serve(request)
 
 class Keyword(TranslatableMixin, TaggedItemBase):
     content_object = ParentalKey('Activity', on_delete=models.CASCADE, related_name='keyword_items')
@@ -267,7 +281,7 @@ class Time(TranslatableMixin):
         ordering = ['order',]
 
 @register_snippet
-class Organization(TranslatableMixin, models.Model):
+class Organization(models.Model):
     logo = models.ForeignKey('wagtailimages.Image', help_text="Logo or other image", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     name = models.CharField(blank=False, max_length=255)
     fullname = models.CharField(max_length=255, blank=True, help_text='If set, the full name will be used in some places instead of the name', )
@@ -275,6 +289,7 @@ class Organization(TranslatableMixin, models.Model):
     url = models.URLField(blank=True, null=True, max_length=255 )
     about = RichTextField(blank=True)
     slug = models.CharField(max_length=255, help_text='URL slug for this page e.g. my-organization')
+    partner_type = models.PositiveSmallIntegerField(choices=((1, 'Contributing'),(2, 'Disseminating'),(3, 'Occasional'), (4,'Other')), default=3)
 
     @property
     def title(self):
@@ -291,7 +306,6 @@ class Organization(TranslatableMixin, models.Model):
         ]
 
     class Meta:
-        unique_together = [("translation_key", "locale"), ("slug", "locale")]
         ordering = ['name',]
 
 
@@ -407,7 +421,7 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skills
         fields = ("name",)
 
-class Activity(Page):
+class Activity(RoutablePageMixin, Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
     theme = models.CharField(blank=True, max_length=40, help_text='Use top level AVM metadata')
@@ -631,6 +645,18 @@ class Activity(Page):
             return pdf
 
     @property
+    def languages(self):
+        langs = []
+        for a in Activity.objects.filter(code=self.code):
+            if a.live:
+                status = 'primary'
+            else:
+                status = ''
+            html = f'<div class="status-tag {status}">{a.locale.language_code.upper()}</div>'
+            langs.append(html)
+        return format_html(' '.join(langs))
+
+    @property
     def sections(self):
         return [
                 {'code':'materials', 'text':_('Materials'),'content':self.materials,'stream':True},
@@ -663,19 +689,9 @@ class Activity(Page):
         context = super().get_context(request)
         context['sections']  = self.sections
         context['meta'] = self.meta
+        context['permalink'] = f"{settings.BASE_URL}/{Locale.get_active().language_code}/activities/{self.code}/{self.slug}/"
         return context
     
-    @property
-    def languages(self):
-        langs = []
-        for a in Activity.objects.filter(code=self.code):
-            if a.live:
-                status = 'primary'
-            else:
-                status = ''
-            html = f'<div class="status-tag {status}">{a.locale.language_code.upper()}</div>'
-            langs.append(html)
-        return format_html(' '.join(langs))
 
 class Attachment(Orderable):
     page = ParentalKey(Activity, on_delete=models.CASCADE, related_name='attachment_documents')
