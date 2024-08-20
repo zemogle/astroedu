@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-07 12:52+0000\n"
+"POT-Creation-Date: 2024-07-29 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,112 +36,123 @@ msgstr ""
 msgid "Read about how we use cookies."
 msgstr "Lea sobre cómo utilizamos las cookies."
 
-#: astroedu_wagtail/templates/base.html:76
-#: home/templates/home/home_page.html:37
+#: astroedu_wagtail/templates/base.html:75
+#: home/templates/home/home_page.html:32
 msgid "apply as volunteer"
 msgstr "Postularse como voluntario"
 
-#: astroedu_wagtail/templates/base.html:76
-#: home/templates/home/home_page.html:37
+#: astroedu_wagtail/templates/base.html:75
+#: astroedu_wagtail/templates/base.html:78
+#: home/templates/home/home_page.html:32 home/templates/home/home_page.html:35
 msgid "Join us"
 msgstr "Únase a nosotros"
 
-#: astroedu_wagtail/templates/base.html:76
-#: home/templates/home/home_page.html:37
+#: astroedu_wagtail/templates/base.html:75
+#: astroedu_wagtail/templates/base.html:79
+#: astroedu_wagtail/templates/base.html:87
+#: home/templates/home/home_page.html:32 home/templates/home/home_page.html:36
+#: home/templates/home/home_page.html:41
 msgid "Volunteer"
 msgstr "Sea Voluntario"
 
-#: astroedu_wagtail/templates/base.html:129
-#: astroedu_wagtail/templates/base.html:132
+#: astroedu_wagtail/templates/base.html:90
+#: home/templates/home/home_page.html:44
+msgid "Search"
+msgstr ""
+
+#: astroedu_wagtail/templates/base.html:139
+#: astroedu_wagtail/templates/base.html:142
 #: home/templates/home/news_index_page.html:4
 msgid "Activity Collections"
 msgstr "Colecciones de actividades"
 
-#: astroedu_wagtail/templates/base.html:138
-#: astroedu_wagtail/templates/base.html:141
+#: astroedu_wagtail/templates/base.html:148
+#: astroedu_wagtail/templates/base.html:151
 msgid "See All Activities"
 msgstr "Ver todas las actividades"
 
-#: astroedu_wagtail/templates/base.html:147
-#: astroedu_wagtail/templates/base.html:150
+#: astroedu_wagtail/templates/base.html:157
+#: astroedu_wagtail/templates/base.html:160
 msgid "Submit Your Activities"
 msgstr "Envíe sus actividades"
 
-#: astroedu_wagtail/templates/base.html:166
+#: astroedu_wagtail/templates/base.html:176
 msgid "Submission"
 msgstr "Envío"
 
-#: astroedu_wagtail/templates/base.html:167
+#: astroedu_wagtail/templates/base.html:177
 msgid "Peer Review"
 msgstr "Revisión por pares"
 
-#: astroedu_wagtail/templates/base.html:168
+#: astroedu_wagtail/templates/base.html:178
 msgid "Enquiry Based Learning"
 msgstr "Aprendizaje basado en la indagación"
 
-#: astroedu_wagtail/templates/base.html:169
+#: astroedu_wagtail/templates/base.html:179
 msgid "FAQ"
 msgstr "Preguntas Frecuentes"
 
-#: astroedu_wagtail/templates/base.html:174
+#: astroedu_wagtail/templates/base.html:184
 msgid "About"
 msgstr "Acerca de"
 
-#: astroedu_wagtail/templates/base.html:175
+#: astroedu_wagtail/templates/base.html:185
 msgid "Brochure"
 msgstr "Catálogo"
 
-#: astroedu_wagtail/templates/base.html:176
+#: astroedu_wagtail/templates/base.html:186
 msgid "Workflow"
 msgstr "Flujo De Trabajo"
 
-#: astroedu_wagtail/templates/base.html:177
+#: astroedu_wagtail/templates/base.html:187
 #: home/templates/home/news_index_page.html:9
 msgid "News"
 msgstr "Noticias"
 
-#: astroedu_wagtail/templates/base.html:178
+#: astroedu_wagtail/templates/base.html:188
 msgid "Contact"
 msgstr "Contacto"
 
-#: astroedu_wagtail/templates/base.html:179
+#: astroedu_wagtail/templates/base.html:189
 msgid "Partners"
 msgstr "Socios"
 
-#: astroedu_wagtail/templates/base.html:216
+#: astroedu_wagtail/templates/base.html:224
 msgid "Find Educational Activities"
 msgstr "Encontrar Actividades Educativas"
 
-#: astroedu_wagtail/templates/base.html:216
+#: astroedu_wagtail/templates/base.html:224
 msgid "Black holes"
 msgstr "Agujeros negros"
 
-#: astroedu_wagtail/templates/base.html:216
+#: astroedu_wagtail/templates/base.html:224
 msgid "Galaxies"
 msgstr "Galaxias"
 
-#: astroedu_wagtail/templates/base.html:216
+#: astroedu_wagtail/templates/base.html:224
 msgid "Drawing"
 msgstr "Dibujo"
 
-#: astroedu_wagtail/templates/base.html:216
+#: astroedu_wagtail/templates/base.html:224
 msgid "Primary School"
 msgstr "Escuela Primaria"
 
-#: home/templates/home/home_page.html:65
+#: home/templates/home/home_page.html:71
 msgid "Peer-reviewed"
 msgstr "Revisado por pares"
 
-#: home/templates/home/home_page.html:65
+#: home/templates/home/home_page.html:71
 msgid "astronomy education activities"
 msgstr "Actividades educativas de astronomía"
 
-#: home/templates/home/home_page.html:77
+#: home/templates/home/home_page.html:83
 msgid "Coming Soon"
 msgstr "Próximamente"
 
-#: home/templates/home/home_page.html:78
+#: home/templates/home/home_page.html:84
 msgid ""
 "We are preparing a new edition of astroEDU. As soon as we have translations "
 "for activities they will appear here."
-msgstr "Estamos preparando una nueva edición de astroEDU. En cuanto tengamos las traducciones de las actividades, aparecerán aquí."
+msgstr ""
+"Estamos preparando una nueva edición de astroEDU. En cuanto tengamos las "
+"traducciones de las actividades, aparecerán aquí."

@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'activities',
 
     'wagtail.contrib.forms',
-    'wagtail.contrib.modeladmin',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
@@ -68,6 +67,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.routable_page",
 
     'wagtail.api.v2',
+    'wagtail_modeladmin',
     'rest_framework',
 
     'modelcluster',

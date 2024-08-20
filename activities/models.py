@@ -31,7 +31,6 @@ from wagtail import blocks
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, TranslatableMixin,  Orderable, Locale
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from weasyprint import HTML, CSS
 
@@ -357,7 +356,7 @@ class AuthorInstitute(Orderable):
         ordering = ['sort_order','author',]
 
     panels = [
-        SnippetChooserPanel('author'),
+        FieldPanel('author'),
     ]
 
     def __str__(self):
