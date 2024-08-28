@@ -15,7 +15,7 @@ class HomePage(Page):
 
 class ContentPage(Page):
     summary = RichTextField("optional summary/teaser", blank=True)
-    content = StreamField(BodyBlock)
+    content = StreamField(BodyBlock, use_json_field=True)
 
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -51,7 +51,7 @@ class NewsIndexPage(Page):
 
 class NewsPage(Page):
     summary = RichTextField("optional summary/teaser", blank=True)
-    content = StreamField(BodyBlock)
+    content = StreamField(BodyBlock, use_json_field=True)
 
     image = models.ForeignKey(
         'wagtailimages.Image',

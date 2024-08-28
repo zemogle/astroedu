@@ -1,9 +1,9 @@
 Django==4.1
 uwsgi==2.0.19.1
-wagtail==4.1
+wagtail==5.2
 markdown
 beautifulsoup4==4.8.2
-wagtail-localize==1.7
+wagtail-localize==1.9.1
 psycopg2==2.8.5
 dj-database-url==0.5.0 #1.0.0
 whitenoise==5.2.0

@@ -25,13 +25,12 @@ from taggit.models import TaggedItemBase
 from wagtail_localize.fields import SynchronizedField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.api import APIField
-from wagtail.contrib.routable_page.models import RoutablePageMixin, path, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail import blocks
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, TranslatableMixin,  Orderable, Locale
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from weasyprint import HTML, CSS
 
@@ -357,7 +356,7 @@ class AuthorInstitute(Orderable):
         ordering = ['sort_order','author',]
 
     panels = [
-        SnippetChooserPanel('author'),
+        FieldPanel('author'),
     ]
 
     def __str__(self):
@@ -434,12 +433,12 @@ class Activity(Page):
 
     goals = RichTextField()
     objectives = RichTextField(verbose_name='Learning Objectives', )
-    evaluation = StreamField(BodyBlock, help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?')
-    materials = StreamField(BodyBlock, blank=True, verbose_name='List of material', help_text='Please indicate costs and/or suppliers if possible')
-    background = StreamField(BodyBlock, verbose_name='Background Information', )
-    fulldesc = StreamField(BodyBlock, verbose_name='Full description of the activity')
-    curriculum = StreamField(BodyBlock, blank=True, null=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country')
-    additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations')
+    evaluation = StreamField(BodyBlock, help_text='If the teacher/educator wants to evaluate the impact of the activity, how can she/he do it?', use_json_field=True)
+    materials = StreamField(BodyBlock, blank=True, verbose_name='List of material', help_text='Please indicate costs and/or suppliers if possible', use_json_field=True)
+    background = StreamField(BodyBlock, verbose_name='Background Information', use_json_field=True)
+    fulldesc = StreamField(BodyBlock, verbose_name='Full description of the activity', use_json_field=True)
+    curriculum = StreamField(BodyBlock, blank=True, null=True, verbose_name='Connection to school curriculum', help_text='Please indicate which country', use_json_field=True)
+    additional_information = StreamField(BodyBlock, blank=True, help_text='Notes, Tips, Resources, Follow-up, Questions, Safety Requirements, Variations', use_json_field=True)
     conclusion = RichTextField(blank=True)
 
     short_desc_material = RichTextField(blank=True, verbose_name='Short description of Suplementary material')
