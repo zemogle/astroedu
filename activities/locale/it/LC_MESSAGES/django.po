@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-07 12:53+0000\n"
+"POT-Creation-Date: 2024-09-12 09:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,93 +18,93 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activities/models.py:53
+#: activities/models.py:55
 msgid ""
 "widget_class should be a Django form widget class of type "
 "CheckboxSelectMultiple, RadioSelect, Select or SelectMultiple"
 msgstr ""
 
-#: activities/models.py:617
+#: activities/models.py:660
 msgid "Materials"
 msgstr "Materiali"
 
-#: activities/models.py:618
+#: activities/models.py:661
 msgid "Goals"
 msgstr "Obiettivi"
 
-#: activities/models.py:619
+#: activities/models.py:662
 msgid "Learning Objectives"
 msgstr "Obiettivi di apprendimento"
 
-#: activities/models.py:620
+#: activities/models.py:663
 msgid "Background"
 msgstr "Contesto"
 
-#: activities/models.py:621
+#: activities/models.py:664
 msgid "Full Description"
 msgstr "Descrizione completa"
 
-#: activities/models.py:622
+#: activities/models.py:665
 msgid "Evaluation"
 msgstr "Valutazione"
 
-#: activities/models.py:623
+#: activities/models.py:666
 msgid "Curriculum"
 msgstr "Programma didattico"
 
-#: activities/models.py:624
+#: activities/models.py:667
 msgid "Additional Information"
 msgstr "Informazioni aggiuntive"
 
-#: activities/models.py:625
+#: activities/models.py:668
 msgid "Conclusion"
 msgstr "Conclusione"
 
-#: activities/models.py:626
+#: activities/models.py:669
 msgid "Further Reading"
 msgstr "Altri Approfondimenti"
 
-#: activities/models.py:631
+#: activities/models.py:674
 msgid "Category"
 msgstr "Categoria"
 
-#: activities/models.py:632
+#: activities/models.py:675
 msgid "Location"
 msgstr "Luogo"
 
-#: activities/models.py:633
+#: activities/models.py:676
 #: activities/templates/activities/activity_list_item.html:33
 #: activities/templates/featured_item.html:26
 msgid "Age"
 msgstr "Età"
 
-#: activities/models.py:634
+#: activities/models.py:677
 #: activities/templates/activities/activity_list.html:45
 msgid "Level"
 msgstr "Livello"
 
-#: activities/models.py:635
+#: activities/models.py:678
 #: activities/templates/activities/activity_list_item.html:42
 msgid "Time"
 msgstr "Durata"
 
-#: activities/models.py:636
+#: activities/models.py:679
 msgid "Group"
 msgstr "Gruppo"
 
-#: activities/models.py:637
+#: activities/models.py:680
 msgid "Supervised"
 msgstr "Sorvegliato"
 
-#: activities/models.py:638
+#: activities/models.py:681
 msgid "Cost"
 msgstr "Costo"
 
-#: activities/models.py:639
+#: activities/models.py:682
 msgid "Skills"
 msgstr "Abilità"
 
-#: activities/models.py:640
+#: activities/models.py:683
 msgid "Type of Learning"
 msgstr "Modalità di apprendimento"
 
@@ -116,72 +116,76 @@ msgstr "Disponibile anche in"
 msgid "Currently there is no translation for this activity."
 msgstr "Per questa attività una traduzione non è al momento disponibile."
 
-#: activities/templates/activities/activity.html:44
+#: activities/templates/activities/activity.html:45
 msgid "Created"
 msgstr "Creato"
 
-#: activities/templates/activities/activity.html:46
+#: activities/templates/activities/activity.html:47
 msgid "Updated"
 msgstr "Aggiornato"
 
-#: activities/templates/activities/activity.html:49
-#: activities/templates/activities/organization.html:25
+#: activities/templates/activities/activity.html:50
+#: activities/templates/activities/organization.html:28
 msgid "Author(s)"
 msgstr "Autore/i"
 
-#: activities/templates/activities/activity.html:97
-#: activities/templates/activities/activity_detail_print.html:45
+#: activities/templates/activities/activity.html:106
+msgid "Originally developed in"
+msgstr "Sviluppato originariamente in"
+
+#: activities/templates/activities/activity.html:121
+#: activities/templates/activities/activity_detail_print.html:48
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: activities/templates/activities/activity.html:114
-#: activities/templates/activities/activity_detail_print.html:66
+#: activities/templates/activities/activity.html:139
+#: activities/templates/activities/activity_detail_print.html:69
 msgid "Attachments"
 msgstr "Allegati"
 
-#: activities/templates/activities/activity.html:121
+#: activities/templates/activities/activity.html:146
 msgid "Downloads"
 msgstr "Scarica"
 
-#: activities/templates/activities/activity.html:129
+#: activities/templates/activities/activity.html:154
 msgid "Share"
 msgstr "Condividi"
 
-#: activities/templates/activities/activity.html:153
+#: activities/templates/activities/activity.html:178
 msgid "Repositories"
 msgstr "Archivi"
 
-#: activities/templates/activities/activity.html:163
-#: activities/templates/activities/activity_detail_print.html:93
+#: activities/templates/activities/activity.html:188
+#: activities/templates/activities/activity_detail_print.html:96
 msgid "Citation"
 msgstr "Come citare"
 
-#: activities/templates/activities/activity.html:169
-#: activities/templates/activities/activity_detail_print.html:102
+#: activities/templates/activities/activity.html:194
+#: activities/templates/activities/activity_detail_print.html:105
 msgid "Acknowledgement"
 msgstr "Ringraziamenti"
 
-#: activities/templates/activities/activity.html:175
+#: activities/templates/activities/activity.html:200
 msgid "Permalink"
 msgstr "Permalink"
 
-#: activities/templates/activities/activity.html:179
+#: activities/templates/activities/activity.html:204
 msgid "License"
 msgstr "Licenza"
 
-#: activities/templates/activities/activity.html:180
+#: activities/templates/activities/activity.html:205
 msgid "This work is licensed under"
 msgstr "Questo lavoro è messo a disposizione sulla base della licenza"
 
-#: activities/templates/activities/activity.html:180
+#: activities/templates/activities/activity.html:205
 msgid "Attribution 4.0 International"
 msgstr "Attribuzione 4.0 internazionale"
 
-#: activities/templates/activities/activity_detail_print.html:31
+#: activities/templates/activities/activity_detail_print.html:30
 msgid "Author"
 msgstr "Autore"
 
-#: activities/templates/activities/activity_detail_print.html:83
+#: activities/templates/activities/activity_detail_print.html:86
 msgid "All Attachments"
 msgstr "Tutti gli allegati"
 
@@ -196,28 +200,28 @@ msgid "Activity Collections"
 msgstr "Attività a tema"
 
 #: activities/templates/activities/organization.html:4
+#: activities/templates/activities/organization.html:9
 msgid "Partner"
 msgstr "Partner"
 
-#: activities/templates/activities/organization.html:9
-#: activities/templates/activities/organization_list.html:4
-#: activities/templates/activities/organization_list.html:9
-msgid "Partners"
-msgstr "Partner"
-
-#: activities/templates/activities/organization.html:22
+#: activities/templates/activities/organization.html:25
 msgid "About"
 msgstr "Chi siamo"
 
-#: activities/templates/activities/organization.html:32
+#: activities/templates/activities/organization.html:37
 #, fuzzy
 #| msgid "Featured Activities"
 msgid "Activities"
 msgstr "In evidenza"
 
-#: activities/templates/activities/organization.html:43
+#: activities/templates/activities/organization.html:48
 msgid "No activities are available"
 msgstr "Nessuna attività disponibile"
+
+#: activities/templates/activities/organization_list.html:4
+#: activities/templates/activities/organization_list.html:9
+msgid "Partners"
+msgstr "Partner"
 
 #: activities/templates/featured.html:4
 msgid "Featured Activities"
@@ -236,7 +240,7 @@ msgstr "Autore"
 msgid "Search results"
 msgstr "Risultati della ricerca"
 
-#: activities/templates/search/search.html:38
+#: activities/templates/search/search.html:25
 #: activities/templates/search/simplesearch.html:29
 #: activities/templates/search/simplesearch.html:42
 msgid "No results found!"
@@ -246,10 +250,10 @@ msgstr "Nessun risultato trovato!"
 msgid "Filters"
 msgstr "Filtri"
 
-#: activities/templates/search_form.html:4
+#: activities/templates/search_form.html:7
 msgid "Find Educational Activities"
 msgstr "Trova attività didattiche"
 
-#: activities/templates/search_form.html:5
+#: activities/templates/search_form.html:12
 msgid "Search"
 msgstr "Cerca"
