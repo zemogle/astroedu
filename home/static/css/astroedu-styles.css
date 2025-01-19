@@ -637,4 +637,7 @@ span.close-btn img {
   .mobile_menu_item {
     display: none;
 }
+    .navbar-dropdown a.navbar-item:not(.is-active,.is-selected) {
+    background-color: #eee;
+    color: #666666;
 }
