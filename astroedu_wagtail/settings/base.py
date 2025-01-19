@@ -172,6 +172,8 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('en', "English"),
     ('it', "Italian"),
     ('es', "Spanish"),
+    ('fr', "French"),
+    ('el', "Greek"),
 ]
 
 LIVE_LANGUAGES = [
