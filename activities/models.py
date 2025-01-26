@@ -118,7 +118,7 @@ class ActivityIndexPage(RoutablePageMixin, Page):
         params = ['keywords','category','level','skills','learning','age']
         context['facets'] = {param: {} for param in params}
         context['facets']['level'] = {'all': Level.objects.filter(locale=Locale.get_active()), 'name': 'Level' }
-        context['facets']['category'] = {'all': Category.objects.filter(locale=Locale.get_active()), 'name': 'Category'}
+        context['facets']['category'] = {'all': SciCategory.objects.filter(locale=Locale.get_active()), 'name': 'Category'}
         context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
         context['facets']['learning'] = {'all': Learning.objects.filter(locale=Locale.get_active()), 'name': 'Type of Learning'}
         context['facets']['age'] = {'all': Age.objects.filter(locale=Locale.get_active()), 'name': 'Age'}
