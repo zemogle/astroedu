@@ -6,43 +6,47 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-19 12:00+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-01-30 20:56+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
 #: astroedu_wagtail/templates/404.html:7
 msgid "404, Page not found."
-msgstr ""
+msgstr "404, Η σελίδα δεν βρέθηκε."
 
 #: astroedu_wagtail/templates/500.html:7
 msgid "Something went wrong."
-msgstr ""
+msgstr "Κάτι πήγε στραβά."
 
 #: astroedu_wagtail/templates/base.html:44
 msgid "This site uses cookies to offer you a better browsing experience."
 msgstr ""
+"Αυτός ο ιστότοπος χρησιμοποιεί cookies για να σας προσφέρει καλύτερη "
+"εμπειρία περιήγησης."
 
 #: astroedu_wagtail/templates/base.html:44
 msgid "Read about how we use cookies."
-msgstr ""
+msgstr "Διαβάστε πώς χρησιμοποιούμε τα cookies."
 
 #: astroedu_wagtail/templates/base.html:74
 #: home/templates/home/home_page.html:32
 msgid "apply as volunteer"
-msgstr ""
+msgstr "υποβολή αίτησης ως εθελοντής"
 
 #: astroedu_wagtail/templates/base.html:74
 #: astroedu_wagtail/templates/base.html:77
 #: home/templates/home/home_page.html:32 home/templates/home/home_page.html:35
 msgid "Join us"
-msgstr ""
+msgstr "Γίνετε μέλος μας"
 
 #: astroedu_wagtail/templates/base.html:74
 #: astroedu_wagtail/templates/base.html:78
@@ -50,104 +54,106 @@ msgstr ""
 #: home/templates/home/home_page.html:32 home/templates/home/home_page.html:36
 #: home/templates/home/home_page.html:41
 msgid "Volunteer"
-msgstr ""
+msgstr "Εθελοντής"
 
 #: astroedu_wagtail/templates/base.html:89
 #: home/templates/home/home_page.html:44
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: astroedu_wagtail/templates/base.html:138
 #: astroedu_wagtail/templates/base.html:141
 #: home/templates/home/news_index_page.html:4
 msgid "Activity Collections"
-msgstr ""
+msgstr "Συλλογές δραστηριοτήτων"
 
 #: astroedu_wagtail/templates/base.html:147
 #: astroedu_wagtail/templates/base.html:150
 msgid "See All Activities"
-msgstr ""
+msgstr "Δείτε όλες τις δραστηριότητες"
 
 #: astroedu_wagtail/templates/base.html:156
 #: astroedu_wagtail/templates/base.html:159
 msgid "Submit Your Activities"
-msgstr ""
+msgstr "Υποβάλετε τις δραστηριότητές σας"
 
 #: astroedu_wagtail/templates/base.html:175
 msgid "Submission"
-msgstr ""
+msgstr "Υποβολή"
 
 #: astroedu_wagtail/templates/base.html:176
 msgid "Peer Review"
-msgstr ""
+msgstr "Διαδικασία κρίσης"
 
 #: astroedu_wagtail/templates/base.html:177
 msgid "Enquiry Based Learning"
-msgstr ""
+msgstr "Διερευνητική μάθηση"
 
 #: astroedu_wagtail/templates/base.html:178
 msgid "FAQ"
-msgstr ""
+msgstr "Συχνές ερωτήσεις"
 
 #: astroedu_wagtail/templates/base.html:183
 msgid "About"
-msgstr ""
+msgstr "Σχετικά"
 
 #: astroedu_wagtail/templates/base.html:184
 msgid "Brochure"
-msgstr ""
+msgstr "Ενημερωτικό φυλλάδιο"
 
 #: astroedu_wagtail/templates/base.html:185
 msgid "Workflow"
-msgstr ""
+msgstr "Ροή εργασιών"
 
 #: astroedu_wagtail/templates/base.html:186
 #: home/templates/home/news_index_page.html:9
 msgid "News"
-msgstr ""
+msgstr "Τα νέα μας"
 
 #: astroedu_wagtail/templates/base.html:187
 msgid "Contact"
-msgstr ""
+msgstr "Επικοινωνία"
 
 #: astroedu_wagtail/templates/base.html:188
 msgid "Partners"
-msgstr ""
+msgstr "Εταίροι"
 
 #: astroedu_wagtail/templates/base.html:223
 msgid "Find Educational Activities"
-msgstr ""
+msgstr "Βρείτε εκπαιδευτικές δραστηριότητες"
 
 #: astroedu_wagtail/templates/base.html:223
 msgid "Black holes"
-msgstr ""
+msgstr "Μαύρες τρύπες"
 
 #: astroedu_wagtail/templates/base.html:223
 msgid "Galaxies"
-msgstr ""
+msgstr "Γαλαξίες"
 
 #: astroedu_wagtail/templates/base.html:223
 msgid "Drawing"
-msgstr ""
+msgstr "Σχέδιο"
 
 #: astroedu_wagtail/templates/base.html:223
 msgid "Primary School"
-msgstr ""
+msgstr "Πρωτοβάθμια εκπαίδευση"
 
 #: home/templates/home/home_page.html:71
 msgid "Peer-reviewed"
-msgstr ""
+msgstr "Αξιολογημένο από ομοτίμους"
 
 #: home/templates/home/home_page.html:71
 msgid "astronomy education activities"
-msgstr ""
+msgstr "εκπαιδευτικές δραστηριότητες αστρονομίας"
 
 #: home/templates/home/home_page.html:83
 msgid "Coming Soon"
-msgstr ""
+msgstr "Προσεχώς..."
 
 #: home/templates/home/home_page.html:84
 msgid ""
 "We are preparing a new edition of astroEDU. As soon as we have translations "
 "for activities they will appear here."
 msgstr ""
+"Ετοιμάζουμε μια νέα έκδοση του astroEDU. Μόλις έχουμε μεταφράσεις για τις "
+"δραστηριότητες θα εμφανιστούν εδώ."

@@ -6,17 +6,19 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-19 12:00+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-01-30 20:19+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
 #: activities/models.py:55
 msgid ""
 "widget_class should be a Django form widget class of type "
@@ -25,232 +27,234 @@ msgstr ""
 
 #: activities/models.py:660
 msgid "Materials"
-msgstr ""
+msgstr "Υλικά"
 
 #: activities/models.py:661
 msgid "Goals"
-msgstr ""
+msgstr "Σκοπός"
 
 #: activities/models.py:662
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Μαθησιακοί στόχοι"
 
 #: activities/models.py:663
 msgid "Background"
-msgstr ""
+msgstr "Γνωστικό υπόβαθρο"
 
 #: activities/models.py:664
 msgid "Full Description"
-msgstr ""
+msgstr "Πλήρης περιγραφή"
 
 #: activities/models.py:665
 msgid "Evaluation"
-msgstr ""
+msgstr "Αξιολόγηση"
 
 #: activities/models.py:666
 msgid "Curriculum"
-msgstr ""
+msgstr "Πρόγραμμα Σπουδών"
 
 #: activities/models.py:667
 msgid "Additional Information"
-msgstr ""
+msgstr "Πρόσθετες πληροφορίες"
 
 #: activities/models.py:668
 msgid "Conclusion"
-msgstr ""
+msgstr "Συμπέρασμα"
 
 #: activities/models.py:669
 msgid "Further Reading"
-msgstr ""
+msgstr "Προτεινόμενη βιβλιογραφία"
 
 #: activities/models.py:674
 msgid "Category"
-msgstr ""
+msgstr "Κατηγορία"
 
 #: activities/models.py:675
 msgid "Location"
-msgstr ""
+msgstr "Τοποθεσία"
 
 #: activities/models.py:676
 #: activities/templates/activities/activity_list_item.html:33
 #: activities/templates/featured_item.html:26
 msgid "Age"
-msgstr ""
+msgstr "Ηλικία"
 
 #: activities/models.py:677
 #: activities/templates/activities/activity_list.html:45
 msgid "Level"
-msgstr ""
+msgstr "Εκπαιδευτική βαθμίδα"
 
 #: activities/models.py:678
 #: activities/templates/activities/activity_list_item.html:42
 msgid "Time"
-msgstr ""
+msgstr "Χρονική διάρκεια"
 
 #: activities/models.py:679
 msgid "Group"
-msgstr ""
+msgstr "Ομάδα"
 
 #: activities/models.py:680
 msgid "Supervised"
-msgstr ""
+msgstr "Επίβλεψη ενηλίκου"
 
 #: activities/models.py:681
 msgid "Cost"
-msgstr ""
+msgstr "Κόστος"
 
 #: activities/models.py:682
 msgid "Skills"
-msgstr ""
+msgstr "Δεξιότητες"
 
 #: activities/models.py:683
 msgid "Type of Learning"
-msgstr ""
+msgstr "Τύπος μάθησης"
 
 #: activities/templates/activities/activity.html:27
 msgid "Also available in"
-msgstr ""
+msgstr "Διαθέσιμο επίσης στα"
 
 #: activities/templates/activities/activity.html:29
 msgid "Currently there is no translation for this activity."
 msgstr ""
+"Προς το παρόν δεν υπάρχει μετάφραση για αυτή τη "
+"δραστηριότητα."
 
 #: activities/templates/activities/activity.html:45
 msgid "Created"
-msgstr ""
+msgstr "Ημερομηνία δημιουργίας"
 
 #: activities/templates/activities/activity.html:47
 msgid "Updated"
-msgstr ""
+msgstr "Τελευταία ενημέρωση"
 
 #: activities/templates/activities/activity.html:50
 #: activities/templates/activities/organization.html:28
 msgid "Author(s)"
-msgstr ""
+msgstr "Συντάκτης/ες"
 
 #: activities/templates/activities/activity.html:106
 msgid "Originally developed in"
-msgstr ""
+msgstr "Χώρα προέλευσης"
 
 #: activities/templates/activities/activity.html:121
 #: activities/templates/activities/activity_detail_print.html:48
 msgid "Keywords"
-msgstr ""
+msgstr "Λέξεις κλειδιά"
 
 #: activities/templates/activities/activity.html:139
 #: activities/templates/activities/activity_detail_print.html:69
 msgid "Attachments"
-msgstr ""
+msgstr "Επισυναπτόμενα"
 
 #: activities/templates/activities/activity.html:146
 msgid "Downloads"
-msgstr ""
+msgstr "Λήψεις"
 
 #: activities/templates/activities/activity.html:154
 msgid "Share"
-msgstr ""
+msgstr "Διαμοιρασμός"
 
 #: activities/templates/activities/activity.html:178
 msgid "Repositories"
-msgstr ""
+msgstr "Αποθετήρια"
 
 #: activities/templates/activities/activity.html:188
 #: activities/templates/activities/activity_detail_print.html:96
 msgid "Citation"
-msgstr ""
+msgstr "Αναφορά"
 
 #: activities/templates/activities/activity.html:194
 #: activities/templates/activities/activity_detail_print.html:105
 msgid "Acknowledgement"
-msgstr ""
+msgstr "Ευχαριστίες"
 
 #: activities/templates/activities/activity.html:200
 msgid "Permalink"
-msgstr ""
+msgstr "Μόνιμος σύνδεσμος"
 
 #: activities/templates/activities/activity.html:204
 msgid "License"
-msgstr ""
+msgstr "Άδεια"
 
 #: activities/templates/activities/activity.html:205
 msgid "This work is licensed under"
-msgstr ""
+msgstr "Το έργο αυτό διατίθεται με άδεια χρήσης υπό"
 
 #: activities/templates/activities/activity.html:205
 msgid "Attribution 4.0 International"
-msgstr ""
+msgstr "Αναφορά-Μη Εμπορική Χρήση 4.0"
 
 #: activities/templates/activities/activity_detail_print.html:30
 msgid "Author"
-msgstr ""
+msgstr "Συντάκτης"
 
 #: activities/templates/activities/activity_detail_print.html:86
 msgid "All Attachments"
-msgstr ""
+msgstr "Όλα τα επισυναπτόμενα"
 
 #: activities/templates/activities/activity_list_item.html:24
 #: activities/templates/featured_item.html:21
 msgid "Theme"
-msgstr ""
+msgstr "Θεματική ενότητα"
 
 #: activities/templates/activities/collection_index_page.html:4
 #: activities/templates/activities/collection_index_page.html:9
 msgid "Activity Collections"
-msgstr ""
+msgstr "Συλλογές δραστηριοτήτων"
 
 #: activities/templates/activities/organization.html:4
 #: activities/templates/activities/organization.html:9
 msgid "Partner"
-msgstr ""
+msgstr "Εταίρος"
 
 #: activities/templates/activities/organization.html:25
 msgid "About"
-msgstr ""
+msgstr "Σχετικά"
 
 #: activities/templates/activities/organization.html:37
 msgid "Activities"
-msgstr ""
+msgstr "Δραστηριότητες"
 
 #: activities/templates/activities/organization.html:48
 msgid "No activities are available"
-msgstr ""
+msgstr "Δεν υπάρχουν διαθέσιμες δραστηριότητες"
 
 #: activities/templates/activities/organization_list.html:4
 #: activities/templates/activities/organization_list.html:9
 msgid "Partners"
-msgstr ""
+msgstr "Εταίροι"
 
 #: activities/templates/featured.html:4
 msgid "Featured Activities"
-msgstr ""
+msgstr "Προτεινόμενες δραστηριότητες"
 
 #: activities/templates/featured_item.html:13
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: activities/templates/featured_item.html:15
 msgid "By"
-msgstr ""
+msgstr "Από"
 
 #: activities/templates/search/search.html:14
 #: activities/templates/search/simplesearch.html:14
 msgid "Search results"
-msgstr ""
+msgstr "Αποτελέσματα αναζήτησης"
 
 #: activities/templates/search/search.html:25
 #: activities/templates/search/simplesearch.html:29
 #: activities/templates/search/simplesearch.html:42
 msgid "No results found!"
-msgstr ""
+msgstr "Δεν βρέθηκαν αποτελέσματα!"
 
 #: activities/templates/search/simplesearch.html:53
 msgid "Filters"
-msgstr ""
+msgstr "Φίλτρα"
 
 #: activities/templates/search_form.html:7
 msgid "Find Educational Activities"
-msgstr ""
+msgstr "Βρείτε εκπαιδευτικές δραστηριότητες"
 
 #: activities/templates/search_form.html:12
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
