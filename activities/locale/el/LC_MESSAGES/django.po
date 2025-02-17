@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-19 12:00+0000\n"
+"POT-Creation-Date: 2025-02-17 11:22+0000\n"
 "PO-Revision-Date: 2025-01-30 20:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -115,9 +115,7 @@ msgstr "Διαθέσιμο επίσης στα"
 
 #: activities/templates/activities/activity.html:29
 msgid "Currently there is no translation for this activity."
-msgstr ""
-"Προς το παρόν δεν υπάρχει μετάφραση για αυτή τη "
-"δραστηριότητα."
+msgstr "Προς το παρόν δεν υπάρχει μετάφραση για αυτή τη δραστηριότητα."
 
 #: activities/templates/activities/activity.html:45
 msgid "Created"
@@ -191,6 +189,13 @@ msgstr "Συντάκτης"
 #: activities/templates/activities/activity_detail_print.html:86
 msgid "All Attachments"
 msgstr "Όλα τα επισυναπτόμενα"
+
+#: activities/templates/activities/activity_index_page.html:32
+#: activities/templates/activities/activity_list.html:21
+#, fuzzy
+#| msgid "No activities are available"
+msgid "No activities are available."
+msgstr "Δεν υπάρχουν διαθέσιμες δραστηριότητες"
 
 #: activities/templates/activities/activity_list_item.html:24
 #: activities/templates/featured_item.html:21

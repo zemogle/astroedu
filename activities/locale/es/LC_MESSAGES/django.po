@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-12 09:10+0000\n"
+"POT-Creation-Date: 2025-02-17 10:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,6 +188,12 @@ msgstr "Autor"
 #: activities/templates/activities/activity_detail_print.html:86
 msgid "All Attachments"
 msgstr "Todos los adjuntos"
+
+#: activities/templates/activities/activity_index_page.html:32
+#, fuzzy
+#| msgid "No activities are available"
+msgid "No activities are available."
+msgstr "No hay actividades disponibles"
 
 #: activities/templates/activities/activity_list_item.html:24
 #: activities/templates/featured_item.html:21
