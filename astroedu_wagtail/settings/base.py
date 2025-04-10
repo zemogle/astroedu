@@ -180,7 +180,8 @@ LIVE_LANGUAGES = [
     ('en', "English"),
     ('it', "Italian"),
 ]
-
+# Stop pages from being published when creating a new translation
+WAGTAILLOCALIZE_SYNC_LIVE_STATUS_ON_TRANSLATE = False
 
 LOCALE_PATHS = [ os.path.join(PROJECT_DIR, 'locale'),
                 os.path.join(PROJECT_DIR, 'activities/locale')]
