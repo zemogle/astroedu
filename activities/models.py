@@ -465,7 +465,7 @@ class Activity(Page):
 
     featured = models.BooleanField(default=False, help_text="Feature on homepage")
 
-    # translator = RichTextField()
+    translator = RichTextField(default='', blank=True, help_text='If the activity has been translated, please indicate the translator(s) here. If not, leave blank.')
     original_author = models.CharField(max_length=255,
                     blank=True,
                     null=True,
