@@ -52,6 +52,12 @@
         {{ author }}{% if not forloop.last %}, {% endif %}
     {% endfor %}
   </div>
+  {% if page.translator %}
+  <div class="authors subtitle is-6 article-subtitle"><strong>{% translate "Translator(s)" %}:</strong><br/>
+        {{ page.translator }}
+  </div>
+  {% endif %}
+  
   <figure class="image">
     {% image page.image max-800x600 %}
   </figure>

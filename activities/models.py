@@ -485,7 +485,8 @@ class Activity(Page):
         ], heading="Core Information"),
         MultiFieldPanel([
             InlinePanel('author_institute', label="Author(s)"),
-            FieldPanel('countries')
+            FieldPanel('countries'),
+            FieldPanel('translator')
         ], heading="Authors"),
         MultiFieldPanel([
             FieldPanel('goals'),
