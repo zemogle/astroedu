@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-17 10:29+0000\n"
+"POT-Creation-Date: 2024-07-29 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,93 +18,93 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activities/models.py:55
+#: activities/models.py:56
 msgid ""
 "widget_class should be a Django form widget class of type "
 "CheckboxSelectMultiple, RadioSelect, Select or SelectMultiple"
 msgstr ""
 
-#: activities/models.py:660
+#: activities/models.py:661
 msgid "Materials"
 msgstr "Materiales"
 
-#: activities/models.py:661
+#: activities/models.py:662
 msgid "Goals"
 msgstr "Metas"
 
-#: activities/models.py:662
+#: activities/models.py:663
 msgid "Learning Objectives"
 msgstr "Objetivos De Aprendizaje"
 
-#: activities/models.py:663
+#: activities/models.py:664
 msgid "Background"
 msgstr "Antecedentes"
 
-#: activities/models.py:664
+#: activities/models.py:665
 msgid "Full Description"
 msgstr "Descripción Completa"
 
-#: activities/models.py:665
+#: activities/models.py:666
 msgid "Evaluation"
 msgstr "Evaluación"
 
-#: activities/models.py:666
+#: activities/models.py:667
 msgid "Curriculum"
 msgstr "Currículum"
 
-#: activities/models.py:667
+#: activities/models.py:668
 msgid "Additional Information"
 msgstr "Información Adicional"
 
-#: activities/models.py:668
+#: activities/models.py:669
 msgid "Conclusion"
 msgstr "Conclusión"
 
-#: activities/models.py:669
+#: activities/models.py:670
 msgid "Further Reading"
 msgstr "Lecturas Complementarias"
 
-#: activities/models.py:674
+#: activities/models.py:675
 msgid "Category"
 msgstr "Categoría"
 
-#: activities/models.py:675
+#: activities/models.py:676
 msgid "Location"
 msgstr "Locación"
 
-#: activities/models.py:676
+#: activities/models.py:677
 #: activities/templates/activities/activity_list_item.html:33
 #: activities/templates/featured_item.html:26
 msgid "Age"
 msgstr "Edad"
 
-#: activities/models.py:677
+#: activities/models.py:678
 #: activities/templates/activities/activity_list.html:45
 msgid "Level"
 msgstr "Nivel"
 
-#: activities/models.py:678
+#: activities/models.py:679
 #: activities/templates/activities/activity_list_item.html:42
 msgid "Time"
 msgstr "Tiempo de Duración"
 
-#: activities/models.py:679
+#: activities/models.py:680
 msgid "Group"
 msgstr "Grupo"
 
-#: activities/models.py:680
+#: activities/models.py:681
 msgid "Supervised"
 msgstr "Supervisado"
 
-#: activities/models.py:681
+#: activities/models.py:682
 msgid "Cost"
 msgstr "Costo"
 
-#: activities/models.py:682
+#: activities/models.py:683
 msgid "Skills"
 msgstr "Habilidades"
 
-#: activities/models.py:683
+#: activities/models.py:684
 msgid "Type of Learning"
 msgstr "Tipo de Aprendizaje"
 
@@ -139,7 +139,7 @@ msgid "Keywords"
 msgstr "Palabras clave"
 
 #: activities/templates/activities/activity.html:139
-#: activities/templates/activities/activity_detail_print.html:69
+#: activities/templates/activities/activity_detail_print.html:70
 msgid "Attachments"
 msgstr "Adjuntos"
 
@@ -156,12 +156,12 @@ msgid "Repositories"
 msgstr "Repositorios"
 
 #: activities/templates/activities/activity.html:188
-#: activities/templates/activities/activity_detail_print.html:96
+#: activities/templates/activities/activity_detail_print.html:97
 msgid "Citation"
 msgstr "Citación"
 
 #: activities/templates/activities/activity.html:194
-#: activities/templates/activities/activity_detail_print.html:105
+#: activities/templates/activities/activity_detail_print.html:106
 msgid "Acknowledgement"
 msgstr "Agradecimientos"
 
@@ -185,7 +185,7 @@ msgstr "Atribución 4.0 Internacional"
 msgid "Author"
 msgstr "Autor"
 
-#: activities/templates/activities/activity_detail_print.html:86
+#: activities/templates/activities/activity_detail_print.html:87
 msgid "All Attachments"
 msgstr "Todos los adjuntos"
 

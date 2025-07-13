@@ -428,7 +428,7 @@ class Activity(Page):
     countries = CountryField(multiple=True, blank=True, help_text='Activity originally developed in')
     activity_type = models.ForeignKey(ActivityType, on_delete=models.SET_NULL, related_name='activity_type', default=1, null=True)
 
-    acknowledgement = models.CharField(blank=True, max_length=255)
+    acknowledgement = RichTextField()
     teaser = models.TextField(blank=True, verbose_name='Teaser', help_text='Maximum 2 sentences! Maybe what and how?')
 
     goals = RichTextField()
@@ -465,6 +465,7 @@ class Activity(Page):
 
     featured = models.BooleanField(default=False, help_text="Feature on homepage")
 
+    # translator = RichTextField()
     original_author = models.CharField(max_length=255,
                     blank=True,
                     null=True,

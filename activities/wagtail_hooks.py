@@ -1,14 +1,11 @@
-from wagtail.contrib.modeladmin.options import (
+from wagtail_modeladmin.options import (
     ModelAdmin, modeladmin_register)
-from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
-from wagtail.contrib.modeladmin.helpers import ButtonHelper
-from wagtail.models import Locale
-from django.utils.html import format_html
+from wagtail_modeladmin.mixins import ThumbnailMixin
+from wagtail_modeladmin.helpers import ButtonHelper
 from django.urls import reverse
 
 from .models import Activity
 
-import logging
 
 class DateButtonHelper(ButtonHelper):
 

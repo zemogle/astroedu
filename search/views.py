@@ -2,8 +2,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 
 from activities.models import Activity
-from wagtail.search.models import Query
-from wagtail.models import Page, Locale
+from wagtail.models import Locale
 from wagtail.search.backends import get_search_backend
 
 import logging
