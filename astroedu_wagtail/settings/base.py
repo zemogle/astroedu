@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
-from django_storage_url import dsn_configured_storage_class
 
 DEBUG = os.environ.get('DJANGO_DEBUG') == "True"
 
@@ -94,7 +93,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.middleware.locale.LocaleMiddleware",
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'astroedu_wagtail.urls'
@@ -126,13 +125,6 @@ WSGI_APPLICATION = 'astroedu_wagtail.wsgi.application'
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite://:memory:')
 DATABASES = {'default': dj_database_url.config()}
-
-DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
-
-DefaultStorageClass = dsn_configured_storage_class('DEFAULT_STORAGE_DSN')
-
-# Django's DEFAULT_FILE_STORAGE requires the class name
-DEFAULT_FILE_STORAGE = 'astroedu_wagtail.settings.DefaultStorageClass'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -188,20 +180,50 @@ LOCALE_PATHS = [ os.path.join(PROJECT_DIR, 'locale'),
 
 # Static files
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
-# read the setting value from the environment variable
-DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, "static"),
+]
 
-# dsn_configured_storage_class() requires the name of the setting
-DefaultStorageClass = dsn_configured_storage_class('DEFAULT_STORAGE_DSN')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
 
-# Django's DEFAULT_FILE_STORAGE requires the class name
-DEFAULT_FILE_STORAGE = 'astroedu_wagtail.settings.base.DefaultStorageClass'
+# AWS S3 storage configuration
+AWS_STORAGE_BUCKET_NAME = os.environ.get('DEFAULT_STORAGE_BUCKET', '')
+AWS_ACCESS_KEY_ID = os.environ.get('DEFAULT_STORAGE_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('DEFAULT_STORAGE_SECRET_ACCESS_KEY', '')
+AWS_S3_CUSTOM_DOMAIN = os.environ.get('DEFAULT_STORAGE_CUSTOM_DOMAIN', '')
+AWS_S3_REGION_NAME = os.environ.get('DEFAULT_STORAGE_REGION', '')
+AWS_S3_OBJECT_PARAMETERS = {
+    'ACL': 'public-read',
+    'CacheControl': 'max-age=86400',
+}
+AWS_S3_FILE_OVERWRITE = False
 
-THUMBNAIL_DEFAULT_STORAGE  = DEFAULT_FILE_STORAGE
+
+# Default storage settings, with the staticfiles storage updated.
+# See https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STORAGES
+STORAGE_BACKEND = "django.core.files.storage.FileSystemStorage"
+
+if AWS_SECRET_ACCESS_KEY:
+    STORAGE_BACKEND = "storages.backends.s3boto3.S3Boto3Storage"
+
+STORAGES = {
+    "default": {
+        "BACKEND": STORAGE_BACKEND,
+    },
+    # ManifestStaticFilesStorage is recommended in production, to prevent
+    # outdated JavaScript / CSS assets being served from cache
+    # (e.g. after a Wagtail upgrade).
+    # See https://docs.djangoproject.com/en/4.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join('/data/media/')
