@@ -32,7 +32,7 @@ DIVIO_DOMAIN_REDIRECTS = [
     if d.strip()
 ]
 
-ALLOWED_HOSTS = [DIVIO_DOMAIN] + DIVIO_DOMAIN_ALIASES + DIVIO_DOMAIN_REDIRECTS
+ALLOWED_HOSTS = ['127.0.0.1'] #[DIVIO_DOMAIN] + DIVIO_DOMAIN_ALIASES + DIVIO_DOMAIN_REDIRECTS
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -214,3 +214,4 @@ WAGTAILEMBEDS_RESPONSIVE_HTML = True
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'https://astroedu.iau.org'
+WAGTAILADMIN_BASE_URL = "https://astroedu.iau.org"
