@@ -93,7 +93,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    # "django.middleware.locale.LocaleMiddleware",
+    'astroedu_wagtail.middleware.DefaultLocaleRedirectMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
