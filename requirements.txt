@@ -4,7 +4,7 @@ wagtail>=7.0,<7.1
 dj-database-url==2.3
 psycopg[binary]>=3.2,<3.3
 django-storages>=1.14
-boto3>=1.38
+boto3
 
 markdown
 beautifulsoup4

@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
+from django_storage_url import dsn_configured_storage_class
+
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 DEBUG = os.environ.get('DJANGO_DEBUG') == "True"
 
@@ -32,9 +36,6 @@ DIVIO_DOMAIN_REDIRECTS = [
 ]
 
 ALLOWED_HOSTS = [DIVIO_DOMAIN] + DIVIO_DOMAIN_ALIASES + DIVIO_DOMAIN_REDIRECTS
-
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
@@ -92,8 +93,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    "django.middleware.locale.LocaleMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # "django.middleware.locale.LocaleMiddleware",
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'astroedu_wagtail.urls'
@@ -125,6 +126,13 @@ WSGI_APPLICATION = 'astroedu_wagtail.wsgi.application'
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite://:memory:')
 DATABASES = {'default': dj_database_url.config()}
+
+DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
+
+DefaultStorageClass = dsn_configured_storage_class('DEFAULT_STORAGE_DSN')
+
+# Django's DEFAULT_FILE_STORAGE requires the class name
+DEFAULT_FILE_STORAGE = 'astroedu_wagtail.settings.DefaultStorageClass'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -180,50 +188,20 @@ LOCALE_PATHS = [ os.path.join(PROJECT_DIR, 'locale'),
 
 # Static files
 
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
-]
+# read the setting value from the environment variable
+DEFAULT_STORAGE_DSN = os.environ.get('DEFAULT_STORAGE_DSN')
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
+# dsn_configured_storage_class() requires the name of the setting
+DefaultStorageClass = dsn_configured_storage_class('DEFAULT_STORAGE_DSN')
 
-# AWS S3 storage configuration
-AWS_STORAGE_BUCKET_NAME = os.environ.get('DEFAULT_STORAGE_BUCKET', '')
-AWS_ACCESS_KEY_ID = os.environ.get('DEFAULT_STORAGE_ACCESS_KEY_ID', '')
-AWS_SECRET_ACCESS_KEY = os.environ.get('DEFAULT_STORAGE_SECRET_ACCESS_KEY', '')
-AWS_S3_CUSTOM_DOMAIN = os.environ.get('DEFAULT_STORAGE_CUSTOM_DOMAIN', '')
-AWS_S3_REGION_NAME = os.environ.get('DEFAULT_STORAGE_REGION', '')
-AWS_S3_OBJECT_PARAMETERS = {
-    'ACL': 'public-read',
-    'CacheControl': 'max-age=86400',
-}
-AWS_S3_FILE_OVERWRITE = False
+# Django's DEFAULT_FILE_STORAGE requires the class name
+DEFAULT_FILE_STORAGE = 'astroedu_wagtail.settings.base.DefaultStorageClass'
 
-
-# Default storage settings, with the staticfiles storage updated.
-# See https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STORAGES
-STORAGE_BACKEND = "django.core.files.storage.FileSystemStorage"
-
-if AWS_SECRET_ACCESS_KEY:
-    STORAGE_BACKEND = "storages.backends.s3boto3.S3Boto3Storage"
-
-STORAGES = {
-    "default": {
-        "BACKEND": STORAGE_BACKEND,
-    },
-    # ManifestStaticFilesStorage is recommended in production, to prevent
-    # outdated JavaScript / CSS assets being served from cache
-    # (e.g. after a Wagtail upgrade).
-    # See https://docs.djangoproject.com/en/4.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-    },
-}
+THUMBNAIL_DEFAULT_STORAGE  = DEFAULT_FILE_STORAGE
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join('/data/media/')
@@ -236,4 +214,3 @@ WAGTAILEMBEDS_RESPONSIVE_HTML = True
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'https://astroedu.iau.org'
-WAGTAILADMIN_BASE_URL = "https://astroedu.iau.org"

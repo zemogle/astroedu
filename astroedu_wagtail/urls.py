@@ -36,4 +36,5 @@ urlpatterns += i18n_patterns(
 
     path('partners/<slug:slug>/', OrganizationDetail.as_view(), name='orgdetail'),
     path("", include(wagtail_urls)),
+    prefix_default_language=False,
 )

@@ -9,6 +9,8 @@
 *.pyc
 *.pyo
 
+astroedu_wagtail/settings/dev.py
+
 .divio
 /data.tar.gz
 db.sqlite3
