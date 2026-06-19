@@ -91,6 +91,12 @@ a.navbar-item {
     height: 390px;
 }
 
+.notice {
+    color: --bulma-text-strong;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
 .layout_search #search-form {
     display: inline-block;
     margin: 111px 0 0 25px;

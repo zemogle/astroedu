@@ -79,6 +79,14 @@ HOME
 </section>
 
 {% if featured %}
+{% if lang != 'en' %}
+<section class="section">
+  <div class="container">
+    <div class="notification is-warning"><div class="notice">For a complete set of activities please browse the <a href="/en/activities/">international edition</a> of AstroEDU</div>
+    </div>
+  </div>
+</section>
+{% endif %}
 	{% include 'featured.html' %}
 {% else %}
 <section class="section">

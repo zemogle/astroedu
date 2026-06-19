@@ -8,9 +8,12 @@ from wagtail.models import Page, Locale
 from activities.models import Activity, BodyBlock
 
 class HomePage(Page):
+    notice = RichTextField("optional notice", blank=True)
+
     def get_context(self, request):
         context = super().get_context(request)
         context['featured'] = Activity.objects.filter(featured=True, locale=Locale.get_active()).live()
+        context['lang'] = Locale.get_active().language_code
         return context
 
 class ContentPage(Page):
