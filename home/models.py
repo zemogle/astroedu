@@ -10,6 +10,10 @@ from activities.models import Activity, BodyBlock
 class HomePage(Page):
     notice = RichTextField("optional notice", blank=True)
 
+    content_panels = Page.content_panels + [
+        FieldPanel('notice'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         context['featured'] = Activity.objects.filter(featured=True, locale=Locale.get_active()).live()
