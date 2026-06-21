@@ -128,6 +128,7 @@ class ActivityIndexPage(RoutablePageMixin, Page):
                 activities = activities.filter(**{param+'__name':request.GET.get(param)})
                 context['facets'][param]['selected'] = request.GET.get(param)
         context['activities'] = activities
+        context['lang'] = Locale.get_active().language_code
         return context
     
     @path('<int:code>/')

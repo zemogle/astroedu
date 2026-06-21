@@ -172,14 +172,13 @@ USE_TZ = True
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('en', "English"),
     ('it', "Italian"),
-    ('es', "Spanish"),
-    ('fr', "French"),
-    ('el', "Greek"),
+    ('es', "Spanish")
 ]
 
 LIVE_LANGUAGES = [
     ('en', "English"),
     ('it', "Italian"),
+    ('es', "Spanish")
 ]
 # Stop pages from being published when creating a new translation
 WAGTAILLOCALIZE_SYNC_LIVE_STATUS_ON_TRANSLATE = False

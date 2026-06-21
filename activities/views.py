@@ -41,6 +41,11 @@ class ActivityListView(ListView):
     def get_queryset(self):
         return Activity.objects.filter(locale=Locale.get_active()).order_by('-first_published_at')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lang'] = Locale.get_active().language_code
+        return context
+
 
 class CollectionListView(ListView):
     model = Collection
