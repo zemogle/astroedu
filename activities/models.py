@@ -149,6 +149,7 @@ class Keyword(TranslatableMixin, TaggedItemBase):
 
 @register_snippet
 class Category(TranslatableMixin):
+    # Deprecated Categories model
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
@@ -277,6 +278,32 @@ class Time(TranslatableMixin):
     class Meta:
         verbose_name = "Duration"
         verbose_name_plural = "Duration"
+        unique_together = ('translation_key', 'locale')
+        ordering = ['order',]
+
+@register_snippet
+class DiversityTag(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    order = models.PositiveSmallIntegerField()
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Diversity Tag"
+        verbose_name_plural = "Diversity Tags"
+        unique_together = ('translation_key', 'locale')
+        ordering = ['order',]
+
+@register_snippet
+class DiversitySubTag(TranslatableMixin):
+    name = models.CharField(max_length=255)
+    order = models.PositiveSmallIntegerField()
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Diversity Subtag"
+        verbose_name_plural = "Diversity Subtags"
         unique_together = ('translation_key', 'locale')
         ordering = ['order',]
 
@@ -421,6 +448,16 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skills
         fields = ("name",)
 
+class DiversitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiversityTag
+        fields = ("name",)
+
+class DiversitySubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiversitySubTag
+        fields = ("name",)
+
 class Activity(Page):
     image = models.ForeignKey('wagtailimages.Image', help_text="Main image for listing pages", null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     abstract = RichTextField(blank=True, help_text='200 words', verbose_name='Abstract')
@@ -463,6 +500,8 @@ class Activity(Page):
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
     skills = ParentalManyToManyField(Skills, blank=True, verbose_name='core skills')
     learning = ParentalManyToManyField(Learning, blank=True, verbose_name='type of learning activity', help_text='Enquiry-based learning model')
+    diversity = ParentalManyToManyField(DiversityTag, blank=True, verbose_name='diversity tag')
+    diversitysub = ParentalManyToManyField(DiversitySubTag, blank=True, verbose_name='diversity sub-tag', help_text='This should related to the Diversity Tag selected')
 
     featured = models.BooleanField(default=False, help_text="Feature on homepage")
 
@@ -518,6 +557,8 @@ class Activity(Page):
             LocalizedSelectPanel('cost',widget_class=Select,),
             LocalizedSelectPanel('skills',widget_class=CheckboxSelectMultiple,),
             LocalizedSelectPanel('learning',widget_class=CheckboxSelectMultiple,),
+            LocalizedSelectPanel('diversity', widget_class=CheckboxSelectMultiple,),
+            LocalizedSelectPanel('diversitysub', widget_class=CheckboxSelectMultiple,),
         ], heading="Meta data")
     ]
 
@@ -539,6 +580,8 @@ class Activity(Page):
         APIField('location', serializer=LocationSerializer()),
         APIField('group', serializer=GroupSerializer()),
         APIField('skills', serializer=SkillSerializer(many=True)),
+        APIField('diversity', serializer=DiversitySerializer(many=True)),
+        APIField('diversitysub', serializer=DiversitySubSerializer(many=True)),
 
     ]
 
@@ -684,6 +727,8 @@ class Activity(Page):
                 {'code':'cost', 'text': _('Cost'), 'content':self.cost},
                 {'code':'skills', 'text': _('Skills'), 'content':self.skills.all(), 'links':True},
                 {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning.all(), 'links':True},
+                {'code':'diversity', 'text': _('Diversity Tag'), 'content':self.diversity.all(), 'links':True},
+                {'code':'diversitysub', 'text': _('Diversity Sub-Tag'), 'content':self.diversitysub.all(), 'links':True},
         ]
 
     def get_context(self, request):
