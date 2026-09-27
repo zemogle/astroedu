@@ -19,7 +19,7 @@ from django_storage_url import dsn_configured_storage_class
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-DEBUG = os.environ.get('DJANGO_DEBUG') == "True"
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False')
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-d9(ozf+uf_@y1%zq6)op0o$-v3)-_#mua%@y*ac9&*i(@%u=)8')
 
@@ -198,7 +198,7 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

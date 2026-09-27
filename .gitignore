@@ -23,4 +23,3 @@ dev.py
 __pycache__
 build.log
 *.dump
-static/
