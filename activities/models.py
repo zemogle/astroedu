@@ -115,13 +115,14 @@ class ActivityIndexPage(RoutablePageMixin, Page):
         context = super().get_context(request)
         activities = Activity.objects.filter(locale=Locale.get_active()).order_by('-first_published_at')
         # Filter by tag
-        params = ['keywords','category','level','skills','learning','age']
+        params = ['keywords','category','level','skills','learning','age','diversity']
         context['facets'] = {param: {} for param in params}
         context['facets']['level'] = {'all': Level.objects.filter(locale=Locale.get_active()), 'name': 'Level' }
         context['facets']['category'] = {'all': SciCategory.objects.filter(locale=Locale.get_active()), 'name': 'Category'}
         context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
         context['facets']['learning'] = {'all': Learning.objects.filter(locale=Locale.get_active()), 'name': 'Type of Learning'}
         context['facets']['age'] = {'all': Age.objects.filter(locale=Locale.get_active()), 'name': 'Age'}
+        context['facets']['diversity'] = {'all': DiversityTag.objects.filter(locale=Locale.get_active()), 'name': 'Diversity'}
         context['facets']['keywords'] = {'name' : 'Keyword'}
         for param in params:
             if request.GET.get(param):
@@ -625,6 +626,10 @@ class Activity(Page):
         category = [obj.name for obj in self.category.all()]
         return ', '.join(category)
 
+    def diversitysub_joined(self):
+        diversitysub = [obj.name for obj in self.diversitysub.all()]
+        return ', '.join(diversitysub)
+
     @property
     def updated_date(self):
         if self.go_live_at and self.go_live_at > self.first_published_at +timedelta(seconds=3600):
@@ -728,7 +733,7 @@ class Activity(Page):
                 {'code':'skills', 'text': _('Skills'), 'content':self.skills.all(), 'links':True},
                 {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning.all(), 'links':True},
                 {'code':'diversity', 'text': _('Diversity Tag'), 'content':self.diversity.all(), 'links':True},
-                {'code':'diversitysub', 'text': _('Diversity Sub-Tag'), 'content':self.diversitysub.all(), 'links':True},
+                {'code':'diversitysub', 'text': _('Diversity Sub-Tag'), 'content':self.diversitysub_joined(), 'links':False},
         ]
 
     def get_context(self, request):
