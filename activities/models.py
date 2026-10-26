@@ -122,7 +122,7 @@ class ActivityIndexPage(RoutablePageMixin, Page):
         context['facets']['skills'] = {'all': Skills.objects.filter(locale=Locale.get_active()), 'name': 'Skills'}
         context['facets']['learning'] = {'all': Learning.objects.filter(locale=Locale.get_active()), 'name': 'Type of Learning'}
         context['facets']['age'] = {'all': Age.objects.filter(locale=Locale.get_active()), 'name': 'Age'}
-        context['facets']['diversity'] = {'all': DiversityTag.objects.filter(locale=Locale.get_active()), 'name': 'Diversity'}
+        context['facets']['diversity'] = {'all': DiversityTag.objects.filter(locale=Locale.get_active()), 'name': 'Accessibility'}
         context['facets']['keywords'] = {'name' : 'Keyword'}
         for param in params:
             if request.GET.get(param):
@@ -303,8 +303,8 @@ class DiversitySubTag(TranslatableMixin):
         return self.name
 
     class Meta:
-        verbose_name = "Diversity Subtag"
-        verbose_name_plural = "Diversity Subtags"
+        verbose_name = "Accessibility Characteristic"
+        verbose_name_plural = "Accessibility Characteristics"
         unique_together = ('translation_key', 'locale')
         ordering = ['order',]
 
@@ -501,8 +501,8 @@ class Activity(Page):
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
     skills = ParentalManyToManyField(Skills, blank=True, verbose_name='core skills')
     learning = ParentalManyToManyField(Learning, blank=True, verbose_name='type of learning activity', help_text='Enquiry-based learning model')
-    diversity = ParentalManyToManyField(DiversityTag, blank=True, verbose_name='diversity tag')
-    diversitysub = ParentalManyToManyField(DiversitySubTag, blank=True, verbose_name='diversity sub-tag', help_text='This should related to the Diversity Tag selected')
+    diversity = ParentalManyToManyField(DiversityTag, blank=True, verbose_name='accessibility tag')
+    diversitysub = ParentalManyToManyField(DiversitySubTag, blank=True, verbose_name='accessibility characteristic', help_text='This should related to the Diversity Tag selected')
 
     featured = models.BooleanField(default=False, help_text="Feature on homepage")
 
@@ -732,8 +732,8 @@ class Activity(Page):
                 {'code':'cost', 'text': _('Cost'), 'content':self.cost},
                 {'code':'skills', 'text': _('Skills'), 'content':self.skills.all(), 'links':True},
                 {'code':'learning', 'text': _('Type of Learning'), 'content':self.learning.all(), 'links':True},
-                {'code':'diversity', 'text': _('Diversity Tag'), 'content':self.diversity.all(), 'links':True},
-                {'code':'diversitysub', 'text': _('Diversity Sub-Tag'), 'content':self.diversitysub_joined(), 'links':False},
+                {'code':'diversity', 'text': _('Accessibility'), 'content':self.diversity.all(), 'links':True},
+                {'code':'diversitysub', 'text': _('Accessibility Characteristic'), 'content':self.diversitysub_joined(), 'links':False},
         ]
 
     def get_context(self, request):
